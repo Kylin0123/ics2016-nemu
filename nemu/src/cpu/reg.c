@@ -15,13 +15,6 @@ void reg_test() {
 	cpu.eip = eip_sample;
 	
 	cpu.eax = cpu.gpr[0]._32;
-	cpu.ecx = cpu.gpr[1]._32;
-	cpu.edx = cpu.gpr[2]._32;
-	cpu.ebx = cpu.gpr[3]._32;
-	cpu.esp = cpu.gpr[4]._32;
-	cpu.ebp = cpu.gpr[5]._32;
-	cpu.esi = cpu.gpr[6]._32;
-	cpu.edi = cpu.gpr[7]._32;
 
 	int i;
 	for(i = R_EAX; i <= R_EDI; i ++) {
@@ -38,6 +31,8 @@ void reg_test() {
 	assert(reg_b(R_CH) == ((sample[R_ECX] >> 8) & 0xff));
 	assert(reg_b(R_DL) == (sample[R_EDX] & 0xff));
 	assert(reg_b(R_DH) == ((sample[R_EDX] >> 8) & 0xff));
+
+	printf("%I64u\n%I64u\n",sample[R_EAX],cpu.eax);
 
 	assert(sample[R_EAX] == cpu.eax);
 	assert(sample[R_ECX] == cpu.ecx);
