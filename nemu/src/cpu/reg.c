@@ -22,7 +22,14 @@ void reg_test() {
 	}
 	
 	cpu.eax = cpu.gpr[0]._32;
-
+	cpu.ecx = cpu.gpr[1]._32;
+	cpu.edx = cpu.gpr[2]._32;
+	cpu.ebx = cpu.gpr[3]._32;
+	cpu.esp = cpu.gpr[4]._32;
+	cpu.ebp = cpu.gpr[5]._32;
+	cpu.esi = cpu.gpr[6]._32;
+	cpu.edi = cpu.gpr[7]._32;
+	
 	assert(reg_b(R_AL) == (sample[R_EAX] & 0xff));
 	assert(reg_b(R_AH) == ((sample[R_EAX] >> 8) & 0xff));
 	assert(reg_b(R_BL) == (sample[R_EBX] & 0xff));
