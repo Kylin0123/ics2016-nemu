@@ -38,6 +38,38 @@ static int cmd_q(char *args) {
 
 static int cmd_help(char *args);
 
+static int cmd_si(char *args){
+	char *arg = strtok(NULL, " ");
+	int N = 1;
+	if(arg == NULL){
+		cpu_exec(1);
+		return 0;
+	}
+	else{
+		N = atoi(arg);
+		cpu_exec(N);
+		return 0;
+	}				
+}
+
+static int cmd_info(char *args){
+	char *arg = strtok(NULL, " ");
+	if(strcmp(arg, "r")){
+		printf("eax		%I32u\n",cpu.gpr[0]._32);
+		printf("ecx		%I32u\n",cpu.gpr[1]._32);
+		printf("edx		%I32u\n",cpu.gpr[2]._32);
+		printf("ebx		%I32u\n",cpu.gpr[3]._32);
+		printf("esp		%I32u\n",cpu.gpr[4]._32);
+		printf("ebp		%I32u\n",cpu.gpr[5]._32);
+		printf("esi		%I32u\n",cpu.gpr[6]._32);
+		printf("edi		%I32u\n",cpu.gpr[7]._32);
+	}
+	else if(strcmp(arg, "w")){
+
+	}
+	return 0;
+}
+
 static struct {
 	char *name;
 	char *description;
@@ -48,7 +80,8 @@ static struct {
 	{ "q", "Exit NEMU", cmd_q },
 
 	/* TODO: Add more commands */
-
+	{ "si", "Next step(s)", cmd_si },
+	{ "info", "Print infomations of registers or watchpoints", cmd_info },
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
