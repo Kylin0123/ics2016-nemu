@@ -54,7 +54,7 @@ static int cmd_si(char *args){
 
 static int cmd_info(char *args){
 	char *arg = strtok(NULL, " ");
-	if(strcmp(arg, "r")){
+	if(strcmp(arg, "r")==0){
 		printf("eax		%I32u\n",cpu.gpr[0]._32);
 		printf("ecx		%I32u\n",cpu.gpr[1]._32);
 		printf("edx		%I32u\n",cpu.gpr[2]._32);
@@ -64,7 +64,7 @@ static int cmd_info(char *args){
 		printf("esi		%I32u\n",cpu.gpr[6]._32);
 		printf("edi		%I32u\n",cpu.gpr[7]._32);
 	}
-	else if(strcmp(arg, "w")){
+	else if(strcmp(arg, "w")==0){
 
 	}
 	return 0;
