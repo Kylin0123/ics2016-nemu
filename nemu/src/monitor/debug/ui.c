@@ -73,6 +73,7 @@ static int cmd_info(char *args){
 static int cmd_x(char *args){
 	char *arg1 = strtok(NULL, " ");
 	uint32_t arg2 = 0;
+		printf("args:%s\n",args);
 	sscanf(args, "%x", &arg2);
 	if(arg1 != NULL && arg2 != 0){
 			int n = atoi(arg1);
