@@ -72,17 +72,16 @@ static int cmd_info(char *args){
 
 static int cmd_x(char *args){
 	char *arg1 = strtok(NULL, " ");
-	char *arg2 = strtok(NULL, " ");
-	if(arg1 != NULL && arg2 != NULL){
-		if(strcmp(arg1, "x")==0){
-			int n = atoi(arg2);
-			for(int i = 0; i < n; i++){
-				
+	uint32_t arg2 = 0;
+	sscanf(args, "%x", &arg2);
+	if(arg1 != NULL && arg2 != 0){
+			int n = atoi(arg1);
+			int i;
+			for(i = 0; i < n; i++){
+				uint32_t temp = swaddr_read( arg2, 4);				
+				arg2 += 32;
+				printf("%x\n", temp);
 			}
-		}
-		else{
-			printf("Error command\n");
-		}
 	}
 	else
 	{
