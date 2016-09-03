@@ -79,7 +79,7 @@ static int cmd_x(char *args){
 			int i;
 			for(i = 0; i < n; i++){
 				uint32_t temp = swaddr_read( arg2, 4);				
-				arg2 += 32;
+				arg2 += 0x4;
 				printf("%x\n", temp);
 			}
 	}
