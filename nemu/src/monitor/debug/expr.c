@@ -7,7 +7,7 @@
 #include <regex.h>
 
 enum {
-	NOTYPE = 256, EQ
+	NOTYPE = 256, EQ, NUM
 
 	/* TODO: Add more token types */
 
@@ -24,9 +24,15 @@ static struct rule {
 
 	{" +",	NOTYPE},				// spaces
 	{"\\+", '+'},					// plus
-	{"==", EQ}						// equal
-};
+	{"==", EQ},						// equal
+	{"\\-", '-'},					// minus
+	{"\\*", '*'}, 				// multiply
+	{"\\/", '/'},					// divide
+	{"\\(", '('},					// leftParentheses
+	{"\\)", ')'},					// rightParentheses
+	{"\\d*", NUM},					// number
 
+};
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
 
 static regex_t re[NR_REGEX];
@@ -79,20 +85,117 @@ static bool make_token(char *e) {
 				 */
 
 				switch(rules[i].token_type) {
+					case '+':
+									tokens[i].type = '+';
+									 break;
+					case '-':
+									 tokens[i].type = '-';
+									 break;
+					case '*':
+									 tokens[i].type = '*';
+									 break;
+					case '/':
+									 tokens[i].type = '/';
+									 break;
+					case NOTYPE:
+									 		i--;
+									    break;
+					case EQ:
+									tokens[i].type = EQ;
+									break;
+					case NUM:
+									 tokens[i].type = NUM;
+									 char *tempStr = (char *)malloc((substr_len + 1)*sizeof(char));
+									 strncpy(tempStr, substr_start, substr_len);
+									 tempStr[substr_len] = '\0';
+									 strcpy(tokens[i].str, tempStr);
+									 break;
 					default: panic("please implement me");
 				}
-
+				nr_token++;
 				break;
 			}
 		}
-
 		if(i == NR_REGEX) {
 			printf("no match at position %d\n%s\n%*.s^\n", position, e, position, "");
 			return false;
 		}
 	}
-
 	return true; 
+}
+
+bool check_parentheses(int p, int q){
+	int top = -1;
+	char stack[30] = {0};
+	int i;
+	for(i = p; i <= q; i++){
+		if(tokens[i].type == '(' && top <= 29){
+			stack[++top] = '(';
+		}
+		else if(tokens[i].type == ')'){
+			if(stack[top] == '('){
+				if(top >= 0) top--;
+				else return false;
+			}
+			else{
+				stack[++top] = ')';
+			}
+		}
+		else{
+			continue;
+		}
+	}
+	if(top == -1) return true;
+	else return false;
+}
+
+uint32_t eval(int p, int q){
+	if(p > q){
+		return 0;
+	}
+	else if(p == q){
+		uint32_t temp = 0;
+		sscanf(&tokens[p].str[0], "%x", &temp);
+		return temp;
+	}
+	else if(check_parentheses(p,q)==true){
+		return eval(p + 1, q - 1);
+	}
+	else{
+		int op = q;
+		int flag_parentheses = 0;
+		int i;
+		for(i = q; i >= p; i--){
+			if(tokens[i].type == ')'){
+				flag_parentheses++;
+				continue;
+			}
+			else if(tokens[i].type == '('){
+				flag_parentheses--;
+			}
+			else if(flag_parentheses == 0 && (tokens[i].type == '+' || tokens[i].type == '-')){
+				op = i;
+			}	
+			else if(flag_parentheses == 0 && (tokens[i].type == '*' || tokens[i].type == '/') && (tokens[op].type != '+' || tokens[op].type != '-')){
+				op = i;
+			}
+		
+		}
+
+		if(tokens[op].type == '+'){
+			return eval(p, op - 1) + eval(op + 1, q);
+		}
+		else if(tokens[op].type == '-'){
+			return eval(p, op - 1) - eval(op + 1, q);
+		}
+		else if(tokens[op].type == '*'){
+			return eval(p, op - 1) * eval(op + 1, q);
+		}
+		else if(tokens[op].type == '/'){
+			return eval(p, op - 1) / eval(op + 1, q);
+		}
+		return 0;
+	}
 }
 
 uint32_t expr(char *e, bool *success) {
@@ -102,7 +205,12 @@ uint32_t expr(char *e, bool *success) {
 	}
 
 	/* TODO: Insert codes to evaluate the expression. */
-	panic("please implement me");
-	return 0;
+	//panic("please implement me");
+	*success = true;
+	return eval(0, nr_token - 1);
+	//return 0;
 }
+
+
+
 
