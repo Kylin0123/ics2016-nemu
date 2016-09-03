@@ -65,7 +65,28 @@ static int cmd_info(char *args){
 		printf("edi		%I32u\n",cpu.gpr[7]._32);
 	}
 	else if(strcmp(arg, "w")==0){
+	/*ready:watchpoint*/
+	}
+	return 0;
+}
 
+static int cmd_x(char *args){
+	char *arg1 = strtok(NULL, " ");
+	char *arg2 = strtok(NULL, " ");
+	if(arg1 != NULL && arg2 != NULL){
+		if(strcmp(arg1, "x")==0){
+			int n = atoi(arg2);
+			for(int i = 0; i < n; i++){
+				
+			}
+		}
+		else{
+			printf("Error command\n");
+		}
+	}
+	else
+	{
+		printf("Unfinished commmand\n");
 	}
 	return 0;
 }
@@ -82,6 +103,8 @@ static struct {
 	/* TODO: Add more commands */
 	{ "si", "Next step(s)", cmd_si },
 	{ "info", "Print infomations of registers or watchpoints", cmd_info },
+	{ "x", "Scanf memory", cmd_x },
+
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
