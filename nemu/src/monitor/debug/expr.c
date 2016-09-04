@@ -121,7 +121,6 @@ static bool make_token(char *e) {
 		printf("type:%d\n", tokens[0].type);
 		printf("str:%s\n", tokens[0].str);
 	}
-				printf("STOP!!!!\n");
 	return true; 
 }
 
@@ -204,6 +203,7 @@ uint32_t expr(char *e, bool *success) {
 		*success = false;
 		return 0;
 	}
+	printf("STOP!!!!\n");
 	/* TODO: Insert codes to evaluate the expression. */
 	//panic("please implement me");
 	*success = true;
