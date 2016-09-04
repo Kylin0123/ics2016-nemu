@@ -84,7 +84,6 @@ static bool make_token(char *e) {
 				 * of tokens, some extra actions should be performed.
 				 */
 				
-				printf("STOP!!!!\n");
 				switch(rules[i].token_type) {
 					case '+':
 									tokens[nr_token++].type = '+';
@@ -112,6 +111,7 @@ static bool make_token(char *e) {
 									 break;
 					default: panic("please implement me");
 				}
+				printf("STOP!!!!\n");
 				break;
 			}
 		}
