@@ -108,7 +108,9 @@ static bool make_token(char *e) {
 									 strncpy(tempStr, substr_start, substr_len);
 									 tempStr[substr_len] = '\0';
 									 printf("tempStr:%s\n", tempStr);//test
-									 strcpy(tokens[nr_token++].str, tempStr);
+									 strcpy(tokens[nr_token].str, tempStr);
+									 printf("tokenStr%d:%s\n", nr_token, tokens[nr_token].str);//test
+									 nr_token++;
 									 break;
 					default: panic("please implement me");
 				}
