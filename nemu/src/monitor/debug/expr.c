@@ -111,7 +111,6 @@ static bool make_token(char *e) {
 									 break;
 					default: panic("please implement me");
 				}
-				printf("STOP!!!!\n");
 				break;
 			}
 		}
@@ -122,6 +121,7 @@ static bool make_token(char *e) {
 		printf("%d", tokens[0].type);
 		printf("%s", tokens[0].str);
 	}
+				printf("STOP!!!!\n");
 	return true; 
 }
 
