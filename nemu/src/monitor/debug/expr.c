@@ -118,12 +118,6 @@ static bool make_token(char *e) {
 			printf("no match at position %d\n%s\n%*.s^\n", position, e, position, "");
 			return false;
 		}
-		printf("type:%d\n", tokens[0].type);
-		printf("type:%d\n", tokens[1].type);
-		printf("type:%d\n", tokens[2].type);
-		printf("str:%s\n", tokens[0].str);
-		printf("str:%s\n", tokens[1].str);
-		printf("str:%s\n", tokens[2].str);
 	}
 	return true; 
 }
@@ -154,6 +148,7 @@ bool check_parentheses(int p, int q){
 }
 
 uint32_t eval(int p, int q){
+	printf("STOP!!!!\n");
 	if(p > q){
 		return 0;
 	}
@@ -207,7 +202,6 @@ uint32_t expr(char *e, bool *success) {
 		*success = false;
 		return 0;
 	}
-	printf("STOP!!!!\n");
 	/* TODO: Insert codes to evaluate the expression. */
 	//panic("please implement me");
 	*success = true;
