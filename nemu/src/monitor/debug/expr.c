@@ -148,7 +148,6 @@ bool check_parentheses(int p, int q){
 }
 
 uint32_t eval(int p, int q){
-	printf("STOP!!!!\n");
 	if(p > q){
 		return 0;
 	}
@@ -204,11 +203,9 @@ uint32_t expr(char *e, bool *success) {
 	}
 	/* TODO: Insert codes to evaluate the expression. */
 	//panic("please implement me");
-	printf("!!!!!!!!!!!!!!!!\n");
-	//*success = true;
+	//return 0;
 	printf("%d", nr_token);
 	return eval(0, nr_token - 1);
-	//return 0;
 }
 
 
