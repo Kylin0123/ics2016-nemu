@@ -210,7 +210,7 @@ uint32_t expr(char *e, bool *success) {
 	//return 0;
 	printf("nr_token:%d\n", nr_token);
 	printf("str0:%s\n", tokens[0].str);
-	printf("str1:%s\n", tokens[1].str);
+	printf("str2%s\n", tokens[2].str);
 	return eval(0, nr_token - 1);
 }
 
