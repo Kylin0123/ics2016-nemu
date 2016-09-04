@@ -107,9 +107,9 @@ static bool make_token(char *e) {
 									 char *tempStr = (char *)malloc((substr_len + 1)*sizeof(char));
 									 strncpy(tempStr, substr_start, substr_len);
 									 tempStr[substr_len] = '\0';
-									 printf("tempStr:%s\n", tempStr);//test
+									 //printf("tempStr:%s\n", tempStr);//test
 									 strcpy(tokens[nr_token].str, tempStr);
-									 printf("tokenStr%d:%s\n", nr_token, tokens[nr_token].str);//test
+									 //printf("tokenStr%d:%s\n", nr_token, tokens[nr_token].str);//test
 									 nr_token++;
 									 break;
 					default: panic("please implement me");
@@ -159,7 +159,7 @@ uint32_t eval(int p, int q){
 		sscanf(tokens[p].str, "%x", &temp);
 		return temp;
 	}
-	else if(check_parentheses(p,q)==true){
+	else if(true || check_parentheses(p,q)==true){
 		return eval(p + 1, q - 1);
 	}
 	else{
