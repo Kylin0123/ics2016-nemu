@@ -157,7 +157,6 @@ uint32_t eval(int p, int q){
 	else if(p == q){
 		uint32_t temp = 0;
 		sscanf(tokens[p].str, "%x", &temp);
-		printf("temp:%d\n", temp);
 		return temp;
 	}
 	else if(check_parentheses(p,q)==true){
@@ -196,7 +195,8 @@ uint32_t eval(int p, int q){
 		else if(tokens[op].type == '/'){
 			return eval(p, op - 1) / eval(op + 1, q);
 		}
-		return 0;
+		else
+			return 0;
 	}
 }
 
@@ -208,9 +208,9 @@ uint32_t expr(char *e, bool *success) {
 	/* TODO: Insert codes to evaluate the expression. */
 	//panic("please implement me");
 	//return 0;
-	printf("nr_token:%d\n", nr_token);
-	printf("str0:%s\n", tokens[0].str);
-	printf("str2%s\n", tokens[2].str);
+	//printf("nr_token:%d\n", nr_token);
+	//printf("str0:%s\n", tokens[0].str);
+	//printf("str2%s\n", tokens[2].str);
 	return eval(0, nr_token - 1);
 }
 
