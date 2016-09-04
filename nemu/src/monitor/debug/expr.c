@@ -199,11 +199,11 @@ uint32_t eval(int p, int q){
 }
 
 uint32_t expr(char *e, bool *success) {
+	printf("STOP!!!!\n");
 	if(!make_token(e)) {
 		*success = false;
 		return 0;
 	}
-	printf("STOP!!!!\n");
 	/* TODO: Insert codes to evaluate the expression. */
 	//panic("please implement me");
 	*success = true;
