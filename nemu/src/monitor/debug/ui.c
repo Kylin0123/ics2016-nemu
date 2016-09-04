@@ -73,14 +73,14 @@ static int cmd_info(char *args){
 static int cmd_x(char *args){
 	char *arg1 = strtok(NULL, " ");
 	char *charArg2 = strtok(NULL, " ");
-	uint32_t arg2 = 0;
+	bool *success = false;
+	uint32_t arg2 = expr(charArg2, success);
 	//printf("args:%s\n",charArg2);//test
-	sscanf(charArg2, "%x", &arg2);
 	if(arg1 != NULL && arg2 != 0){
 			int n = atoi(arg1);
 			int i;
 			for(i = 0; i < n; i++){
-				//printf("%x:\n", arg2);//test
+				printf("%x:\n", arg2);//test
 				uint32_t temp = swaddr_read( arg2, 4);
 				arg2 += 0x4;			
 				printf("%x\n", temp);
