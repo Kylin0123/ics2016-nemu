@@ -87,33 +87,31 @@ static bool make_token(char *e) {
 				printf("STOP!!!!\n");
 				switch(rules[i].token_type) {
 					case '+':
-									tokens[i].type = '+';
+									tokens[nr_token++].type = '+';
 									 break;
 					case '-':
-									 tokens[i].type = '-';
+									 tokens[nr_token++].type = '-';
 									 break;
 					case '*':
-									 tokens[i].type = '*';
+									 tokens[nr_token++].type = '*';
 									 break;
 					case '/':
-									 tokens[i].type = '/';
+									 tokens[nr_token++].type = '/';
 									 break;
 					case NOTYPE:
-									 		i--;
 									    break;
 					case EQ:
-									tokens[i].type = EQ;
+									tokens[nr_token++].type = EQ;
 									break;
 					case NUM:
-									 tokens[i].type = NUM;
+									 tokens[nr_token].type = NUM;
 									 char *tempStr = (char *)malloc((substr_len + 1)*sizeof(char));
 									 strncpy(tempStr, substr_start, substr_len);
 									 tempStr[substr_len] = '\0';
-									 strcpy(tokens[i].str, tempStr);
+									 strcpy(tokens[nr_token++].str, tempStr);
 									 break;
 					default: panic("please implement me");
 				}
-				nr_token++;
 				break;
 			}
 		}
