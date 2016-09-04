@@ -83,7 +83,7 @@ static bool make_token(char *e) {
 				 * to record the token in the array `tokens'. For certain types
 				 * of tokens, some extra actions should be performed.
 				 */
-
+				
 				switch(rules[i].token_type) {
 					case '+':
 									tokens[i].type = '+';
@@ -120,6 +120,8 @@ static bool make_token(char *e) {
 			printf("no match at position %d\n%s\n%*.s^\n", position, e, position, "");
 			return false;
 		}
+		printf("%d", tokens[0].type);
+		printf("%s", tokens[0].str);
 	}
 	return true; 
 }
