@@ -204,7 +204,7 @@ uint32_t expr(char *e, bool *success) {
 	/* TODO: Insert codes to evaluate the expression. */
 	//panic("please implement me");
 	//return 0;
-	printf("%d", nr_token);
+	printf("nr_token:%d\n", nr_token);
 	return eval(0, nr_token - 1);
 }
 

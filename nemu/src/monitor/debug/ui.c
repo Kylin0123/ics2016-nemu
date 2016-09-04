@@ -89,7 +89,7 @@ static int cmd_x(char *args){
 	}
 	else
 	{
-		printf("\nUnfinished commmand\n");
+		printf("Unfinished commmand\n");
 	}
 	return 0;
 }
