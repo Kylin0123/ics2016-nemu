@@ -146,7 +146,12 @@ bool check_parentheses(int p, int q){
 			continue;
 		}
 	}
-	if(top == -1) return true;
+	if(top == -1){
+		if(tokens[p].type == '(' && tokens[q].type == ')')
+			return true;
+		else 
+			return false;
+	}
 	else return false;
 }
 
@@ -159,7 +164,7 @@ uint32_t eval(int p, int q){
 		sscanf(tokens[p].str, "%x", &temp);
 		return temp;
 	}
-	else if(false && check_parentheses(p,q)==true){
+	else if(check_parentheses(p,q)==true){
 		return eval(p + 1, q - 1);
 	}
 	else{
