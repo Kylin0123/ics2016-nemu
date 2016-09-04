@@ -30,7 +30,7 @@ static struct rule {
 	{"\\/", '/'},					// divide
 	{"\\(", '('},					// leftParentheses
 	{"\\)", ')'},					// rightParentheses
-	{"[0-9]*", NUM},					// number
+	{"\b0[xX][0-9a-fA-F]+\b", NUM},					// number
 
 };
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
