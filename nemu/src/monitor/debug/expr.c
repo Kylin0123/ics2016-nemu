@@ -118,8 +118,8 @@ static bool make_token(char *e) {
 			printf("no match at position %d\n%s\n%*.s^\n", position, e, position, "");
 			return false;
 		}
-		printf("%d", tokens[0].type);
-		printf("%s", tokens[0].str);
+		printf("type:%d\n", tokens[0].type);
+		printf("str:%s\n", tokens[0].str);
 	}
 				printf("STOP!!!!\n");
 	return true; 
