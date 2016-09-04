@@ -75,7 +75,7 @@ static int cmd_x(char *args){
 	char *charArg2 = strtok(NULL, "\0");
 	bool *success = false;
 	uint32_t arg2 = expr(charArg2, success);
-	printf("args:%s\narg2:%d\n",charArg2,arg2);//test
+	//printf("args:%s\narg2:%d\n",charArg2,arg2);//test
 	//system("pause");//test
 	if(arg1 != NULL && arg2 != 0){
 			int n = atoi(arg1);
