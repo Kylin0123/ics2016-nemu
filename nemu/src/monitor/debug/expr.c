@@ -84,6 +84,7 @@ static bool make_token(char *e) {
 				 * of tokens, some extra actions should be performed.
 				 */
 				
+				printf("STOP!!!!\n");
 				switch(rules[i].token_type) {
 					case '+':
 									tokens[i].type = '+';
@@ -201,7 +202,6 @@ uint32_t eval(int p, int q){
 }
 
 uint32_t expr(char *e, bool *success) {
-	printf("STOP!!!!\n");
 	if(!make_token(e)) {
 		*success = false;
 		return 0;
