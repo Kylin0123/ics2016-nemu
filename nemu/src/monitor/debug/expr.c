@@ -154,7 +154,6 @@ uint32_t eval(int p, int q){
 	else if(p == q){
 		uint32_t temp = 0;
 		sscanf(tokens[p].str, "%x", &temp);
-		printf("str:%s\n", tokens[p].str);
 		printf("temp:%d\n", temp);
 		return temp;
 	}
@@ -207,6 +206,8 @@ uint32_t expr(char *e, bool *success) {
 	//panic("please implement me");
 	//return 0;
 	printf("nr_token:%d\n", nr_token);
+	printf("str:%s\n", tokens[0].str);
+	printf("str:%s\n", tokens[1].str);
 	return eval(0, nr_token - 1);
 }
 
