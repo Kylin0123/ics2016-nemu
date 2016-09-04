@@ -119,7 +119,11 @@ static bool make_token(char *e) {
 			return false;
 		}
 		printf("type:%d\n", tokens[0].type);
+		printf("type:%d\n", tokens[1].type);
+		printf("type:%d\n", tokens[2].type);
 		printf("str:%s\n", tokens[0].str);
+		printf("str:%s\n", tokens[1].str);
+		printf("str:%s\n", tokens[2].str);
 	}
 	return true; 
 }
