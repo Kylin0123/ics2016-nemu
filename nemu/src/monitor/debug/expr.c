@@ -314,7 +314,7 @@ uint32_t eval(int p, int q){
 			}	
 		
 		}
-		printf("op:%d\n", op);//test
+		//printf("op:%d\n", op);//test
 		if(tokens[op].type == '+'){
 			return eval(p, op - 1) + eval(op + 1, q);
 		}
@@ -326,6 +326,27 @@ uint32_t eval(int p, int q){
 		}
 		else if(tokens[op].type == '/'){
 			return eval(p, op - 1) / eval(op + 1, q);
+		}
+		else if(tokens[op].type == EQ){
+			if(eval(p, op - 1) == eval(op + 1, q))
+				return 1;
+			else
+				return 0;
+		}
+		else if(tokens[op].type == NEQ){
+			if(eval(p, op - 1) != eval(op + 1, q))
+				return 1;
+			else
+				return 0;
+		}
+		else if(tokens[op].type == AND){
+			return eval(p, op - 1) && eval(op + 1, q);	
+		}
+		else if(tokens[op].type == OR){
+			return eval(p, op - 1) || eval(op + 1, q);	
+		}
+		else if(tokens[op].type == NOT){
+			return !eval(op + 1, q);	
 		}
 		else
 			return 0;
