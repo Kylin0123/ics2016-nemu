@@ -103,6 +103,12 @@ static bool make_token(char *e) {
 					case '/':
 									 tokens[nr_token++].type = '/';
 									 break;
+					case '(':
+									 tokens[nr_token++].type = '(';
+									 break;
+					case ')':
+									 tokens[nr_token++].type = ')';
+									 break;
 					case NOTYPE:
 									    break;
 					case EQ:
