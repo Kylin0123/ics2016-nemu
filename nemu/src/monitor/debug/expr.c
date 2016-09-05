@@ -32,10 +32,10 @@ static struct rule {
 	{"[)]", ')'},					// rightParentheses
 	{"\\b0[xX][0-9a-fA-F]+\\b", NUM},	// number
 	{"\\$[a-z]{2,3}", REG},  // register_name
-	{"!=", NEQ},          // not equal
-	{"&&", AND},          // and
-	{"||", OR},           // or
-	{"\\!", NOT},           // not
+	{"[!][=]", NEQ},          // not equal
+	{"[&]{2}", AND},          // and
+	{"[|]{2}", OR},           // or
+	{"[!]", NOT},           // not
 	//{"*", DEREF},	        // deref
 
 };
