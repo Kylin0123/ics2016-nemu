@@ -32,11 +32,11 @@ static struct rule {
 	{"[)]", ')'},					// rightParentheses
 	{"\\b0[xX][0-9a-fA-F]+\\b", NUM},	// number
 	{"\\$[a-z]{2,3}", REG},  // register_name
-	{"\\!\\=", NEQ},          // not equal
-	{"\\&\\&", AND},          // and
-	{"\\|\\|", OR},           // or
+	{"!=", NEQ},          // not equal
+	{"&&", AND},          // and
+	{"||", OR},           // or
 	{"\\!", NOT},           // not
-	{"\\*", DEREF},	        // deref
+	//{"*", DEREF},	        // deref
 
 };
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -92,27 +92,34 @@ static bool make_token(char *e) {
 				
 				switch(rules[i].token_type) {
 					case '+':
-									tokens[nr_token++].type = '+';
+									 tokens[nr_token].type = '+';
+									 tokens[nr_token++].str[0] = 4;
 									 break;
 					case '-':
-									 tokens[nr_token++].type = '-';
+									 tokens[nr_token].type = '-';
+									 tokens[nr_token++].str[0] = 4;
 									 break;
 					case '*':
-									 tokens[nr_token++].type = '*';
+									 tokens[nr_token].type = '*';
+									 tokens[nr_token++].str[0] = 3;
 									 break;
 					case '/':
-									 tokens[nr_token++].type = '/';
+									 tokens[nr_token].type = '/';
+									 tokens[nr_token++].str[0] = 3;
 									 break;
 					case '(':
-									 tokens[nr_token++].type = '(';
+									 tokens[nr_token].type = '(';
+									 tokens[nr_token++].str[0] = 1;
 									 break;
 					case ')':
-									 tokens[nr_token++].type = ')';
+									 tokens[nr_token].type = ')';
+									 tokens[nr_token++].str[0] = 1;
 									 break;
 					case NOTYPE:
 									    break;
 					case EQ:
-									tokens[nr_token++].type = EQ;
+									tokens[nr_token].type = EQ;
+									 tokens[nr_token++].str[0] = 7;
 									break;
 					case NUM:
 									 tokens[nr_token].type = NUM;
@@ -131,19 +138,24 @@ static bool make_token(char *e) {
 									 nr_token++;
 									 break;
 					case NEQ:
-									 tokens[nr_token++].type = NEQ;
+									 tokens[nr_token].type = NEQ;
+									 tokens[nr_token++].str[0] = 7;
 									 break;
 					case AND:
-									 tokens[nr_token++].type = AND;
+									 tokens[nr_token].type = AND;
+									 tokens[nr_token++].str[0] = 11;
 									 break;
 					case OR:
-									 tokens[nr_token++].type = OR;
+									 tokens[nr_token].type = OR;
+									 tokens[nr_token++].str[0] = 12;
 									 break;
 					case NOT:
-									 tokens[nr_token++].type = NOT;
+									 tokens[nr_token].type = NOT;
+									 tokens[nr_token++].str[0] = 2;
 									 break;
 					case DEREF:
-									 tokens[nr_token++].type = DEREF;
+									 tokens[nr_token].type = DEREF;
+									 tokens[nr_token++].str[0] = 2;
 									 break;
 					default: panic("please implement me");
 				}
@@ -283,7 +295,7 @@ uint32_t eval(int p, int q){
 		return swaddr_read( eval(q,q), 4);
 	}
 	else{
-		int op = q;
+		int op = 0;
 		int flag_parentheses = 0;
 		int i;
 		for(i = p; i <= q; i++){
@@ -294,12 +306,9 @@ uint32_t eval(int p, int q){
 			else if(tokens[i].type == ')'){
 				flag_parentheses--;
 			}
-			else if(flag_parentheses == 0 && (tokens[i].type == '+' || tokens[i].type == '-')){
+			else if(flag_parentheses == 0 && tokens[i].type != NUM && tokens[i].type != REG && tokens[i].str[0] >= tokens[op].str[0]){
 				op = i;
 			}	
-			else if(flag_parentheses == 0 && (tokens[i].type == '*' || tokens[i].type == '/') && (tokens[op].type != '+' || tokens[op].type != '-')){
-				op = i;
-			}
 		
 		}
 
