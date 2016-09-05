@@ -346,7 +346,10 @@ uint32_t eval(int p, int q){
 			return eval(p, op - 1) || eval(op + 1, q);	
 		}
 		else if(tokens[op].type == NOT){
-			return !eval(op + 1, q);	
+			if(eval(op + 1, q) == 0)
+				return 1;
+			else
+				return 0;
 		}
 		else
 			return 0;
