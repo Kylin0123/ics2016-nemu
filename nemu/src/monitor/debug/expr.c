@@ -306,12 +306,12 @@ uint32_t eval(int p, int q){
 			else if(tokens[i].type == ')'){
 				flag_parentheses--;
 			}
-			else if(flag_parentheses == 0 && tokens[i].type != NUM && tokens[i].type != REG && tokens[i].str[0] >= tokens[op].str[0]){
+			else if(flag_parentheses == 0 && tokens[i].type != NUM && tokens[i].type != REG && (tokens[i].str[0] >= tokens[op].str[0])){
 				op = i;
 			}	
 		
 		}
-
+		printf("op:%d\n", op);//test
 		if(tokens[op].type == '+'){
 			return eval(p, op - 1) + eval(op + 1, q);
 		}
