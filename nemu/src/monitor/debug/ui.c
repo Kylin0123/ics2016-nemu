@@ -107,7 +107,6 @@ static struct {
 	{ "si", "Next step(s)", cmd_si },
 	{ "info", "Print infomations of registers or watchpoints", cmd_info },
 	{ "x", "Scanf memory", cmd_x },
-
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))

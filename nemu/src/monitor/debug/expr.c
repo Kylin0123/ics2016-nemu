@@ -280,12 +280,12 @@ uint32_t eval(int p, int q){
 		int op = q;
 		int flag_parentheses = 0;
 		int i;
-		for(i = q; i >= p; i--){
-			if(tokens[i].type == ')'){
+		for(i = p; i <= q; i++){
+			if(tokens[i].type == '('){
 				flag_parentheses++;
 				continue;
 			}
-			else if(tokens[i].type == '('){
+			else if(tokens[i].type == ')'){
 				flag_parentheses--;
 			}
 			else if(flag_parentheses == 0 && (tokens[i].type == '+' || tokens[i].type == '-')){
