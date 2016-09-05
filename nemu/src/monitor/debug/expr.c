@@ -295,7 +295,7 @@ uint32_t eval(int p, int q){
 		return swaddr_read( eval(q,q), 4);
 	}
 	else{
-		int op = 0;
+		int op = -1;
 		int flag_parentheses = 0;
 		int i;
 		for(i = p; i <= q; i++){
@@ -305,6 +305,9 @@ uint32_t eval(int p, int q){
 			}
 			else if(tokens[i].type == ')'){
 				flag_parentheses--;
+			}
+			else if(flag_parentheses == 0 && op == -1 && tokens[i].type != NUM && tokens[i].type != REG){
+				op = i;
 			}
 			else if(flag_parentheses == 0 && tokens[i].type != NUM && tokens[i].type != REG && (tokens[i].str[0] >= tokens[op].str[0])){
 				op = i;
