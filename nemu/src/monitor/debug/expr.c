@@ -7,7 +7,7 @@
 #include <regex.h>
 
 enum {
-	NOTYPE = 256, EQ, NUM
+	NOTYPE = 256, EQ, NUM, REG, NEQ, AND, OR, NOT, DEREF
 
 	/* TODO: Add more token types */
 
@@ -30,7 +30,13 @@ static struct rule {
 	{"\\/", '/'},					// divide
 	{"\\(", '('},					// leftParentheses
 	{"\\)", ')'},					// rightParentheses
-	{"\\b0[xX][0-9a-fA-F]+\\b", NUM},					// number
+	{"\\b0[xX][0-9a-fA-F]+\\b", NUM},	// number
+	{"\\$[a-z]{2,3}", REG},  // register_name
+	{"!=", NEQ},          // not equal
+	{"&&", AND},          // and
+	{"||", OR},           // or
+	{"!", NOT},           // not
+	{"*", DEREF},	        // deref
 
 };
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -112,6 +118,27 @@ static bool make_token(char *e) {
 									 //printf("tokenStr%d:%s\n", nr_token, tokens[nr_token].str);//test
 									 nr_token++;
 									 break;
+					case REG:
+									 tokens[nr_token].type = REG;
+									 strncpy(tokens[nr_token].str, substr_start, substr_len);
+									 tokens[nr_token].str[substr_len] = '\0';
+									 nr_token++;
+									 break;
+					case NEQ:
+									 tokens[nr_token++].type = NEQ;
+									 break;
+					case AND:
+									 tokens[nr_token++].type = AND;
+									 break;
+					case OR:
+									 tokens[nr_token++].type = OR;
+									 break;
+					case NOT:
+									 tokens[nr_token++].type = NOT;
+									 break;
+					case DEREF:
+									 tokens[nr_token++].type = DEREF;
+									 break;
 					default: panic("please implement me");
 				}
 				break;
@@ -161,7 +188,83 @@ uint32_t eval(int p, int q){
 	}
 	else if(p == q){
 		uint32_t temp = 0;
-		sscanf(tokens[p].str, "%x", &temp);
+		if(tokens[p].type == NUM){
+			sscanf(tokens[p].str, "%x", &temp);
+		}
+		else if(tokens[p].type == REG){
+			if(strcmp(tokens[p].str, "$eax")==0){
+				temp = cpu.gpr[0]._32;
+			}
+			else if(strcmp(tokens[p].str, "$ecx")==0){
+				temp = cpu.gpr[1]._32;
+			}
+			else if(strcmp(tokens[p].str, "$edx")==0){
+				temp = cpu.gpr[2]._32;
+			}
+			else if(strcmp(tokens[p].str, "$ebx")==0){
+				temp = cpu.gpr[3]._32;
+			}
+			else if(strcmp(tokens[p].str, "$esp")==0){
+				temp = cpu.gpr[4]._32;
+			}
+			else if(strcmp(tokens[p].str, "$ebp")==0){
+				temp = cpu.gpr[5]._32;
+			}
+			else if(strcmp(tokens[p].str, "$esi")==0){
+				temp = cpu.gpr[6]._32;
+			}
+			else if(strcmp(tokens[p].str, "$edi")==0){
+				temp = cpu.gpr[7]._32;
+			}
+			else if(strcmp(tokens[p].str, "$ax")==0){
+				temp = cpu.gpr[0]._16;
+			}
+			else if(strcmp(tokens[p].str, "$cx")==0){
+				temp = cpu.gpr[1]._16;
+			}
+			else if(strcmp(tokens[p].str, "$dx")==0){
+				temp = cpu.gpr[2]._16;
+			}
+			else if(strcmp(tokens[p].str, "$bx")==0){
+				temp = cpu.gpr[3]._16;
+			}
+			else if(strcmp(tokens[p].str, "$sp")==0){
+				temp = cpu.gpr[4]._16;
+			}
+			else if(strcmp(tokens[p].str, "$bp")==0){
+				temp = cpu.gpr[5]._16;
+			}
+			else if(strcmp(tokens[p].str, "$si")==0){
+				temp = cpu.gpr[6]._16;
+			}
+			else if(strcmp(tokens[p].str, "$di")==0){
+				temp = cpu.gpr[7]._16;
+			}
+			else if(strcmp(tokens[p].str, "$ah")==0){
+				temp = cpu.gpr[0]._8[1];
+			}
+			else if(strcmp(tokens[p].str, "$al")==0){
+				temp = cpu.gpr[0]._8[0];
+			}
+			else if(strcmp(tokens[p].str, "$ch")==0){
+				temp = cpu.gpr[1]._8[1];
+			}
+			else if(strcmp(tokens[p].str, "$cl")==0){
+				temp = cpu.gpr[1]._8[0];
+			}
+			else if(strcmp(tokens[p].str, "$dh")==0){
+				temp = cpu.gpr[2]._8[1];
+			}
+			else if(strcmp(tokens[p].str, "$dl")==0){
+				temp = cpu.gpr[2]._8[0];
+			}
+			else if(strcmp(tokens[p].str, "$bh")==0){
+				temp = cpu.gpr[3]._8[1];
+			}
+			else if(strcmp(tokens[p].str, "$bl")==0){
+				temp = cpu.gpr[3]._8[0];
+			}
+		}
 		return temp;
 	}
 	else if(check_parentheses(p,q)==true){
