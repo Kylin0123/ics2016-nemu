@@ -7,7 +7,7 @@
 #include <regex.h>
 
 enum {
-	NOTYPE = 256, EQ, NUM, REG, NEQ, AND, OR, NOT, DEREF
+	NOTYPE = 256, EQ, NUM, REG, NEQ, AND, OR, NOT, DEREF, MINUS
 
 	/* TODO: Add more token types */
 
@@ -276,6 +276,12 @@ uint32_t eval(int p, int q){
 	else if(check_parentheses(p,q)==true){
 		return eval(p + 1, q - 1);
 	}
+	else if(q - p == 1 && tokens[p].type == MINUS){
+		return -eval(q,q);
+	}
+	else if(q - p == 1 && tokens[p].type == DEREF){
+		return swaddr_read( eval(q,q), 4);
+	}
 	else{
 		int op = q;
 		int flag_parentheses = 0;
@@ -319,12 +325,27 @@ uint32_t expr(char *e, bool *success) {
 		*success = false;
 		return 0;
 	}
+	
+	int i;
+	for(i = 0; i < nr_token; i++){
+		if(tokens[i].type == '*' && (i == 0 || tokens[i-1].type != NUM || tokens[i-1].type != REG)){
+			tokens[i].type = DEREF;
+		}
+	}
+	
+	for(i = 0; i < nr_token; i++){
+		if(tokens[i].type == '-' && (i == 0 || tokens[i-1].type != NUM || tokens[i-1].type != REG)){
+			tokens[i].type = MINUS;
+		}
+	}
+
 	/* TODO: Insert codes to evaluate the expression. */
 	//panic("please implement me");
 	//return 0;
 	//printf("nr_token:%d\n", nr_token);
 	//printf("str0:%s\n", tokens[0].str);
 	//printf("str2%s\n", tokens[2].str);
+
 	return eval(0, nr_token - 1);
 }
 
