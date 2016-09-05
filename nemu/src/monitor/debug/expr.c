@@ -28,8 +28,8 @@ static struct rule {
 	{"\\-", '-'},					// minus
 	{"\\*", '*'}, 				// multiply
 	{"\\/", '/'},					// divide
-	{"\\(", '('},					// leftParentheses
-	{"\\)", ')'},					// rightParentheses
+	{"[(]", '('},					// leftParentheses
+	{"[)]", ')'},					// rightParentheses
 	{"\\b0[xX][0-9a-fA-F]+\\b", NUM},	// number
 	{"\\$[a-z]{2,3}", REG},  // register_name
 	{"\\!\\=", NEQ},          // not equal
