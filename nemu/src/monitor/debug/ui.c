@@ -66,6 +66,9 @@ static int cmd_info(char *args){
 	}
 	else if(strcmp(arg, "w")==0){
 		WP *temp = getHead();
+		if(temp == NULL){
+			printf("No watchpoint!!!\n");
+		}
 		for(; temp != NULL; temp = temp->next){
 			printf("%d:%s%I32u\n", temp->NO, temp->expr, temp->value);
 		}
