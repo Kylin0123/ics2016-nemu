@@ -111,7 +111,8 @@ static int cmd_d(char *args){
 	for(; tempWP->next != NULL; tempWP = tempWP->next){
 		if(n == tempWP->NO){
 			free_wp(tempWP);
-			break;
+			printf("Have deleted watchpoint %d: %s\n", tempWP->NO, tempWP->expr);
+			return 0;
 		}
 	}
 	return 0;
