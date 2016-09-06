@@ -104,6 +104,19 @@ static int cmd_w(char *args){
 	return 0;
 }
 
+static int cmd_d(char *args){
+	char *arg = strtok(NULL, " ");
+	int n = atoi(arg);
+	WP *tempWP = getHead();
+	for(; tempWP->next != NULL; tempWP = tempWP->next){
+		if(n == tempWP->NO){
+			free_wp(tempWP);
+			break;
+		}
+	}
+	return 0;
+}
+
 static struct {
 	char *name;
 	char *description;
@@ -117,7 +130,8 @@ static struct {
 	{ "si", "Next step(s)", cmd_si },
 	{ "info", "Print infomations of registers or watchpoints", cmd_info },
 	{ "x", "Scanf memory", cmd_x },
-	{ "w", "Set watchpoints", cmd_w}
+	{ "w", "Set watchpoints", cmd_w},
+	{ "d", "Delete watchpoints", cmd_d},
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))

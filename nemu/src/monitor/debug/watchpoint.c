@@ -65,3 +65,7 @@ void free_wp(WP *wp){
 		free_ = temp2;
 	}
 }
+
+WP *getHead(){
+	return head;
+}
