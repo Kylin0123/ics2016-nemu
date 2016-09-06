@@ -94,6 +94,16 @@ static int cmd_x(char *args){
 	return 0;
 }
 
+static int cmd_w(char *args){
+	char *arg = strtok(NULL, " ");
+	bool *success = false;
+	WP *newWP = (WP *)new_wp();
+	strcpy(newWP->expr, arg);
+	newWP->value = expr(arg, success);
+	printf("Have set watchpoint %d: %s\n", newWP->NO, newWP->expr);
+	return 0;
+}
+
 static struct {
 	char *name;
 	char *description;
@@ -107,6 +117,7 @@ static struct {
 	{ "si", "Next step(s)", cmd_si },
 	{ "info", "Print infomations of registers or watchpoints", cmd_info },
 	{ "x", "Scanf memory", cmd_x },
+	{ "w", "Set watchpoints", cmd_w}
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
