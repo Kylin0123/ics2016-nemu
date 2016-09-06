@@ -65,7 +65,10 @@ static int cmd_info(char *args){
 		printf("edi		%I32u\n",cpu.gpr[7]._32);
 	}
 	else if(strcmp(arg, "w")==0){
-	/*ready:watchpoint*/
+		WP *temp = getHead();
+		for(; temp->next != NULL; temp = temp->next){
+			printf("%d		%s		%I32u\n", temp->NO, temp->expr, temp->value);
+		}
 	}
 	return 0;
 }
