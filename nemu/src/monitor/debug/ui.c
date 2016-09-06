@@ -95,7 +95,7 @@ static int cmd_x(char *args){
 }
 
 static int cmd_w(char *args){
-	char *arg = strtok(NULL, " ");
+	char *arg = strtok(NULL, "\0");
 	bool *success = false;
 	WP *newWP = (WP *)new_wp();
 	strcpy(newWP->expr, arg);
