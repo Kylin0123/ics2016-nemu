@@ -45,18 +45,21 @@ WP *new_wp(){
 
 void free_wp(WP *wp){
 	if(wp == head){
+		printf("11111111111\n");
 		head = head->next;
 		wp->next = free_;
 		free_ = wp;
 	}
 	else if(wp->next == NULL){
-		WP* temp = head;
+		printf("22222222222\n");
+		WP *temp = head;
 		for(;temp->next->next != NULL; temp = temp->next);
 		temp->next = NULL;
 		wp->next = free_;
 		free_ = wp;
 	}
 	else{
+		printf("33333333333\n");
 		WP *temp = head;
 		for(;temp->next->next != wp; temp = temp->next);
 		WP *temp2 = temp->next;

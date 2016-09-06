@@ -115,6 +115,7 @@ static int cmd_d(char *args){
 			return 0;
 		}
 	}
+	printf("Not found watchpoint: %d\n", n);
 	return 0;
 }
 
