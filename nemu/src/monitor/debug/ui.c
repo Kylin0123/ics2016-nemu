@@ -66,8 +66,8 @@ static int cmd_info(char *args){
 	}
 	else if(strcmp(arg, "w")==0){
 		WP *temp = getHead();
-		for(; temp->next != NULL; temp = temp->next){
-			printf("%d		%s		%I32u\n", temp->NO, temp->expr, temp->value);
+		for(; temp != NULL; temp = temp->next){
+			printf("%d:%s%I32u\n", temp->NO, temp->expr, temp->value);
 		}
 	}
 	return 0;
