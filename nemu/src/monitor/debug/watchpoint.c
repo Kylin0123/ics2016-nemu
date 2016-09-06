@@ -61,7 +61,7 @@ void free_wp(WP *wp){
 	else{
 		printf("33333333333\n");
 		WP *temp = head;
-		for(;temp->next->next != wp; temp = temp->next);
+		for(;temp->next != wp; temp = temp->next);
 		WP *temp2 = temp->next;
 		temp->next = wp;
 		temp2->next = free_;
