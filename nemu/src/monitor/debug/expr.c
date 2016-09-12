@@ -171,10 +171,12 @@ static bool make_token(char *e) {
 }
 
 bool check_parentheses(int p, int q){
-	int top = -1;
+	if(tokens[p].type != '(' || tokens[q].type != ')')
+        return false;
+    int top = -1;
 	char stack[30] = {0};
 	int i;
-	for(i = p; i <= q; i++){
+	for(i = p+1; i <= q-1; i++){
 		if(tokens[i].type == '(' && top <= 29){
 			stack[++top] = '(';
 		}
@@ -192,10 +194,7 @@ bool check_parentheses(int p, int q){
 		}
 	}
 	if(top == -1){
-		if(tokens[p].type == '(' && tokens[q].type == ')')
-			return true;
-		else 
-			return false;
+		return true;
 	}
 	else return false;
 }
