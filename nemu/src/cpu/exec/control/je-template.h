@@ -9,6 +9,7 @@
 #define instr je
 
 static void do_execute(){
+    assert(cpu.eflags._zf == 1);//test
     if(cpu.eflags._zf == 1)
         cpu.eip = cpu.eip + op_src->val;
     print_asm_template1();
