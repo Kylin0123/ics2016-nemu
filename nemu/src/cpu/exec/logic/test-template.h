@@ -17,6 +17,8 @@ static void do_execute(){
         cpu.eflags._zf = 1;
     else
         cpu.eflags._zf = 0;
+    printf("zf:%d\n", cpu.eflags._zf);
+
     int temp_pf = temp & 1;
     int temp_test = 2;
     int i;
