@@ -5,7 +5,7 @@
 	> Created Time: Mon 19 Sep 2016 05:58:25 AM PDT
  ************************************************************************/
 
-#include "cpu/exec/temlate-start.h"
+#include "cpu/exec/template-start.h"
 
 #define instr test
 
@@ -22,8 +22,8 @@ static void do_execute(){
     int i;
     for(i = 1; i < 8; i++){
         int temp_k = (temp & temp_test) >> i;
-        temp_pf = !(temp_k ^ temp_fp);
-        temp_test << 1;
+        temp_pf = !(temp_k ^ temp_pf);
+        temp_test = temp_test << 1;
     }
     cpu.eflags._pf = temp_pf;
     cpu.eflags._cf = 0;
