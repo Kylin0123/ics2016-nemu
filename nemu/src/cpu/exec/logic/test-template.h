@@ -28,6 +28,8 @@ static void do_execute(){
     cpu.eflags._pf = temp_pf;
     cpu.eflags._cf = 0;
     cpu.eflags._of = 0;
+    
+    print_asm_template2();
 }
 
 make_instr_helper(i2r)
