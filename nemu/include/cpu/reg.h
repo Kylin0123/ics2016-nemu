@@ -31,25 +31,25 @@ typedef struct {
 	swaddr_t eip;
     
     struct {
-        int :14;
-        int _vm:1;
-        int _rf:1;
-        int :1;
-        int _nt:1;
-        int _ip:1;
-        int _ol:1;
-        int _of:1;
-        int _df:1;
-        int _if:1;
-        int _tf:1;
-        int _sf:1;
-        int _zf:1;
-        int :1;
-        int _af:1;
-        int :1;
-        int _pf:1;
-        int :1;
-        int _cf:1;
+        unsigned :14;
+        unsigned _vm:1;
+        unsigned _rf:1;
+        unsigned :1;
+        unsigned _nt:1;
+        unsigned _ip:1;
+        unsigned _ol:1;
+        unsigned _of:1;
+        unsigned _df:1;
+        unsigned _if:1;
+        unsigned _tf:1;
+        unsigned _sf:1;
+        unsigned _zf:1;
+        unsigned :1;
+        unsigned _af:1;
+        unsigned :1;
+        unsigned _pf:1;
+        unsigned :1;
+        unsigned _cf:1;
     } eflags;
     
 } CPU_state;
