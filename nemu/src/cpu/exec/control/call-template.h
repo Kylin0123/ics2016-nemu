@@ -10,8 +10,8 @@
 
 static void do_execute(){
     uint32_t data = cpu.eip + 5;
-    MEM_W(cpu.esp, data);
     cpu.esp -= 4;
+    MEM_W(cpu.esp, data);
     cpu.eip = data + op_src->val;
     print_asm_template1();
 }
