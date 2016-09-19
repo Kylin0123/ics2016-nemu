@@ -2,6 +2,7 @@
 
 #include "control/call.h"
 #include "control/push.h"
+#include "control/je.h"
 
 #include "data-mov/mov.h"
 #include "data-mov/xchg.h"
