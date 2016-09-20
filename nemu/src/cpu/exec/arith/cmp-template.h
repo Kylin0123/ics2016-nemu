@@ -22,6 +22,8 @@ static void do_execute(){
         cpu.eflags._cf = 0;
     }
      printf("temp:%d\n", temp); 
+     printf("op_dest:%d\n", op_dest->val); 
+     printf("op_src:%d\n", op_src->val); 
 
 }
 
