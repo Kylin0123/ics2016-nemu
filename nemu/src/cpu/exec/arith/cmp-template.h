@@ -21,7 +21,7 @@ static void do_execute(){
     else if(temp > 0){
         cpu.eflags._cf = 0;
     }
-        
+     printf("temp:%d\n", temp); 
 
 }
 
