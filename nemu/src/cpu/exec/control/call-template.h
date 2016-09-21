@@ -9,7 +9,7 @@
 #define instr call
 
 static void do_execute(){
-    uint32_t data = cpu.eip;
+    uint32_t data = cpu.eip + DATA_BYTE;
     cpu.esp -= 4;
     MEM_W(cpu.esp, data);
     cpu.eip = data + op_src->val;
