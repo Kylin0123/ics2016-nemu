@@ -13,7 +13,7 @@ static void do_execute(){
     uint32_t data2 = data + 5;
     printf("eip:%x\n", data2);
     cpu.esp -= 4;
-    MEM_W(cpu.esp, data);
+    MEM_W(cpu.esp, data2);
     cpu.eip = data + op_src->val;
     print_asm_template1();
 }
