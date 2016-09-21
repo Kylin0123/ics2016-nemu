@@ -11,7 +11,7 @@
 static void do_execute(){
     uint32_t data = cpu.eip;
     uint32_t data2 = data + DATA_BYTE;
-    printf("eip:%x\n", data2);
+    //printf("eip:%x\n", data2);
     cpu.esp -= 4;
     MEM_W(cpu.esp, data2);
     cpu.eip = data + op_src->val;
