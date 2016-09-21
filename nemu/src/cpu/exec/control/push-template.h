@@ -15,7 +15,7 @@ static void do_execute(){
     MEM_W(cpu.esp, cpu.ebp);
 }
 
-#if DATA_BYTE == 4
+#if DATA_BYTE == 1 || DATA_BYTE == 2 || DATA_BYTE == 4 
 make_helper(concat(push_ebp_, SUFFIX)){
     do_execute();
     return 1;
