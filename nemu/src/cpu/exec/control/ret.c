@@ -6,14 +6,13 @@
  ************************************************************************/
 
 
-#define DATA_BYTE 4
 #include "cpu/exec/helper.h"
-#include "ret.h"
 
 make_helper(ret){
     swaddr_t addr = cpu.esp;
+    swaddr_t temp = swaddr_read(addr, 4);
     cpu.esp += 4;
-    cpu.eip = addr;
+    cpu.eip = temp;
     return 1;
 }
 
