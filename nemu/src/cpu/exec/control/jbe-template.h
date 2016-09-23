@@ -10,7 +10,11 @@
 #define instr jbe
 
 static void do_execute(){
-    int rel = op_src->val;
+    uint32_t rel;
+    if(op_src->val >> 7 == 0)
+        rel = op_src->val & 0x000000ff;
+    else
+        rel = op_src->val | 0xffffff00;
     printf("aaaa:%d\n", rel);
     if(cpu.eflags._zf == 1 || cpu.eflags._cf == 1)
         cpu.eip = cpu.eip + rel;
