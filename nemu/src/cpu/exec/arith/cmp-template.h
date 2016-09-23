@@ -24,7 +24,7 @@ static void do_execute(){
      
      printf("zf:%d\n", cpu.eflags._zf); 
      printf("cf:%d\n", cpu.eflags._cf); 
-    // printf("op_src:%d\n", op_src->val); 
+     printf("temp:%d\n", temp); 
     
 }
 
