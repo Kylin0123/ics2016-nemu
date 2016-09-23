@@ -62,7 +62,14 @@ static int cmd_info(char *args){
 		printf("esp		%I32u\n",cpu.gpr[4]._32);
 		printf("ebp		%I32u\n",cpu.gpr[5]._32);
 		printf("esi		%I32u\n",cpu.gpr[6]._32);
-		printf("edi		%I32u\n",cpu.gpr[7]._32);
+		printf("edi		%I32u\n\n",cpu.gpr[7]._32);
+        printf("cf      %d\n", cpu.eflags._cf);
+        printf("pf      %d\n", cpu.eflags._pf);
+        printf("zf      %d\n", cpu.eflags._zf);
+        printf("sf      %d\n", cpu.eflags._sf);
+        printf("if      %d\n", cpu.eflags._if);
+        printf("df      %d\n", cpu.eflags._df);
+        printf("of      %d\n", cpu.eflags._of);
 	}
 	else if(strcmp(arg, "w")==0){
 		WP *temp = getHead();
