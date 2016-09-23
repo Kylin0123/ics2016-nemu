@@ -10,7 +10,7 @@
 #define instr cmp
 
 static void do_execute(){
-    DATA_TYPE temp = op_dest->val - op_src->val;
+    //DATA_TYPE temp = op_dest->val - op_src->val;
     if(op_dest->val == op_src->val)
         cpu.eflags._zf = 1;
     else
@@ -21,12 +21,12 @@ static void do_execute(){
     else if(op_dest->val > op_src->val){
         cpu.eflags._cf = 0;
     }
-     printf("dest:%d\n", op_dest->val);
+     /*printf("dest:%d\n", op_dest->val);
     printf("src:%d\n", op_src->val);
      printf("zf:%d\n", cpu.eflags._zf); 
      printf("cf:%d\n", cpu.eflags._cf); 
      printf("temp:%d\n", temp); 
-    
+    */
 }
 
 make_instr_helper(i2r)
