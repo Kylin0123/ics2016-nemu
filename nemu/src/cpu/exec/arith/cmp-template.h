@@ -21,7 +21,8 @@ static void do_execute(){
     else if(temp > 0){
         cpu.eflags._cf = 0;
     }
-     
+     printf("dest:%d\n", op_dest->val);
+    printf("src:%d\n", op_src->val);
      printf("zf:%d\n", cpu.eflags._zf); 
      printf("cf:%d\n", cpu.eflags._cf); 
      printf("temp:%d\n", temp); 
