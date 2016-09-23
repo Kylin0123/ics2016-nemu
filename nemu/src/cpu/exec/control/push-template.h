@@ -12,11 +12,18 @@
 
 static void do_execute(){
     cpu.esp -= 4;
-    MEM_W(cpu.esp, cpu.ebp);
+    MEM_W(cpu.esp, op_src->val);
 }
 
 #if DATA_BYTE == 1 || DATA_BYTE == 2 || DATA_BYTE == 4 
 make_helper(concat(push_ebp_, SUFFIX)){
+    op_src->val = cpu.ebp;
+    do_execute();
+    return 1;
+}
+
+make_helper(concat(push_edx_, SUFFIX)){
+    op_src->val = cpu.edx;
     do_execute();
     return 1;
 }

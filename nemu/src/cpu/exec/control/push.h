@@ -10,4 +10,6 @@
 
 make_helper(push_ebp_l);
 
+make_helper(push_edx_l);
+
 #endif
