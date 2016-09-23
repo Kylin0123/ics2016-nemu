@@ -11,14 +11,14 @@
 
 static void do_execute(){
     DATA_TYPE temp = op_dest->val - op_src->val;
-    if(temp == 0)
+    if(op_dest->val == op_src->val)
         cpu.eflags._zf = 1;
     else
         cpu.eflags._zf = 0;
     
-    if(temp < 0)
+    if(op_dest->val < op_src->val)
         cpu.eflags._cf = 1;
-    else if(temp > 0){
+    else if(op_dest->val > op_src->val){
         cpu.eflags._cf = 0;
     }
      printf("dest:%d\n", op_dest->val);
