@@ -15,7 +15,7 @@ static void do_execute(){
         rel = op_src->val & 0x000000ff;
     else
         rel = op_src->val | 0xffffff00;
-    printf("aaaa:%d\n", rel);
+    //printf("aaaa:%d\n", rel);
     if(cpu.eflags._zf == 1 || cpu.eflags._cf == 1)
         cpu.eip = cpu.eip + rel;
     print_asm_template1();
