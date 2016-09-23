@@ -12,4 +12,6 @@ make_helper(push_ebp_l);
 
 make_helper(push_edx_l);
 
+make_helper(push_eax_l);
+
 #endif

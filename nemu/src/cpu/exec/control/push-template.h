@@ -27,6 +27,13 @@ make_helper(concat(push_edx_, SUFFIX)){
     do_execute();
     return 1;
 }
+
+make_helper(concat(push_eax_, SUFFIX)){
+    op_src->val = cpu.eax;
+    do_execute();
+    return 1;
+}
+
 #endif
 
 #include "cpu/exec/template-end.h"
