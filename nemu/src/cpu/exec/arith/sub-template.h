@@ -34,12 +34,12 @@ make_helper(concat(sub_i_b2rm_, SUFFIX)){
     printf("op_src:%x\n", op_src->val);
     printf("op_dest:%x\n", op_dest->val);
     printf("eip:0x%x\n", cpu.eip);
-    int len = concat(decode_rm_, SUFFIX)(eip);
+    /*int len = */concat(decode_rm_, SUFFIX)(eip);
     printf("hhhhhhhhhhh\n");
-    len += decode_i_b(eip + len);
+    //len += decode_i_b(eip + len);
     //snprintf(op_dest->str, OP_STR_SIZE, "$0x%x", op_src->imm);
     do_execute();
-    return len;
+    return 1;//len;
 }
 #endif
 
