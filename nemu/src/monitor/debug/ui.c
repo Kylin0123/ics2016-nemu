@@ -132,6 +132,14 @@ static int cmd_d(char *args){
 	return 0;
 }
 
+static int cmd_p(char *args){
+    char *arg = strtok(NULL, " ");
+    bool * success = false;
+    uint32_t result = expr(arg, success);
+    printf("%x\n", result);
+    return 0;
+}
+
 static struct {
 	char *name;
 	char *description;
@@ -147,6 +155,7 @@ static struct {
 	{ "x", "Scanf memory", cmd_x },
 	{ "w", "Set watchpoints", cmd_w},
 	{ "d", "Delete watchpoints", cmd_d},
+    { "p", "Print expr", cmd_p}, 
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
