@@ -6,7 +6,6 @@
  ************************************************************************/
 
 #include "cpu/exec/template-start.h"
-#include "cpu/decode/modrm.h"
 
 #define instr sub
 
