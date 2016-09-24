@@ -36,7 +36,9 @@ make_helper(concat(sub_i_b2rm_, SUFFIX)){
     printf("len:%d\n", len);
     int len2 = decode_i_b(eip + 1 + len);
     printf("len2:%d\n", len2);
-    snprintf(op_dest->str, OP_STR_SIZE, "$0x%x", op_src->imm);
+    printf("op_dest:%x\n", op_dest->val);
+    printf("op_src:%x\n", op_src->val);
+    //snprintf(op_dest->str, OP_STR_SIZE, "$0x%x", op_src->imm);
     do_execute();
     printf("eip:%x\n", cpu.eip);
     return 1 + len + len2;
