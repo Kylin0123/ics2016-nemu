@@ -33,6 +33,9 @@ make_instr_helper(rm2r)
 #if DATA_BYTE == 2 || DATA_BYTE == 4
 make_helper(concat(sub_i_b2rm_, SUFFIX)){
     int len = concat(decode_rm_, SUFFIX)(eip + 1);
+    op_dest->type = op_src->type;
+    op_dest->reg = op_src->type;
+    op_dest->val = op_src->val;
     printf("len:%d\n", len);
     int len2 = decode_i_b(eip + 1 + len);
     printf("len2:%d\n", len2);
