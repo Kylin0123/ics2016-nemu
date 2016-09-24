@@ -34,22 +34,7 @@ make_instr_helper(rm2r)
 make_helper(concat(sub_i_b2rm_, SUFFIX)){
     Operand rm, reg;
     int len = read_ModR_M(eip, &rm, &reg);
-    /*m.val = instr_fetch(eip, 1);
-    reg.type = OP_TYPE_REG;
-    reg.reg = m.reg;
-    if(m.mod == 3){
-        rm.type = OP_TYPE_REG;
-        rm.reg = m.R_M;
-        switch(rm.size){
-            case 1: rm.val = reg_b(m.R_M);break;
-            case 2: rm.val = reg_w(m.R_M);break;
-            case 4: rm.val = reg_l(m.R_M);break;
-            default: assert(0);
-        }
-    }
-    else{
-        int instr_len = load_addr()
-    }*/
+    printf("len:%d\n", len);
     //snprintf(op_dest->str, OP_STR_SIZE, "$0x%x", op_src->imm);
     do_execute();
     return len;
