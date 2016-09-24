@@ -29,7 +29,7 @@ make_group(group1_v,
 
 /* 0x83 */
 make_group(group1_sx_v,
-	inv, inv, inv, inv, 
+	add_i2rm_b, inv, inv, inv, 
 	inv, sub_i2rm_b, inv, cmp_i2rm_b)
 
 /* 0xc0 */
