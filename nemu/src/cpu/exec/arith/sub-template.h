@@ -21,6 +21,7 @@ static void do_execute(){
     else if(result > 0)
         cpu.eflags._cf = 0;
     OPERAND_W(op_dest, result);
+    print_asm_template2();
 }
 
 make_instr_helper(i2r)
