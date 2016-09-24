@@ -26,7 +26,8 @@ static void do_execute(){
      printf("zf:%d\n", cpu.eflags._zf); 
      printf("cf:%d\n", cpu.eflags._cf); 
      //printf("temp:%d\n", temp); 
-    
+     printf("eax:%d\n", cpu.eax);
+     printf("ecx:%d\n", cpu.ecx);
 }
 
 make_instr_helper(i2r)
