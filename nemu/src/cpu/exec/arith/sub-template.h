@@ -39,7 +39,7 @@ make_helper(concat(sub_i_b2rm_, SUFFIX)){
     //snprintf(op_dest->str, OP_STR_SIZE, "$0x%x", op_src->imm);
     do_execute();
     printf("eip:%x\n", cpu.eip);
-    return len + len2;
+    return 1 + len + len2;
 }
 #endif
 
