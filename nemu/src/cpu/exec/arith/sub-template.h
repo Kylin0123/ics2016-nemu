@@ -37,6 +37,7 @@ make_helper(concat(sub_i_b2rm_, SUFFIX)){
     len += decode_i_b(eip + 1 + len);
     //snprintf(op_dest->str, OP_STR_SIZE, "$0x%x", op_src->imm);
     do_execute();
+    printf("eip:%x\n", cpu.eip);
     return len + 1;
 }
 #endif
