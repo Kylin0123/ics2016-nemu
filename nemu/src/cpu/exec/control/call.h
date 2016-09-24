@@ -8,8 +8,8 @@
 #ifndef _CALL_H
 #define _CALL_H
 
-make_helper(call_rel_l);
+make_helper(call_si_b);
 
-make_helper(call_rel_v);
+make_helper(call_si_v);
 
 #endif

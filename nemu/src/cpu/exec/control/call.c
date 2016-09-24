@@ -20,4 +20,4 @@
 #include "call-template.h"
 #undef DATA_BYTE
 
-make_helper_v(call_rel)
+make_helper_v(call_si)
