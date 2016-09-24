@@ -36,14 +36,14 @@ make_helper(concat(sub_i_b2rm_, SUFFIX)){
     op_dest->type = op_src->type;
     op_dest->reg = op_src->type;
     op_dest->val = op_src->val;
-    printf("len:%d\n", len);
+    //printf("len:%d\n", len);
     int len2 = decode_i_b(eip + 1 + len);
-    printf("len2:%d\n", len2);
-    printf("op_dest:%x\n", op_dest->val);
-    printf("op_src:%x\n", op_src->val);
+    //printf("len2:%d\n", len2);
+    //printf("op_dest:%x\n", op_dest->val);
+    //printf("op_src:%x\n", op_src->val);
     //snprintf(op_dest->str, OP_STR_SIZE, "$0x%x", op_src->imm);
     do_execute();
-    printf("eip:%x\n", cpu.eip);
+    //printf("eip:%x\n", cpu.eip);
     return 1 + len + len2;
 }
 #endif
