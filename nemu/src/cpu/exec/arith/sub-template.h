@@ -11,7 +11,6 @@
 
 static void do_execute(){
     DATA_TYPE result = op_dest->val - op_src->val;
-    printf("tessssssssssssssst\n");
     if(result == 0)
         cpu.eflags._zf = 1;
     else
@@ -32,6 +31,7 @@ make_instr_helper(rm2r)
 
 #if DATA_BYTE == 2 || DATA_BYTE == 4
 make_helper(concat(sub_i_b2rm_, SUFFIX)){
+    printf("tessssssssssssssst\n");
     concat(decode_rm_, SUFFIX)(eip);
     decode_i_b(eip);
     //snprintf(op_dest->str, OP_STR_SIZE, "$0x%x", op_src->imm);
