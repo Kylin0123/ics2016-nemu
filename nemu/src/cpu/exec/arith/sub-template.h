@@ -37,7 +37,7 @@ make_helper(concat(sub_i_b2rm_, SUFFIX)){
     len = decode_i_b(eip + len);
     //snprintf(op_dest->str, OP_STR_SIZE, "$0x%x", op_src->imm);
     do_execute();
-    return len + DATA_BYTE;
+    return len;
 }
 #endif
 
