@@ -19,7 +19,7 @@ static void do_execute(){
     
     if(result < 0)
         cpu.eflags._cf = 1;
-    else if(result > 0)
+    else
         cpu.eflags._cf = 0;
     OPERAND_W(op_dest, result);
     print_asm_template2();
@@ -33,6 +33,7 @@ make_instr_helper(rm2r)
 #if DATA_BYTE == 2 || DATA_BYTE == 4
 make_helper(concat(sub_i_b2rm_, SUFFIX)){
     Operand rm, reg;
+    printf("xxxxxxxxxx\n");
     int len = read_ModR_M(eip, &rm, &reg);
     printf("len:%d\n", len);
     //snprintf(op_dest->str, OP_STR_SIZE, "$0x%x", op_src->imm);
