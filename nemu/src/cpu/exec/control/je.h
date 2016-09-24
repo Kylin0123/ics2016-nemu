@@ -8,8 +8,8 @@
 #ifndef _JE_H
 #define _JE_H
 
-make_helper(je_rel_b);
+make_helper(je_si_b);
 
-make_helper(je_rel_v);
+make_helper(je_si_v);
 
 #endif

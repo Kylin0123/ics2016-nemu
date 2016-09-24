@@ -15,6 +15,8 @@ static void do_execute(){
     print_asm_template1();
 }
 
+make_instr_helper(si)
+/*
 #if DATA_BYTE == 4 || DATA_BYTE == 2 || DATA_BYTE == 1
 make_helper(concat(je_rel_, SUFFIX)){
     DATA_TYPE rel = instr_fetch(eip + 1, DATA_BYTE);
@@ -23,5 +25,5 @@ make_helper(concat(je_rel_, SUFFIX)){
     return 1 + DATA_BYTE;
 }
 #endif
-
+*/
 #include "cpu/exec/template-end.h"
