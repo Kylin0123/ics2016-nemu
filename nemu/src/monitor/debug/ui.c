@@ -55,21 +55,21 @@ static int cmd_si(char *args){
 static int cmd_info(char *args){
 	char *arg = strtok(NULL, " ");
 	if(strcmp(arg, "r")==0){
-		printf("eax		%d     %x\n",cpu.gpr[0]._32, cpu.eax);
-		printf("ecx		%d     %x\n",cpu.gpr[1]._32, cpu.ecx);
-		printf("edx		%d     %x\n",cpu.gpr[2]._32, cpu.edx);
-		printf("ebx		%d     %x\n",cpu.gpr[3]._32, cpu.ebx);
-		printf("esp		%d     %x\n",cpu.gpr[4]._32, cpu.esp);
-		printf("ebp		%d     %x\n",cpu.gpr[5]._32, cpu.ebp);
-		printf("esi		%d     %x\n",cpu.gpr[6]._32, cpu.esi);
-		printf("edi		%d     %x\n\n",cpu.gpr[7]._32, cpu.edi);
-        printf("cf      %d\n", cpu.eflags._cf);
-        printf("pf      %d\n", cpu.eflags._pf);
-        printf("zf      %d\n", cpu.eflags._zf);
-        printf("sf      %d\n", cpu.eflags._sf);
-        printf("if      %d\n", cpu.eflags._if);
-        printf("df      %d\n", cpu.eflags._df);
-        printf("of      %d\n", cpu.eflags._of);
+		printf("eax\t%d\t%x\n",cpu.gpr[0]._32, cpu.eax);
+		printf("ecx\t%d\t%x\n",cpu.gpr[1]._32, cpu.ecx);
+		printf("edx\t%d\t%x\n",cpu.gpr[2]._32, cpu.edx);
+		printf("ebx\t%d\t%x\n",cpu.gpr[3]._32, cpu.ebx);
+		printf("esp\t%d\t%x\n",cpu.gpr[4]._32, cpu.esp);
+		printf("ebp\t%d\t%x\n",cpu.gpr[5]._32, cpu.ebp);
+		printf("esi\t%d\t%x\n",cpu.gpr[6]._32, cpu.esi);
+		printf("edi\t%d\t%x\n\n",cpu.gpr[7]._32, cpu.edi);
+        printf("cf\t%d\n", cpu.eflags._cf);
+        printf("pf\t%d\n", cpu.eflags._pf);
+        printf("zf\t%d\n", cpu.eflags._zf);
+        printf("sf\t%d\n", cpu.eflags._sf);
+        printf("if\t%d\n", cpu.eflags._if);
+        printf("df\t%d\n", cpu.eflags._df);
+        printf("of\t%d\n", cpu.eflags._of);
 	}
 	else if(strcmp(arg, "w")==0){
 		WP *temp = getHead();
