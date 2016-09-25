@@ -10,13 +10,13 @@
 #define instr cmp
 
 static void do_execute(){
-    int temp = op_dest->val - op_src->val;
+    DATA_TYPE temp = op_dest->val - op_src->val;
     if(temp == 0)
         cpu.eflags._zf = 1;
     else
         cpu.eflags._zf = 0;
     
-    if(temp < 0)
+    if(MSB(temp) == 1)
         cpu.eflags._cf = 1;
     else{
         cpu.eflags._cf = 0;
