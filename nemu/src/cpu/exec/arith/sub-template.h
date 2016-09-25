@@ -41,6 +41,18 @@ make_helper(concat(sub_i_b2rm_, SUFFIX)){
     //printf("op_dest:%x\n", op_dest->val);
     //printf("op_src:%x\n", op_src->val);
     //snprintf(op_dest->str, OP_STR_SIZE, "$0x%x", op_src->imm);
+    if(DATA_BYTE == 2){
+        if(op_src->val >> 7 == 0)
+            op_src->val = op_src->val & 0x00ff;
+        else
+            op_src->val = op_src->val | 0xff00;
+    }
+    else if(DATA_BYTE == 4){
+        if(op_src->val >> 7 == 0)
+            op_src->val = op_src->val & 0x000000ff;
+        else
+            op_src->val = op_src->val | 0xffffff00;
+    }
     do_execute();
     //printf("eip:%x\n", cpu.eip);
     return 1 + len + len2;
