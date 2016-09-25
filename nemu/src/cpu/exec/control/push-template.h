@@ -13,6 +13,7 @@
 static void do_execute(){
     cpu.esp -= 4;
     MEM_W(cpu.esp, op_src->val);
+    print_asm_template1();
 }
 
 #if DATA_BYTE == 1 || DATA_BYTE == 2 || DATA_BYTE == 4 
