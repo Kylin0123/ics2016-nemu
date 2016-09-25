@@ -9,7 +9,7 @@
 #define instr jle
 
 static void do_execute(){
-    if(cpu.eflags._zf == 1 && cpu.eflags._cf != cpu.eflags._sf)
+    if(cpu.eflags._zf == 1 || cpu.eflags._cf != cpu.eflags._sf)
         cpu.eip = cpu.eip + op_src->val;
     print_asm_template1();
 }
