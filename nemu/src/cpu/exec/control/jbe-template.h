@@ -8,7 +8,6 @@
 #include "cpu/exec/template-start.h"
 
 #define instr jbe
-
 static void do_execute(){
     int rel;
     if(op_src->val >> 7 == 0)
