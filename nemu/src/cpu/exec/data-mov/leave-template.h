@@ -11,7 +11,7 @@
 
 static void do_execute(){
     cpu.esp = cpu.ebp;
-    cpu.ebp = cpu.esp;
+    cpu.ebp = MEM_R(cpu.esp);
     cpu.esp += 4;
 }
 
