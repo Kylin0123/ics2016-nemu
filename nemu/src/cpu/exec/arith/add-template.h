@@ -33,6 +33,18 @@ make_helper(concat(add_i_b2rm_, SUFFIX)){
     op_dest->reg = op_src->reg;
     op_dest->val = op_src->val;
     int len2 = decode_i_b(eip + 1 + len);
+    if(DATA_BYTE == 2){
+        if(MSB(op_src->val) == 0)
+            op_src->val = op_src->val & 0x00ff;
+        else
+            op_src->val = op_src->val | 0xff00;
+    }
+    else if(DATA_BYTE == 4){
+        if(MSB(op_src->val) == 0)
+            op_src->val = op_src->val & 0x000000ff;
+        else
+            op_src->val = op_src->val | 0xffffff00;
+    }
     do_execute();
     return 1 + len + len2;
 }
