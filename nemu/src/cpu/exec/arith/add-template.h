@@ -13,10 +13,11 @@ static void do_execute(){
     DATA_TYPE result = op_dest->val + op_src->val;
     OPERAND_W(op_dest, result);
     //todo : eflags is unfinished.
-    printf("op_dest:%d\n", op_dest->val);
+    /*printf("op_dest:%d\n", op_dest->val);
     printf("op_src:%d\n", op_src->val);
     printf("result:%d\n", result);
     print_asm_template2();
+    */
 }
 
 make_instr_helper(i2r)
