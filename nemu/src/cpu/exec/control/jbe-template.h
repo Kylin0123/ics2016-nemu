@@ -10,7 +10,8 @@
 #define instr jbe
 static void do_execute(){
     int rel;
-    if(op_src->val >> 7 == 0)
+    //if(op_src->val >> 7 == 0)
+    if(MSB(op_src->val))
         rel = op_src->val & 0x000000ff;
     else
         rel = op_src->val | 0xffffff00;
