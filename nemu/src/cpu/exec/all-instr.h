@@ -4,6 +4,7 @@
 #include "control/push.h"
 #include "control/je.h"
 #include "control/jbe.h"
+#include "control/jle.h"
 #include "control/pop.h"
 #include "control/ret.h"
 #include "control/jmp.h"
