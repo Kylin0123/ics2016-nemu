@@ -10,7 +10,7 @@
 #define instr cmp
 
 static void do_execute(){
-    DATA_TYPE temp = op_dest->val - op_src->val;
+    int temp = op_dest->val - op_src->val;
     if(temp == 0)
         cpu.eflags._zf = 1;
     else
