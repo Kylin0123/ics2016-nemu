@@ -11,24 +11,24 @@
 
 static void do_execute(){
     DATA_TYPE temp = op_dest->val - op_src->val;
-    if(op_src->val == 0x80000000){
-        if(op_dest->val == 0x80000000)
-            temp = 0;
-        else
-            temp = 1;
-    }
-    
-    if(temp == 0)
-        cpu.eflags._zf = 1;
-    else
-        cpu.eflags._zf = 0;
-    
-    if(MSB(temp) == 1)
-        cpu.eflags._cf = 1;
+    if(op_src->val == 0x80000000 && op_dest->val == 0x80000000)
+        temp = 0;
+    else if(op_src->val == 0x80000000)
+        temp = 1;
+    else if(op_dest->val == 0x80000000)
+        temp = -1;
     else{
-        cpu.eflags._cf = 0;
+        if(temp == 0)
+            cpu.eflags._zf = 1;
+        else
+            cpu.eflags._zf = 0;
+    
+        if(MSB(temp) == 1)
+            cpu.eflags._cf = 1;
+        else{
+            cpu.eflags._cf = 0;
+        }
     }
-
     print_asm_template2();
      printf("dest:%d\n", op_dest->val);
      printf("src:%d\n", op_src->val);
