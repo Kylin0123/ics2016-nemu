@@ -17,7 +17,6 @@ static void do_execute(){
         temp = 1;
     else if(op_dest->val == 0x80000000)
         temp = -1;
-    else{
         if(temp == 0)
             cpu.eflags._zf = 1;
         else
@@ -28,7 +27,6 @@ static void do_execute(){
         else{
             cpu.eflags._cf = 0;
         }
-    }
     print_asm_template2();
      printf("dest:%d\n", op_dest->val);
      printf("src:%d\n", op_src->val);
