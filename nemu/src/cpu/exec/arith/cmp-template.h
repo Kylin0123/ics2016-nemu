@@ -28,7 +28,7 @@ static void do_execute(){
      printf("cf:%d\n", cpu.eflags._cf); 
      printf("temp:%d\n", temp); 
      printf("eax:%d\n", cpu.eax);
-     printf("ecx:%d\n", cpu.ecx);
+     printf("ecx:%d\n\n", cpu.ecx);
     
 }
 
