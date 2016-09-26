@@ -10,7 +10,7 @@
 #define instr cmp
 
 static void do_execute(){
-    DATA_TYPE temp = op_dest->val - op_src->val;
+    int temp = (int)op_dest->val - (int)op_src->val;
     if(op_src->val == 0x80000000 && op_dest->val == 0x80000000)
         temp = 0;
     else if(op_src->val == 0x80000000)
