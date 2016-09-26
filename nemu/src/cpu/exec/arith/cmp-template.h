@@ -18,12 +18,15 @@ static void do_execute(){
     else if(op_dest->val == 0x80000000)
         temp = -1;
     */
-    if(temp > 0x7fffffff || temp < 0x80000000)
+    if(MSB(op_dest->val) == 0 && MSB(op_src->val) == 1 && MSB(temp) == 1)
+        cpu.eflags._of = 1;
+    else if(MSB(op_dest->val) == 1 && MSB(op_src->val) == 0 && MSB(temp) == 0)
         cpu.eflags._of = 1;
     else
         cpu.eflags._of = 0;
 
     cpu.eflags._zf = !temp;
+    cpu.eflags._sf = MSB(temp);
     cpu.eflags._cf = MSB(temp);
     print_asm_template2();
      
