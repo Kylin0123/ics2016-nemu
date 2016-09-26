@@ -10,31 +10,30 @@
 #define instr cmp
 
 static void do_execute(){
-    int temp = (int)op_dest->val - (int)op_src->val;
-    if(op_src->val == 0x80000000 && op_dest->val == 0x80000000)
+    DATA_TYPE temp = op_dest->val - op_src->val;
+    /*if(op_src->val == 0x80000000 && op_dest->val == 0x80000000)
         temp = 0;
     else if(op_src->val == 0x80000000)
         temp = 1;
     else if(op_dest->val == 0x80000000)
         temp = -1;
-    if(temp == 0)
-        cpu.eflags._zf = 1;
+    */
+    if(temp > 0x7fffffff || temp < 0x80000000)
+        cpu.eflags._of = 1;
     else
-        cpu.eflags._zf = 0;
-    
-    if(MSB(temp) == 1)
-        cpu.eflags._cf = 1;
-    else{
-        cpu.eflags._cf = 0;
-    }
+        cpu.eflags._of = 0;
+
+    cpu.eflags._zf = !temp;
+    cpu.eflags._cf = MSB(temp);
     print_asm_template2();
-     printf("dest:%x\n", op_dest->val);
-     printf("src:%x\n", op_src->val);
-     printf("zf:%d\n", cpu.eflags._zf); 
-     printf("cf:%d\n", cpu.eflags._cf); 
-     printf("temp:%d\n", temp); 
-     printf("eax:%d\n", cpu.eax);
-     printf("ecx:%d\n\n", cpu.ecx);
+     
+    printf("dest:%x\n", op_dest->val);
+    printf("src:%x\n", op_src->val);
+    printf("zf:%d\n", cpu.eflags._zf); 
+    printf("cf:%d\n", cpu.eflags._cf); 
+    printf("temp:%x\n", temp); 
+    printf("eax:%d\n", cpu.eax);
+    printf("ecx:%d\n\n", cpu.ecx);
     
 }
 
