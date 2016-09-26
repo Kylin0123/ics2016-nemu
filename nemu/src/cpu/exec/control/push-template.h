@@ -36,10 +36,23 @@ make_helper(concat(push_eax_, SUFFIX)){
 
 
 make_helper(concat(push_m_, SUFFIX)){
-    swaddr_t addr = instr_fetch(eip + 1, DATA_BYTE);
-    op_src->val = addr;
+    concat(decode_rm_, SUFFIX)(eip + 1);
+    DATA_TYPE temp = instr_fetch(eip + 2, DATA_BYTE);
+    if(DATA_BYTE == 2){
+        if(MSB(temp) == 0)
+            temp = temp & 0x00ff;
+        else
+            temp = temp | 0xff00;
+    }
+    else if(DATA_BYTE == 4){
+        if(MSB(temp) == 0)
+            temp = temp & 0x000000ff;
+        else
+            temp = temp | 0xffffff00;
+    }
+    op_src->val += temp;
     do_execute();
-    return 1 + DATA_BYTE;
+    return 2 + DATA_BYTE;
 }
 
 #include "cpu/exec/template-end.h"
