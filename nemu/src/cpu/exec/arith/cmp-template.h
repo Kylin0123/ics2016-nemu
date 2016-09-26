@@ -17,19 +17,19 @@ static void do_execute(){
         temp = 1;
     else if(op_dest->val == 0x80000000)
         temp = -1;
-        if(temp == 0)
-            cpu.eflags._zf = 1;
-        else
-            cpu.eflags._zf = 0;
+    if(temp == 0)
+        cpu.eflags._zf = 1;
+    else
+        cpu.eflags._zf = 0;
     
-        if(MSB(temp) == 1)
-            cpu.eflags._cf = 1;
-        else{
-            cpu.eflags._cf = 0;
-        }
+    if(MSB(temp) == 1)
+        cpu.eflags._cf = 1;
+    else{
+        cpu.eflags._cf = 0;
+    }
     print_asm_template2();
-     printf("dest:%d\n", op_dest->val);
-     printf("src:%d\n", op_src->val);
+     printf("dest:%x\n", op_dest->val);
+     printf("src:%x\n", op_src->val);
      printf("zf:%d\n", cpu.eflags._zf); 
      printf("cf:%d\n", cpu.eflags._cf); 
      printf("temp:%d\n", temp); 
