@@ -16,7 +16,6 @@ static void do_execute(){
     print_asm_template1();
 }
 
-#if DATA_BYTE == 1 || DATA_BYTE == 2 || DATA_BYTE == 4 
 make_helper(concat(push_ebp_, SUFFIX)){
     op_src->val = cpu.ebp;
     do_execute();
@@ -35,6 +34,12 @@ make_helper(concat(push_eax_, SUFFIX)){
     return 1;
 }
 
-#endif
+
+make_helper(concat(push_m_, SUFFIX)){
+    swaddr_t addr = instr_fetch(eip + 1, DATA_BYTE);
+    op_src->val = addr;
+    do_execute();
+    return 1 + DATA_BYTE;
+}
 
 #include "cpu/exec/template-end.h"

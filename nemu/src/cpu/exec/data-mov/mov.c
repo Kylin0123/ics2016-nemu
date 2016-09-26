@@ -17,16 +17,6 @@
 make_helper_v(mov_i2r)
 make_helper_v(mov_i2rm)
 
-/*make_helper(mov_i2rm_l){
-        uint32_t op_dest = instr_fetch(eip + 2, 4);
-        uint32_t op_src = instr_fetch(eip + 6 , 4);
-        uint32_t temp = MEM_R(op_dest);
-        temp += op_src;
-        MEM_W(op_dest, temp);
-        return 10;
-    }
-*/
-
 make_helper_v(mov_r2rm)
 make_helper_v(mov_rm2r)
 make_helper_v(mov_a2moffs)

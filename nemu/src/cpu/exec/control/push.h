@@ -9,9 +9,9 @@
 #define _PUSH_H
 
 make_helper(push_ebp_l);
-
 make_helper(push_edx_l);
-
 make_helper(push_eax_l);
+
+make_helper(push_m_v);
 
 #endif
