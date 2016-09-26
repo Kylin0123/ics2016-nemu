@@ -32,7 +32,7 @@ static void do_execute(){
     else
         cpu.eflags._cf = 1;
     print_asm_template2();
-     
+    /* 
     printf("dest:%x\n", op_dest->val);
     printf("src:%x\n", op_src->val);
     printf("zf:%d\n", cpu.eflags._zf); 
@@ -40,7 +40,7 @@ static void do_execute(){
     printf("temp:%x\n", temp); 
     printf("eax:%d\n", cpu.eax);
     printf("ecx:%d\n\n", cpu.ecx);
-    
+    */
 }
 
 make_instr_helper(i2r)
