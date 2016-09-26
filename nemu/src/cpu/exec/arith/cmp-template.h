@@ -27,7 +27,10 @@ static void do_execute(){
 
     cpu.eflags._zf = !temp;
     cpu.eflags._sf = MSB(temp);
-    cpu.eflags._cf = MSB(temp);
+    if(op_dest->val >= op_src->val)
+        cpu.eflags._cf = 0;
+    else
+        cpu.eflags._cf = 1;
     print_asm_template2();
      
     printf("dest:%x\n", op_dest->val);
