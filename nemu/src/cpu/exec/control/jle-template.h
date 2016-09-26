@@ -11,9 +11,9 @@
 static void do_execute(){
     if(cpu.eflags._zf == 1 || cpu.eflags._cf != cpu.eflags._sf){
         cpu.eip = cpu.eip + op_src->val;
-        printf("cf:%d\n", cpu.eflags._cf);
-        printf("sf:%d\n\n", cpu.eflags._sf);
     }
+    printf("cf:%d\n", cpu.eflags._cf);
+    printf("sf:%d\n\n", cpu.eflags._sf);
     print_asm_template1();
 }
 
