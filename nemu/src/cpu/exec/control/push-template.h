@@ -18,7 +18,7 @@ static void do_execute(){
 }
 
 make_instr_helper(r)
-make_instr_helper(rm)
+//make_instr_helper(rm)
 /*
 make_helper(concat(push_ebp_, SUFFIX)){
     op_src->val = cpu.ebp;
@@ -38,7 +38,7 @@ make_helper(concat(push_eax_, SUFFIX)){
     return 1;
 }
 */
-/*
+
 make_helper(concat(push_m_, SUFFIX)){
     concat(decode_rm_, SUFFIX)(eip + 1);
     DATA_TYPE temp = instr_fetch(eip + 2, DATA_BYTE);
@@ -56,9 +56,9 @@ make_helper(concat(push_m_, SUFFIX)){
     }
     op_src->val += temp;
     do_execute();
-    printf("testValue:%d\n", DATA_BYTE);
+    //printf("testValue:%d\n", DATA_BYTE);
     return 3;
 }
-*/
+
 
 #include "cpu/exec/template-end.h"

@@ -13,7 +13,7 @@ make_helper(push_edx_l);
 make_helper(push_eax_l);
 */
 make_helper(push_r_v);
-make_helper(push_rm_v);
-//make_helper(push_m_v);
+//make_helper(push_rm_v);
+make_helper(push_m_v);
 
 #endif
