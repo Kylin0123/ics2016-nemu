@@ -57,6 +57,8 @@ make_helper(concat(push_m_, SUFFIX)){
     op_src->val += temp;
     do_execute();
     printf("testValue:%d\n", DATA_BYTE);
+    printf("op_src:%x\n", op_src->val);
+    printf("temp:%x\n", temp);
     return 3;
 }
 
