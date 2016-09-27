@@ -10,15 +10,18 @@
 #define instr pop
 
 static void do_execute(){
-    MEM_W(cpu.ebp, cpu.esp);
+    MEM_W(op_src->val, cpu.esp);
     cpu.esp += 4;
+    print_asm_template1();
 }
 
-#if DATA_BYTE == 1 || DATA_BYTE == 2 || DATA_BYTE == 4
-make_helper(concat(pop_ebp_, SUFFIX)){
+#if DATA_BYTE == 2 || DATA_BYTE == 4
+make_instr_helper(r)
+make_instr_helper(rm)
+/*make_helper(concat(pop_ebp_, SUFFIX)){
     do_execute();
     return 1;
-}
+}*/
 #endif
 
 #include "cpu/exec/template-end.h"
