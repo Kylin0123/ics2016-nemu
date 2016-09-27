@@ -12,12 +12,7 @@
 static void do_execute(){
     DATA_TYPE temp = op_dest->val & op_src->val;
     cpu.eflags._sf = MSB(temp);
-    
-    if(temp == 0)
-        cpu.eflags._zf = 1;
-    else
-        cpu.eflags._zf = 0;
-    
+    cpu.eflags._zf = !temp; 
     int temp_pf = temp & 1;
     int temp_test = 2;
     int i;
