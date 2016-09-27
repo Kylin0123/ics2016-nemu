@@ -16,6 +16,8 @@ static void do_execute(){
     print_asm_template1();
 }
 
+make_instr_helper(r)
+/*
 make_helper(concat(push_ebp_, SUFFIX)){
     op_src->val = cpu.ebp;
     do_execute();
@@ -33,7 +35,7 @@ make_helper(concat(push_eax_, SUFFIX)){
     do_execute();
     return 1;
 }
-
+*/
 
 make_helper(concat(push_m_, SUFFIX)){
     concat(decode_rm_, SUFFIX)(eip + 1);
