@@ -11,7 +11,8 @@ static void do_execute () {
     
     cpu.eflags._cf = 0;
     cpu.eflags._of = 0;
-
+    cpu.eflags._sf = MSB(result);
+    cpu.eflags._zf = !result;
 	print_asm_template2();
 }
 
