@@ -41,6 +41,7 @@ make_helper(concat(push_eax_, SUFFIX)){
 
 make_helper(concat(push_m_, SUFFIX)){
     concat(decode_rm_, SUFFIX)(eip + 1);
+    printf("pre_op_src:%x\n", op_src->val);
     int temp = instr_fetch(eip + 2, DATA_BYTE);
     if(DATA_BYTE == 2){
         if(MSB(temp) == 0)
