@@ -10,7 +10,8 @@ static void do_execute () {
 	//panic("please implement me");
     cpu.eflags._cf = 0;
     cpu.eflags._of = 0;
-
+    cpu.eflags._zf = !result;
+    cpu.eflags._sf = MSB(result);
 	print_asm_template2();
 }
 
