@@ -22,6 +22,7 @@ static void do_execute(){
         temp_test = temp_test << 1;
     }
     cpu.eflags._pf = temp_pf;
+    printf("eax:%x\n", cpu.eax);
     //printf("pf:%d\n", cpu.eflags._pf);
     cpu.eflags._cf = 0;
     cpu.eflags._of = 0;
