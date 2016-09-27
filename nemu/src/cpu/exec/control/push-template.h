@@ -55,7 +55,7 @@ make_helper(concat(push_m_, SUFFIX)){
     }
     op_src->val += temp;
     do_execute();
-    return 2 + DATA_BYTE;
+    return 1;
 }
 
 #include "cpu/exec/template-end.h"
