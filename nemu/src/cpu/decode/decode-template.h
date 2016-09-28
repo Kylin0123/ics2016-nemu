@@ -31,7 +31,8 @@ make_helper(concat(decode_si_, SUFFIX)) {
 	 * it to op_src->simm.
 	 */
 	op_src->simm = instr_fetch(eip, DATA_BYTE);
-    DATA_TYPE temp = 0;
+    printf("simm:%x\n", op_src->simm);
+    /*DATA_TYPE temp = 0;
 	//panic("please implement me");
     if(DATA_BYTE == 2){
         if(op_src->simm >> 7 == 0)
@@ -50,6 +51,8 @@ make_helper(concat(decode_si_, SUFFIX)) {
     printf("op_src->val:%x\n", op_src->val);
     printf("temp:%x\n", temp);
     printf("BYTE:%d\n", DATA_BYTE);
+    */
+    
 
 #ifdef DEBUG
 	snprintf(op_src->str, OP_STR_SIZE, "$0x%x", op_src->val);
