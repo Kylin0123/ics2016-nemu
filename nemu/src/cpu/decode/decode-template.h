@@ -33,27 +33,17 @@ make_helper(concat(decode_si_, SUFFIX)) {
 	op_src->simm = instr_fetch(eip, DATA_BYTE);
     //op_src->simm = op_src->simm | 0xffffff00;
     printf("simm:%x\n", op_src->simm);
-    /*DATA_TYPE temp = 0;
+    uint32_t temp = 0;
 	//panic("please implement me");
-    if(DATA_BYTE == 2){
-        if(op_src->simm >> 7 == 0)
-            temp = op_src->simm & 0x00ff;
-        else
-            temp = op_src->simm | 0xff00;
-    }
-    else if(DATA_BYTE == 4){
-        if(op_src->simm >> 7 == 0)
-            temp = op_src->simm & 0x000000ff;
-        else
-            temp = op_src->simm | 0xffffff00;
-    }
-    
+    if(op_src->simm >> 7 == 0)
+        temp = op_src->simm & 0x000000ff;
+    else
+        temp = op_src->simm | 0xffffff00;
 	op_src->val = temp;
     printf("op_src->val:%x\n", op_src->val);
     printf("temp:%x\n", temp);
     printf("BYTE:%d\n", DATA_BYTE);
-    */
-    op_src->val = op_src->simm;
+    //op_src->val = op_src->simm;
 
 #ifdef DEBUG
 	snprintf(op_src->str, OP_STR_SIZE, "$0x%x", op_src->val);
