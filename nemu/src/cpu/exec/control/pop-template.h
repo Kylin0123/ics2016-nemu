@@ -10,7 +10,7 @@
 #define instr pop
 
 static void do_execute(){
-    MEM_W(op_src->val, cpu.esp);
+    OPERAND_W(op_src, cpu.esp);
     cpu.esp += 4;
     print_asm_template1();
 }
