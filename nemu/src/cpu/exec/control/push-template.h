@@ -12,11 +12,11 @@
 
 static void do_execute(){
     cpu.esp -= 4;
-    printf("pre_esp:%x\n", cpu.esp);
+    //printf("pre_esp:%x\n", cpu.esp);
     MEM_W(cpu.esp, op_src->val);
     print_asm_template1();
-    printf("op_src:%x\n", op_src->val);
-    printf("esp:%x\n\n", cpu.esp);
+    //printf("op_src:%x\n", op_src->val);
+    //printf("esp:%x\n\n", cpu.esp);
 }
 
 make_instr_helper(r)
@@ -43,7 +43,7 @@ make_helper(concat(push_eax_, SUFFIX)){
 
 make_helper(concat(push_m_, SUFFIX)){
     concat(decode_rm_, SUFFIX)(eip + 1);
-    printf("pre_op_src:%x\n", op_src->val);
+    //printf("pre_op_src:%x\n", op_src->val);
     int temp = instr_fetch(eip + 2, DATA_BYTE);
     if(DATA_BYTE == 2){
         if(MSB(temp) == 0)
@@ -59,9 +59,9 @@ make_helper(concat(push_m_, SUFFIX)){
     }
     op_src->val += temp;
     do_execute();
-    printf("testValue:%d\n", DATA_BYTE);
-    printf("op_src:%x\n", op_src->val);
-    printf("temp:%d\n", temp);
+    //printf("testValue:%d\n", DATA_BYTE);
+    //printf("op_src:%x\n", op_src->val);
+    //printf("temp:%d\n", temp);
     return 3;
 }
 

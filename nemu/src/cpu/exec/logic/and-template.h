@@ -12,6 +12,7 @@ static void do_execute () {
     cpu.eflags._of = 0;
     cpu.eflags._zf = !result;
     cpu.eflags._sf = MSB(result);
+    printf("ops_src:%x\n", op_src->val);
 	print_asm_template2();
 }
 
