@@ -31,7 +31,7 @@ make_helper(concat(decode_si_, SUFFIX)) {
 	 * it to op_src->simm.
 	 */
 	op_src->simm = instr_fetch(eip, DATA_BYTE);
-    op_src->simm = op_src->simm | 0xffffff00;
+    //op_src->simm = op_src->simm | 0xffffff00;
     printf("simm:%x\n", op_src->simm);
     /*DATA_TYPE temp = 0;
 	//panic("please implement me");
