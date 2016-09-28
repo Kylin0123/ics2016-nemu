@@ -10,7 +10,8 @@
 #define instr pop
 
 static void do_execute(){
-    OPERAND_W(op_src, cpu.esp);
+    swaddr_t addr = MEM_R(cpu.esp);
+    OPERAND_W(op_src, addr);
     printf("op_src:%x\n", op_src->val);
     printf("esp:%x\n\n", cpu.esp);
     //op_src = cpu.esp;
