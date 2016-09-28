@@ -10,10 +10,10 @@
 #define instr pop
 
 static void do_execute(){
-    swaddr_t addr = MEM_R(cpu.esp);
-    OPERAND_W(op_src, addr);
-    printf("op_src:%x\n", op_src->val);
-    printf("esp:%x\n\n", cpu.esp);
+    uint32_t temp = MEM_R(cpu.esp);
+    OPERAND_W(op_src, temp);
+    //printf("op_src:%x\n", op_src->val);
+    //printf("esp:%x\n\n", cpu.esp);
     //op_src = cpu.esp;
     cpu.esp += 4;
     print_asm_template1();
