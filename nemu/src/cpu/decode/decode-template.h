@@ -52,7 +52,7 @@ make_helper(concat(decode_si_, SUFFIX)) {
     printf("temp:%x\n", temp);
     printf("BYTE:%d\n", DATA_BYTE);
     */
-    
+    op_src->val = op_src->imm;
 
 #ifdef DEBUG
 	snprintf(op_src->str, OP_STR_SIZE, "$0x%x", op_src->val);
