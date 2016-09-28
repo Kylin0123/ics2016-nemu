@@ -11,6 +11,9 @@
 
 static void do_execute(){
     OPERAND_W(op_src, cpu.esp);
+    printf("op_src:%x\n", op_src->val);
+    printf("esp:%x\n\n", cpu.esp);
+    //op_src = cpu.esp;
     cpu.esp += 4;
     print_asm_template1();
 }
