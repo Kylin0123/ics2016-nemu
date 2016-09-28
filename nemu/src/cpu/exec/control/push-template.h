@@ -14,7 +14,8 @@ static void do_execute(){
     cpu.esp -= 4;
     MEM_W(cpu.esp, op_src->val);
     print_asm_template1();
-    printf("aaaa:%x\n", op_src->val);
+    printf("op_src:%x\n", op_src->val);
+    printf("esp:%x\n", cpu.esp);
 }
 
 make_instr_helper(r)
