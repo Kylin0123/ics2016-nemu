@@ -35,11 +35,26 @@ make_helper(concat(decode_si_, SUFFIX)) {
     //printf("simm:%x\n", op_src->simm);
     uint32_t temp = 0;
 	//panic("please implement me");
-    if(op_src->simm >> 7 == 0)
-        temp = op_src->simm & 0x000000ff;
-    else
-        temp = op_src->simm | 0xffffff00;
-	op_src->val = temp;
+    if(DATA_BYTE == 1){
+        if(op_src->simm >> 7 == 0)
+            temp = op_src->simm & 0x000000ff;
+        else
+            temp = op_src->simm | 0xffffff00;
+    }
+    else if(DATA_BYTE == 2){
+        if(op_src->simm >> 15 == 0)
+            temp = op_src->simm & 0x0000ffff;
+        else
+            temp = op_src->simm | 0xffff0000;
+        
+    }
+    else if(DATA_BYTE == 4){
+        if(op_src->simm >> 31 == 0)
+            temp = op_src->simm & 0xffffffff;
+        else
+            temp = op_src->simm | 0x00000000;
+    }
+    op_src->val = temp;
     //printf("op_src->val:%x\n", op_src->val);
     //printf("temp:%x\n", temp);
     //printf("BYTE:%d\n", DATA_BYTE);
