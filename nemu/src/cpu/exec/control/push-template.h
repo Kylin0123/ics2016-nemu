@@ -19,6 +19,7 @@ static void do_execute(){
     //printf("esp:%x\n\n", cpu.esp);
 }
 
+make_instr_helper(i)
 make_instr_helper(r)
 //make_instr_helper(i2rm)
 /*
