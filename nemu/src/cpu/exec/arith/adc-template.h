@@ -13,8 +13,41 @@ static void do_execute(){
     DATA_TYPE result = op_dest->val + op_src->val + cpu.eflags._cf;
     OPERAND_W(op_dest, result);
     //todo : eflags
+    cpu.eflags._zf = !result;
+    cpu.eflags._sf = MSB(result);
+    if(MSB(op_dest->val) == 0 && MSB(op_src->val) == 0 && MSB(result) == 0){
+        cpu.eflags._cf = 0;
+        cpu.eflags._of = 0;
+    }
+    else if(MSB(op_dest->val) == 0 && MSB(op_src->val) == 0 && MSB(result) == 1){
+        cpu.eflags._cf = 0;
+        cpu.eflags._of = 1;
+    }
+    else if(MSB(op_dest->val) == 0 && MSB(op_src->val) == 1 && MSB(result) == 0){
+        cpu.eflags._cf = 1;
+        cpu.eflags._of = 0;
+    }
+    else if(MSB(op_dest->val) == 0 && MSB(op_src->val) == 1 && MSB(result) == 1){
+        cpu.eflags._cf = 0;
+        cpu.eflags._of = 0;
+    }
+    else if(MSB(op_dest->val) == 1 && MSB(op_src->val) == 0 && MSB(result) == 0){
+        cpu.eflags._cf = 1;
+        cpu.eflags._of = 0;
+    }
+    else if(MSB(op_dest->val) == 1 && MSB(op_src->val) == 0 && MSB(result) == 1){
+        cpu.eflags._cf = 0;
+        cpu.eflags._of = 0;
+    }
+    else if(MSB(op_dest->val) == 1 && MSB(op_src->val) == 1 && MSB(result) == 0){
+        cpu.eflags._cf = 1;
+        cpu.eflags._of = 1;
+    }
+    else if(MSB(op_dest->val) == 1 && MSB(op_src->val) == 1 && MSB(result) == 1){
+        cpu.eflags._cf = 1;
+        cpu.eflags._of = 0;
+    }
 }
-
 make_instr_helper(i2r)
 make_instr_helper(i2rm)
 #if DATA_BYTE == 2 || DATA_BYTE == 4
