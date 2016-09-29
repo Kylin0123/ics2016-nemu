@@ -1,4 +1,4 @@
-/*************************************************************************
+/*********************************mZ**************************************
 	> File Name: call-template.h
 	> Author: 
 	> Mail: 
@@ -19,8 +19,10 @@ static void do_execute(){
     print_asm_template1();
 }
 
+#if DATA_BYTE == 4 || DATA_BYTE == 2
 make_instr_helper(si)
-/*
+#endif
+/*I
 #if DATA_BYTE == 4 || DATA_BYTE == 2 || DATA_BYTE == 1
 make_helper(concat(call_rel_, SUFFIX)){
     DATA_TYPE rel = instr_fetch(eip + 1, DATA_BYTE);
