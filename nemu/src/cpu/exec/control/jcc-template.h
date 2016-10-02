@@ -41,6 +41,7 @@ static void do_execute(){
     printf("rel:%d\n", rel);
     if(cpu.eflags._zf == 0)
         cpu.eip += rel;
+    printf("eip:%x\n", cpu.eip);
     print_asm_template1();
 }
 make_instr_helper(si)
