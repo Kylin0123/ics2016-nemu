@@ -38,10 +38,10 @@ make_instr_helper(si)
 #define instr jne
 static void do_execute(){
     int32_t rel = op_src->val;
-    printf("rel:%d\n", rel);
+    //printf("rel:%d\n", rel);
     if(cpu.eflags._zf == 0)
         cpu.eip += rel;
-    printf("eip:%x\n", cpu.eip);
+    //printf("eip:%x\n", cpu.eip);
     print_asm_template1();
 }
 make_instr_helper(si)
