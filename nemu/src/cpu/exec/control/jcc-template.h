@@ -37,8 +37,9 @@ make_instr_helper(si)
 
 #define instr jne
 static void do_execute(){
+    int32_t rel = op_src->val;
     if(cpu.eflags._zf == 0)
-        cpu.eip += op_src->val;
+        cpu.eip += rel;
     print_asm_template1();
 }
 make_instr_helper(si)
