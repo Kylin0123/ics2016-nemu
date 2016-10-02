@@ -19,7 +19,7 @@ static void do_execute(){
 make_helper(concat(movz_rmb2r_, SUFFIX)){
     printf("op_src:%x\n", op_src->val);
     printf("op_dest:%x\n\n", op_dest->val);
-    decode_rm_b(eip);
+    decode_rm_b(eip + 1);
     if(DATA_BYTE == 4){
         op_dest->type = OP_TYPE_REG;
         op_dest->reg = R_EAX;
