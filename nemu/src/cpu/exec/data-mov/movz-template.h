@@ -28,6 +28,8 @@ make_helper(concat(movz_rmb2r_, SUFFIX)){
         op_dest->reg = R_AX;
         op_dest->val = REG(R_AX);
     }
+    printf("op_src:%x\n", op_src->val);
+    printf("op_dest:%x\n\n", op_dest->val);
     snprintf(op_dest->str, OP_STR_SIZE, "%s", REG_NAME(R_EAX));
     do_execute();
     return 1;
