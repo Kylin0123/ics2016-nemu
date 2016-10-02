@@ -20,5 +20,6 @@
 #undef DATA_BYTE
 
 make_helper_v(test_i2r)
+make_helper_v(test_i2a)
 make_helper_v(test_i2rm)
 make_helper_v(test_r2rm)
