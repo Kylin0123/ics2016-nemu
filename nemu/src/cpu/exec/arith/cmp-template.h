@@ -44,12 +44,14 @@ static void do_execute(){
 }
 
 make_instr_helper(i2r)
+make_instr_helper(i2a)
 make_instr_helper(i2rm)
 make_instr_helper(r2rm)
 make_instr_helper(rm2r)
 
 #if DATA_BYTE == 2 || DATA_BYTE == 4
-make_helper(concat(cmp_i_b2rm_, SUFFIX)){
+make_instr_helper(si2rm)
+/*make_helper(concat(cmp_i_b2rm_, SUFFIX)){
     int len = concat(decode_rm_, SUFFIX)(eip + 1);
     op_dest->type = op_src->type;
     op_dest->reg = op_src->reg;
@@ -71,7 +73,7 @@ make_helper(concat(cmp_i_b2rm_, SUFFIX)){
     }
     do_execute();
     return 1 + len + len2;
-}
+}*/
 #endif
 
 /*#if DATA_BYTE == 4 || DATA_BYTE == 2 
