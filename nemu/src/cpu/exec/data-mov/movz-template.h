@@ -17,8 +17,6 @@ static void do_execute(){
 
 #if DATA_BYTE == 2 || DATA_BYTE == 4
 make_helper(concat(movz_rmb2r_, SUFFIX)){
-    printf("op_src:%x\n", op_src->val);
-    printf("op_dest:%x\n\n", op_dest->val);
     decode_rm_b(eip + 1);
     if(DATA_BYTE == 4){
         op_dest->type = OP_TYPE_REG;
@@ -30,6 +28,8 @@ make_helper(concat(movz_rmb2r_, SUFFIX)){
         op_dest->reg = R_AX;
         op_dest->val = REG(R_AX);
     }
+    printf("op_src:%x\n", op_src->val);
+    printf("op_dest:%x\n\n", op_dest->val);
     snprintf(op_dest->str, OP_STR_SIZE, "%s", REG_NAME(R_EAX));
     do_execute();
     return 1;
