@@ -20,7 +20,7 @@ static void do_execute(){
     MEM_W(cpu.esp, temp);
     print_asm_template1();
     if(cpu.eip == 0x100178)
-        printf("op_src:%d\n", op_src->size);
+        printf("op_src:%d\n", temp);
     //printf("esp:%x\n\n", cpu.esp);
 }
 
