@@ -31,10 +31,10 @@ make_helper(concat(decode_si_, SUFFIX)) {
 	 * it to op_src->simm.
 	 */
 	op_src->simm = instr_fetch(eip, DATA_BYTE);
-    op_src->val = op_src->simm;
+    //op_src->val = op_src->simm;
     //op_src->simm = op_src->simm | 0xffffff00;
     //printf("simm:%x\n", op_src->simm);
-    /*uint32_t temp = 0;
+    uint32_t temp = 0;
 	//panic("please implement me");
     if(DATA_BYTE == 1){
         if(op_src->simm >> 7 == 0)
@@ -55,7 +55,7 @@ make_helper(concat(decode_si_, SUFFIX)) {
         else
             temp = op_src->simm | 0x00000000;
     }
-    op_src->val = temp;*/
+    op_src->val = temp;
     //printf("op_src->val:%x\n", op_src->val);
     //printf("temp:%x\n", temp);
     //printf("BYTE:%d\n", DATA_BYTE);
