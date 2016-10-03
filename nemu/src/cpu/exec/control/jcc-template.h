@@ -28,7 +28,7 @@ make_instr_helper(si)
 #define instr jbe
 static void do_execute(){
     int32_t rel = op_src->val;
-    printf("jbe/rel:%d\n", rel);
+    //printf("jbe/rel:%d\n", rel);
     if(cpu.eflags._zf == 1 || cpu.eflags._cf == 1)
         cpu.eip += rel;
     print_asm_template1();
