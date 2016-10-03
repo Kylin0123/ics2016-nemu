@@ -19,8 +19,11 @@ static void do_execute(){
     int32_t temp = op_src->val;
     MEM_W(cpu.esp, temp);
     print_asm_template1();
-    if(cpu.eip == 0x100178)
+    if(cpu.eip == 0x100178){
         printf("op_src:%d\n", temp);
+        uint32_t test = MEM_R(cpu.esp);
+        printf("esp_val:%x\n", test);
+    }
     //printf("esp:%x\n\n", cpu.esp);
 }
 
