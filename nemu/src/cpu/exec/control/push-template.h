@@ -11,7 +11,10 @@
 #define instr push
 
 static void do_execute(){
-    cpu.esp -= 4;
+    if(ops_decoded.is_operand_size_16)
+        cpu.esp -= 2;
+    else
+        cpu.esp -= 4;
     //printf("pre_esp:%x\n", cpu.esp);
     MEM_W(cpu.esp, op_src->val);
     print_asm_template1();
