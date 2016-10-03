@@ -15,7 +15,7 @@ static void do_execute(){
     //printf("pre_esp:%x\n", cpu.esp);
     MEM_W(cpu.esp, op_src->val);
     print_asm_template1();
-    //printf("op_src:%x\n", op_src->val);
+    printf("op_src:%x\n", op_src->val);
     //printf("esp:%x\n\n", cpu.esp);
 }
 
