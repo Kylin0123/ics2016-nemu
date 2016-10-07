@@ -46,9 +46,11 @@ make_helper(concat(movz_rmb2r_, SUFFIX)){
 
 #if DATA_BYTE == 4
 make_helper(movz_rmw2r_l){
-    
+    op_src->size = 2;
+    int len = read_ModR_M(eip + 1, op_src, op_dest);
+    op_dest->val = REG(op_dest->reg);
     do_execute();
-    return 1;
+    return DATA_BYTE + len - 3;
 }
 #endif
 
