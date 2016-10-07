@@ -48,5 +48,15 @@ static void do_execute(){
 make_instr_helper(si)
 #undef instr
 
+#define instr jg
+static void do_execute(){
+    int32_t rel = op_src->val;
+    if(cpu.eflags._zf == 0 && cpu.eflags._sf == cpu.eflags._of)
+        cpu.eip += rel;
+    print_asm_template1();
+}
+make_instr_helper(si)
+#undef instr
+
 #include "cpu/exec/template-end.h"
 
