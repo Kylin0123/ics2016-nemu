@@ -16,8 +16,10 @@ static void do_execute(){
     else
         cpu.esp -= 4;
     //printf("pre_esp:%x\n", cpu.esp);
-    uint32_t temp = op_src->val;
+    DATA_TYPE temp = op_src->val;
     MEM_W(cpu.esp, temp);
+    printf("DATA_BYTE:%d\n", DATA_BYTE);
+    //swaddr_write(cpu.esp, )
     print_asm_template1();
     if(cpu.eip == 0x100178){
         printf("op_src:%d\n", temp);
