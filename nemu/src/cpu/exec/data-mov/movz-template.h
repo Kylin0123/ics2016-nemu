@@ -38,7 +38,7 @@ make_helper(concat(movz_rmb2r_, SUFFIX)){
     //printf("op_dest:%x\n\n", op_dest->val);
     //snprintf(op_dest->str, OP_STR_SIZE, "%s", REG_NAME(R_EAX));
     do_execute();
-    return len;
+    return len - 1;
 }
 #endif
 
