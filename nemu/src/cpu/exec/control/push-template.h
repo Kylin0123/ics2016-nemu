@@ -18,7 +18,7 @@ static void do_execute(){
     //printf("pre_esp:%x\n", cpu.esp);
     DATA_TYPE temp = op_src->val;
     //MEM_W(cpu.esp, temp);
-    printf("DATA_BYTE:%d\n", DATA_BYTE);
+    //printf("DATA_BYTE:%d\n", DATA_BYTE);
     swaddr_write(cpu.esp, 4, temp);
     print_asm_template1();
     /*if(cpu.eip == 0x100178){
