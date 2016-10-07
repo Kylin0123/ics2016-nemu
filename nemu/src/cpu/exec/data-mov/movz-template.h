@@ -34,6 +34,7 @@ make_helper(concat(movz_rmb2r_, SUFFIX)){
     op_src->size = 1;
     int len = read_ModR_M(eip + 1, op_src, op_dest);
     op_dest->val = REG(op_dest->reg);
+    printf("len:%d\n", len);
     //printf("op_src:%x\n", op_src->val);
     //printf("op_dest:%x\n\n", op_dest->val);
     //snprintf(op_dest->str, OP_STR_SIZE, "%s", REG_NAME(R_EAX));
