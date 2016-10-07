@@ -21,11 +21,11 @@ static void do_execute(){
     printf("DATA_BYTE:%d\n", DATA_BYTE);
     swaddr_write(cpu.esp, 4, temp);
     print_asm_template1();
-    if(cpu.eip == 0x100178){
+    /*if(cpu.eip == 0x100178){
         printf("op_src:%d\n", temp);
         uint32_t test = MEM_R(cpu.esp);
         printf("esp_val:%x\n", test);
-    }
+    }*/
     //printf("esp:%x\n\n", cpu.esp);
 }
 
