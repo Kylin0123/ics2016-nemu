@@ -11,15 +11,18 @@
 #define instr push
 
 static void do_execute(){
-    if(ops_decoded.is_operand_size_16)
+    if(ops_decoded.is_operand_size_16){
         cpu.esp -= 2;
-    else
+        swaddr_write(cpu.esp, 2, op_src->val);
+    }
+    else{
         cpu.esp -= 4;
+        swaddr_write(cpu.esp, 4, op_src->val);
+    }
     //printf("pre_esp:%x\n", cpu.esp);
-    DATA_TYPE temp = op_src->val;
+    //DATA_TYPE temp = op_src->val;
     //MEM_W(cpu.esp, temp);
     //printf("DATA_BYTE:%d\n", DATA_BYTE);
-    swaddr_write(cpu.esp, 4, temp);
     print_asm_template1();
     /*if(cpu.eip == 0x100178){
         printf("op_src:%d\n", temp);
