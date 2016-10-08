@@ -34,6 +34,7 @@ static void do_execute(){
 
 make_instr_helper(i)
 make_instr_helper(r)
+make_instr_helper(rm)
 //make_instr_helper(i2rm)
 /*
 make_helper(concat(push_ebp_, SUFFIX)){
@@ -54,8 +55,8 @@ make_helper(concat(push_eax_, SUFFIX)){
     return 1;
 }
 */
-
-
+/*
+#if DATA_BYTE == 2 || DATA_BYTE == 4
 make_helper(concat(push_m_, SUFFIX)){
     concat(decode_rm_, SUFFIX)(eip + 1);
     //printf("pre_op_src:%x\n", op_src->val);
@@ -79,6 +80,6 @@ make_helper(concat(push_m_, SUFFIX)){
     //printf("temp:%d\n", temp);
     return 3;
 }
-
-
+#endif
+*/
 #include "cpu/exec/template-end.h"
