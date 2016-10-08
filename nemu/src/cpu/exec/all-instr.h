@@ -2,9 +2,6 @@
 
 #include "control/call.h"
 #include "control/push.h"
-//#include "control/je.h"
-//#include "control/jbe.h"
-//#include "control/jle.h"
 #include "control/jcc.h"
 #include "control/pop.h"
 #include "control/ret.h"
@@ -14,6 +11,7 @@
 #include "data-mov/xchg.h"
 #include "data-mov/leave.h"
 #include "data-mov/movz.h"
+#include "data-mov/movs.h"
 
 #include "arith/dec.h"
 #include "arith/inc.h"
