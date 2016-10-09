@@ -11,6 +11,7 @@
 #define instr movs
 
 static void do_execute(){
+    printf("sign:%d\n", MSB(op_src->val));
     printf("1:%x\n", op_src->val);
     int32_t temp = (int)op_src->val;
     printf("2:%x\n\n", temp);
