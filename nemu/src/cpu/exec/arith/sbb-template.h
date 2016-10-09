@@ -15,7 +15,8 @@ static void do_execute(){
     //todo : eflags
 }
 
-make_instr_helper(i2r)
+//make_instr_helper(i2r)
+make_instr_helper(i2a)
 make_instr_helper(i2rm)
 #if DATA_BYTE == 2 || DATA_BYTE == 4
 make_instr_helper(si2rm)
