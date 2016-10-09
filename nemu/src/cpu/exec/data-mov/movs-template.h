@@ -21,7 +21,7 @@ static void do_execute(){
     if(op_src->size == 1){
         int8_t temp = op_src->val;
         DATA_TYPE_S temp2 = temp;
-        printf("temp2:%x\n", temp2);
+        //printf("temp2:%x\n", temp2);
         OPERAND_W(op_dest, temp2);
         print_asm_template2();
     }
