@@ -11,9 +11,10 @@
 #define instr movs
 
 static void do_execute(){
+    DATA_TYPE_S temp = op_src->val;
     printf("sign:%d\n", MSB(op_src->val));
     printf("1:%x\n", op_src->val);
-    int32_t temp = (int)op_src->val;
+    //int32_t temp = (int)op_src->val;
     printf("2:%x\n\n", temp);
     OPERAND_W(op_dest, temp);
     print_asm_template2();
