@@ -11,13 +11,26 @@
 #define instr movs
 
 static void do_execute(){
-    DATA_TYPE_S temp = op_src->val;
+    /*DATA_TYPE_S temp = op_src->val;
     printf("sign:%d\n", MSB(op_src->val));
     printf("1:%x\n", op_src->val);
     //int32_t temp = (int)op_src->val;
     printf("2:%x\n\n", temp);
     OPERAND_W(op_dest, temp);
-    print_asm_template2();
+    print_asm_template2();*/
+    if(op_src->size == 1){
+        int8_t temp = op_src->val;
+        DATA_TYPE_S temp2 = temp;
+        printf("temp2:%x\n", temp2);
+        OPERAND_W(op_dest, temp2);
+        print_asm_template2();
+    }
+    else{
+        int16_t temp = op_src->val;
+        DATA_TYPE_S temp2 = temp;
+        OPERAND_W(op_dest, temp2);
+        print_asm_template2();
+    }
 }
 
 #if DATA_BYTE == 2 || DATA_BYTE == 4
