@@ -18,7 +18,7 @@ make_helper(ret_i_w){
     cpu.eip = swaddr_read(cpu.esp, 4);
     cpu.esp += 4;
     cpu.esp += op_src->val;
-    return 0;
+    return 1;
 }
 
 make_helper(ret){
