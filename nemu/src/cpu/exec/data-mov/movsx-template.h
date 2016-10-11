@@ -18,7 +18,7 @@ static void do_execute(){
     printf("op_dest:%x\n", op_dest->val);
     printf("op_src:%x\n", op_src->val);*/
     //printf("%d\n", DATA_BYTE);
-    //printf("%d\n\n", cpu.eflags._df);
+    printf("*");
     if(cpu.eflags._df == 0){
         op_src->val += DATA_BYTE;
         op_dest->val += DATA_BYTE;
