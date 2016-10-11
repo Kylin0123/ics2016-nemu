@@ -12,11 +12,19 @@
 static void do_execute(){
     DATA_TYPE temp = MEM_R(op_src->val);
     MEM_W(op_dest->val, temp);
-    printf("ecx:%d\n", cpu.ecx);
+    /*printf("ecx:%d\n", cpu.ecx);
     printf("edi:%x\n", cpu.edi);
     printf("esi:%x\n", cpu.esi);
     printf("op_dest:%x\n", op_dest->val);
-    printf("op_src:%x\n", op_src->val);
+    printf("op_src:%x\n", op_src->val);*/
+    if(cpu.eflags._df == 0){
+        op_src->val += DATA_BYTE;
+        op_dest->val += DATA_BYTE;
+    }
+    else{
+        op_src->val -= DATA_BYTE;
+        op_dest->val -= DATA_BYTE;
+    }
     print_asm_template2();
 }
 
