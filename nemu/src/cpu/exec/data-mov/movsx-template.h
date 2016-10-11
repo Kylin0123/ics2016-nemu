@@ -14,6 +14,8 @@ static void do_execute(){
     MEM_W(op_dest->val, temp);
     printf("edi:%x\n", cpu.edi);
     printf("esi:%x\n", cpu.esi);
+    printf("op_dest:%x\n", op_dest->val);
+    printf("op_src:%x\n", op_src->val);
     print_asm_template2();
 }
 
