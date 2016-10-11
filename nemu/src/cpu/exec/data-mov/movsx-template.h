@@ -25,8 +25,8 @@ static void do_execute(){
         cpu.edi += DATA_BYTE;
     }
     else{
-        op_src->val -= DATA_BYTE;
-        op_dest->val -= DATA_BYTE;
+        cpu.esi -= DATA_BYTE;
+        cpu.edi -= DATA_BYTE;
     }
     print_asm_template2();
 }
