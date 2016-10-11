@@ -14,13 +14,13 @@
 */
 
 make_helper(ret_i_w){
-    printf("esp:%x\n", cpu.esp);
+    //printf("esp:%x\n", cpu.esp);
     int16_t temp = swaddr_read(eip + 1, 2);
-    printf("temp:%d\n", temp);
+    //printf("temp:%d\n", temp);
     cpu.eip = swaddr_read(cpu.esp, 4);
     cpu.esp += 4;
     cpu.esp += temp;
-    printf("esp:%x\n", cpu.esp);
+    //printf("esp:%x\n", cpu.esp);
     return 1;
 }
 
