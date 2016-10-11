@@ -17,7 +17,7 @@ static void do_execute(){
 make_instr_helper(si)
 
 make_helper(concat(jmp_rm_, SUFFIX)){
-    int len = concat(decode_rm_, SUFFIX)(eip);
+    int len = concat(decode_rm_, SUFFIX)(eip + 1);
     cpu.eip = op_src->val;
     return len;
 }
