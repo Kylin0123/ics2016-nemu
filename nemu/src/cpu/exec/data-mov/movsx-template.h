@@ -21,8 +21,8 @@ static void do_execute(){
     printf("ecx:%d ", cpu.ecx);
     cpu.eflags._zf = !temp;
     if(cpu.eflags._df == 0){
-        op_src->val += DATA_BYTE;
-        op_dest->val += DATA_BYTE;
+        cpu.esi += DATA_BYTE;
+        cpu.edi += DATA_BYTE;
     }
     else{
         op_src->val -= DATA_BYTE;
