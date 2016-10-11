@@ -13,7 +13,7 @@
 #include "data-mov/movz.h"
 #include "data-mov/movs.h"
 #include "data-mov/cltd.h"
-#include "data-mov/movS.h"
+#include "data-mov/movsx.h"
 
 #include "arith/dec.h"
 #include "arith/inc.h"

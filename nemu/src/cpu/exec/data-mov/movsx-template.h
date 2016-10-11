@@ -7,7 +7,7 @@
 
 #include "cpu/exec/template-start.h"
 
-#define instr movS
+#define instr movsx
 
 static void do_execute(){
     DATA_TYPE temp = MEM_R(op_src->val);
@@ -15,7 +15,7 @@ static void do_execute(){
     print_asm_template2();
 }
 
-make_helper(concat(movS_m_, SUFFIX)){
+make_helper(concat(movsx_m_, SUFFIX)){
     op_dest->type = OP_TYPE_REG;
     op_dest->reg = R_EDI;
     op_dest->val = REG(R_EDI);
