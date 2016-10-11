@@ -8,6 +8,12 @@
 
 #include "cpu/exec/helper.h"
 
+#define DATA_BYTE 2
+#include "ret-template.h"
+#undef DATA_BYTE
+
+//make_helper(ret_i_w)
+
 make_helper(ret){
     swaddr_t addr = cpu.esp;
     swaddr_t temp = swaddr_read(addr, 4);
