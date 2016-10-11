@@ -17,6 +17,7 @@ static void do_execute(){
     printf("esi:%x\n", cpu.esi);
     printf("op_dest:%x\n", op_dest->val);
     printf("op_src:%x\n", op_src->val);*/
+    printf("%d\n", DATA_BYTE);
     if(cpu.eflags._df == 0){
         op_src->val += DATA_BYTE;
         op_dest->val += DATA_BYTE;
