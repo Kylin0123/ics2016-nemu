@@ -12,6 +12,8 @@
 static void do_execute(){
     DATA_TYPE temp = MEM_R(op_src->val);
     MEM_W(op_dest->val, temp);
+    printf("edi:%x\n", cpu.edi);
+    printf("esi:%x\n", cpu.esi);
     print_asm_template2();
 }
 
