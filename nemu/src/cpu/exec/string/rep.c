@@ -26,7 +26,7 @@ make_helper(rep) {
 				);
 
 			/* TODO: Jump out of the while loop if necessary. */
-
+            if(cpu.ecx == 0) break;
 		}
 		len = 1;
 	}
@@ -53,7 +53,7 @@ make_helper(repnz) {
 			  );
 
 		/* TODO: Jump out of the while loop if necessary. */
-
+        if(cpu.ecx == 0) break;
 	}
 
 #ifdef DEBUG
