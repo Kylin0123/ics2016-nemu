@@ -26,7 +26,10 @@ make_helper(rep) {
 				);
 
 			/* TODO: Jump out of the while loop if necessary. */
-            if(cpu.eflags._zf == 0) break;
+            if(cpu.eflags._zf == 0){
+                printf("break!\n");
+                break;
+            }
 		}
 		len = 1;
 	}
