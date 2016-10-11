@@ -12,6 +12,7 @@
 static void do_execute(){
     DATA_TYPE temp = MEM_R(op_src->val);
     MEM_W(op_dest->val, temp);
+    printf("ecx:%x\n", cpu.ecx);
     printf("edi:%x\n", cpu.edi);
     printf("esi:%x\n", cpu.esi);
     printf("op_dest:%x\n", op_dest->val);
