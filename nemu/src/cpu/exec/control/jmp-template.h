@@ -15,7 +15,12 @@ static void do_execute(){
 }
 
 make_instr_helper(si)
-make_instr_helper(rm)
+
+make_helper(concat(jmp_rm_, SUFFIX)){
+    int len = concat(decode_rm_, SUFFIX)(eip);
+    cpu.eip = op_src->val;
+    return len;
+}
 
 #include "cpu/exec/template-end.h"
 
