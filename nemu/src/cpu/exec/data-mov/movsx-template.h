@@ -18,8 +18,8 @@ static void do_execute(){
     printf("op_dest:%x\n", op_dest->val);
     printf("op_src:%x\n", op_src->val);*/
     //printf("%d\n", DATA_BYTE);
-    printf("ecx:%d ", cpu.ecx);
-    cpu.eflags._zf = !temp;
+    //printf("ecx:%d ", cpu.ecx);
+    //cpu.eflags._zf = !temp;
     if(cpu.eflags._df == 0){
         cpu.esi += DATA_BYTE;
         cpu.edi += DATA_BYTE;
