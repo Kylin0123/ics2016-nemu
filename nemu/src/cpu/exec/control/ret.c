@@ -14,10 +14,10 @@
 */
 
 make_helper(ret_i_w){
-    op_src->val = swaddr_read(eip, 2);
+    int16_t temp = swaddr_read(eip, 2);
     cpu.eip = swaddr_read(cpu.esp, 4);
     cpu.esp += 4;
-    cpu.esp += op_src->val;
+    cpu.esp += temp;
     return 1;
 }
 
