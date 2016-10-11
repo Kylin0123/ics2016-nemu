@@ -19,6 +19,7 @@ static void do_execute(){
     printf("op_src:%x\n", op_src->val);*/
     //printf("%d\n", DATA_BYTE);
     printf("ecx:%d ", cpu.ecx);
+    cpu.eflags._zf = !temp;
     if(cpu.eflags._df == 0){
         op_src->val += DATA_BYTE;
         op_dest->val += DATA_BYTE;
