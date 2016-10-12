@@ -26,7 +26,7 @@ make_helper(rep) {
 				);
 
 			/* TODO: Jump out of the while loop if necessary. */
-            if(cpu.eflags._zf == 1){
+            if(cpu.eflags._zf == 0){
                 //printf("break!\n");
                 break;
             }
@@ -56,7 +56,7 @@ make_helper(repnz) {
 			  );
 
 		/* TODO: Jump out of the while loop if necessary. */
-        if(cpu.eflags._zf == 0) break;
+        if(cpu.eflags._zf == 1) break;
 	}
 
 #ifdef DEBUG
