@@ -10,9 +10,8 @@
 #define instr stos
 
 static void do_execute(){
-    swaddr_t addr = swaddr_read(cpu.edi, 4);
-    printf("addr:%x\n", addr);
-    MEM_W(addr, cpu.eax);
+    printf("addr:%x\n", cpu.edi);
+    MEM_W(cpu.edi, cpu.eax);
     if(cpu.eflags._df == 0){
         cpu.edi += DATA_BYTE;
     }
