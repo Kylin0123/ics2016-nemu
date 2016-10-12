@@ -23,7 +23,7 @@ static void do_execute(){
     else
         cpu.eflags._of = 0;
 
-    cpu.eflags._zf = !temp;
+    cpu.eflags._zf = !!temp;
     cpu.eflags._sf = MSB(temp);
     if(cpu.eax >= src)
         cpu.eflags._cf = 0;
