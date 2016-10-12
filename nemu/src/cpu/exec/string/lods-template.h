@@ -11,6 +11,7 @@
 
 static void do_execute(){
     DATA_TYPE temp = MEM_R(op_src->val);
+    printf("lods_temp:%x\n", temp);
     cpu.eax = temp;
     if(cpu.eflags._df == 0){
         cpu.esi += DATA_BYTE;
