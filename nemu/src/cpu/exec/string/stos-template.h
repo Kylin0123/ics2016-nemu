@@ -11,6 +11,7 @@
 
 static void do_execute(){
     DATA_TYPE temp = MEM_R(cpu.edi);
+    printf("temp:%x\n", temp);
     MEM_W(temp, cpu.eax);
     if(cpu.eflags._df == 0){
         cpu.edi += DATA_BYTE;
