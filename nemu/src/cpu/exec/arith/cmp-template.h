@@ -33,11 +33,11 @@ static void do_execute(){
         cpu.eflags._cf = 1;
     print_asm_template2();
      
-    printf("dest:%x\n", op_dest->val);
-    printf("src:%x\n", op_src->val);
+    //printf("dest:%x\n", op_dest->val);
+    //printf("src:%x\n", op_src->val);
     //printf("zf:%d\n", cpu.eflags._zf); 
     //printf("cf:%d\n", cpu.eflags._cf); 
-    printf("temp:%x\n", temp); 
+    //printf("temp:%x\n", temp); 
     //printf("eax:%d\n", cpu.eax);
     //printf("ecx:%d\n\n", cpu.ecx);
     
