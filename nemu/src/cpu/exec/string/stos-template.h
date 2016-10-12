@@ -10,7 +10,7 @@
 #define instr stos
 
 static void do_execute(){
-    DATA_TYPE temp = MEM_R(cpu.edi);
+    DATA_TYPE temp = swaddr_read(cpu.edi, 4);
     printf("temp:%x\n", temp);
     MEM_W(temp, cpu.eax);
     if(cpu.eflags._df == 0){
