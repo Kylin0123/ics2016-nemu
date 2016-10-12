@@ -10,7 +10,7 @@
 #define instr stos
 
 static void do_execute(){
-    printf("addr:%x\n", cpu.edi);
+    //printf("addr:%x\n", cpu.edi);
     MEM_W(cpu.edi, cpu.eax);
     if(cpu.eflags._df == 0){
         cpu.edi += DATA_BYTE;
