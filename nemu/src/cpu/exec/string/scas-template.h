@@ -12,6 +12,8 @@
 static void do_execute(){
     DATA_TYPE src = MEM_R(op_src->val);
     DATA_TYPE temp = op_dest->val - src;
+    printf("src:%x\n", src);
+    printf("op_dest:%x\n", op_dest->val);
     printf("temp:%x\n", temp);
     printf("ecx:%x\n", cpu.ecx);
     if(MSB(op_dest->val) == 0 && MSB(src) == 1 && MSB(temp) == 1)
