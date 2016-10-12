@@ -10,7 +10,7 @@
 #define instr lods
 
 static void do_execute(){
-    DATA_TYPE temp = MEM_R(op_src->val);
+    DATA_TYPE temp = swaddr_read(op_src->val, DATA_BYTE);
     printf("lods_temp:%x\n", temp);
     cpu.eax = temp;
     if(cpu.eflags._df == 0){
