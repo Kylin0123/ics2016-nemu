@@ -27,6 +27,12 @@ static void do_execute(){
         cpu.eflags._cf = 0;
     else
         cpu.eflags._cf = 1;
+    if(cpu.eflags._df == 0){
+        cpu.edi += DATA_BYTE;
+    }
+    else{
+        cpu.edi -= DATA_BYTE;
+    }
     print_asm_template2();
 }
 
