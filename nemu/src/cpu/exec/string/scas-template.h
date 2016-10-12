@@ -13,6 +13,7 @@ static void do_execute(){
     DATA_TYPE src = MEM_R(op_src->val);
     DATA_TYPE temp = op_dest->val - src;
     printf("temp:%x\n", temp);
+    printf("ecx:%x\n", cpu.ecx);
     if(MSB(op_dest->val) == 0 && MSB(src) == 1 && MSB(temp) == 1)
         cpu.eflags._of = 1;
     else if(MSB(op_dest->val) == 1 && MSB(src) == 0 && MSB(temp) == 0)
