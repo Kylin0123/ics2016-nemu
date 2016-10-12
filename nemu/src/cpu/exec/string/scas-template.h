@@ -24,6 +24,7 @@ static void do_execute(){
         cpu.eflags._of = 0;
 
     cpu.eflags._zf = !!temp;
+    printf("zf:%d\n", cpu.eflags._zf);
     cpu.eflags._sf = MSB(temp);
     if(cpu.eax >= src)
         cpu.eflags._cf = 0;
