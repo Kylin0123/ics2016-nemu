@@ -56,7 +56,7 @@ make_helper(repnz) {
 			  );
 
 		/* TODO: Jump out of the while loop if necessary. */
-        if(cpu.eflags._zf == 1) break;
+        if(cpu.eflags._zf == 0) break;
 	}
 
 #ifdef DEBUG
