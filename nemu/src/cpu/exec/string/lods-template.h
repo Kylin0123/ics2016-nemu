@@ -11,7 +11,7 @@
 
 static void do_execute(){
     DATA_TYPE temp = MEM_R(cpu.esi);
-    printf("lods_temp:%d\n", temp);
+    //printf("lods_temp:%d\n", temp);
     //printf("lods_op_src:%x\n", op_src->val);
     cpu.eax = temp;
     if(cpu.eflags._df == 0){
