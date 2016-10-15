@@ -90,9 +90,10 @@ FLOAT sqrt(FLOAT x) {
 	FLOAT dt, t = int2F(2);
 
 	do {
-        nemu_assert(0);
+        nemu_assert(1);
 		dt = F_div_int((F_div_F(x, t) - t), 2);
-		t += dt;
+		nemu_assert(0);
+        t += dt;
 	} while(Fabs(dt) > f2F(1e-4));
 
 	return t;
