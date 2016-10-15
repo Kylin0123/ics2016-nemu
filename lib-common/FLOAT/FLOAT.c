@@ -66,15 +66,16 @@ FLOAT f2F(float a) {
             tail = tail << move;
             tail = tail >> 7;
             result = result | tail;
-            if(IntA >> 31 == 1)
-                result = -result;
+            if(IntA >> 31 == 1){
+                asm volatile ("neg %0" : "=a"(result) : "a"(result));
+            }
         }
         else {
             tail = tail >> -move;
             tail = tail >> 7;
             result = result | tail;
             if(IntA >> 31 == 1)
-                result = -result;
+                asm volatile ("neg %0" : "=a"(result) : "a"(result));
         }
     }
     return result;
