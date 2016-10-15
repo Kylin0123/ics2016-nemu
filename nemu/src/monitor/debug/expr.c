@@ -36,7 +36,7 @@ static struct rule {
 	{"[&]{2}", AND},          // and
 	{"[|]{2}", OR},           // or
 	{"[!]", NOT},           // not
-    {"[a-z0-9_]+", SYMBOL},    // symbol
+    {"[a-z0-9_]", SYMBOL},    // symbol
 
 
 };
