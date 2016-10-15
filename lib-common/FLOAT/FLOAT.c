@@ -42,7 +42,36 @@ FLOAT f2F(float a) {
 	 */
 
 	//nemu_assert(0);
-	FLOAT result = (FLOAT)a;
+    union {
+        int Int;
+        float Float;
+    } A;
+    A.Float = a;
+    int IntA = A.Int;
+	int tail = IntA & 0x7fffff;
+    tail = tail | 0x800000;
+    int exp = IntA & 0x7f800000 >> 23;
+    int flag = IntA & 0x80000000;;
+    FLOAT result = 0;
+    if(exp == 0){
+        if(IntA == 0)
+            result = 0;
+    }
+    else{
+        int move = exp - 127;
+        if(move >= 0){
+            tail = tail << move;
+            tail = tail >> 7;
+            result = result | tail;
+            result = result | flag;
+        }
+        else {
+            tail = tail >> -move;
+            tail = tail >> 7;
+            result = result | tail;
+            result = result | flag;
+        }
+    }
     return result;
 }
 
