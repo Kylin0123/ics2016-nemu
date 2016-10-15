@@ -18,7 +18,7 @@ static inline FLOAT int2F(int a) {
 }
 
 static inline FLOAT F_mul_int(FLOAT a, int b) {
-	nemu_assert(b != 0); //////////////
+	//nemu_assert(a != 0); //////////////
 	return (a * b);
 }
 

@@ -74,6 +74,7 @@ FLOAT f2F(float a) {
             result = result | flag;
         }
     }
+    nemu_assert(result != 0);
     return result;
 }
 
