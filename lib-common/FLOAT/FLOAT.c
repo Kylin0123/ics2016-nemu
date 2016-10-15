@@ -30,7 +30,7 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
     //nemu_assert(b != 0);
     asm volatile ("idiv %%edx, %%eax" : "=a"(a) : "a"(a), "d"(b));
 	//nemu_assert(1);
-	return a >> 16;
+	return a << 16;
 }
 
 FLOAT f2F(float a) {
@@ -94,9 +94,7 @@ FLOAT sqrt(FLOAT x) {
 	FLOAT dt, t = int2F(2);
 
 	do {
-        //nemu_assert(1);
 		dt = F_div_int((F_div_F(x, t) - t), 2);
-		//nemu_assert(0);
         t += dt;
 	} while(Fabs(dt) > f2F(1e-4));
 
