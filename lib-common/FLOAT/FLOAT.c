@@ -62,7 +62,8 @@ FLOAT f2F(float a) {
             result = 0;
     }
     else{
-        int move = exp - 127;
+        int move = (int)exp - 127;
+        nemu_assert(move == -1);
         if(move >= 0){
             tail = tail << move;
             tail = tail >> 7;
@@ -76,7 +77,7 @@ FLOAT f2F(float a) {
             result = result | flag;
         }
     }
-    nemu_assert(result == 0x28000);
+    //nemu_assert(result == 0x28000);
     return result;
 }
 
