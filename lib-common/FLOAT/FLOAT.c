@@ -26,9 +26,9 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
 	 * out another way to perform the division.
 	 */
 
-	nemu_assert(1);
     FLOAT r;
     asm volatile ("idiv %2" : "=a"(a), "=d"(b) : "r"(r), "a"(a), "d"(b));
+	//nemu_assert(1);
 	return r << 16;
 }
 
@@ -90,6 +90,7 @@ FLOAT sqrt(FLOAT x) {
 	FLOAT dt, t = int2F(2);
 
 	do {
+        nemu_assert(0);
 		dt = F_div_int((F_div_F(x, t) - t), 2);
 		t += dt;
 	} while(Fabs(dt) > f2F(1e-4));
