@@ -53,7 +53,7 @@ FLOAT f2F(float a) {
     tail = tail | 0x800000;
     uint32_t exp = (IntA & 0x7f800000) >> 23;
     //nemu_assert(tail == 0x800000);
-    uint32_t flag = (IntA & 0x80000000);
+    //uint32_t flag = (IntA & 0x80000000);
     FLOAT result = 0;
     if(exp == 0){
         if(IntA == 0)
@@ -66,15 +66,15 @@ FLOAT f2F(float a) {
             tail = tail << move;
             tail = tail >> 7;
             result = result | tail;
-            //if(flag == 0x80000000)
-                //result = -result;
+            if(IntA >> 31 == 1)
+                result = -result;
         }
         else {
             tail = tail >> -move;
             tail = tail >> 7;
             result = result | tail;
-            //if(flag == 0x80000000)
-                //result = -result;
+            if(IntA >> 31 == 1)
+                result = -result;
         }
     }
     return result;
