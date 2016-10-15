@@ -54,7 +54,7 @@ FLOAT f2F(float a) {
 	uint32_t tail = IntA & 0x7fffff;
     tail = tail | 0x800000;
     uint32_t exp = (IntA & 0x7f800000) >> 23;
-    //nemu_assert(exp == 0x7e);
+    nemu_assert(tail == 0x800000);
     uint32_t flag = IntA & 0x80000000;;
     FLOAT result = 0;
     if(exp == 0){
