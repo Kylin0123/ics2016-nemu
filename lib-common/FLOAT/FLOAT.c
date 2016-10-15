@@ -2,7 +2,7 @@
 
 FLOAT F_mul_F(FLOAT a, FLOAT b) {
 	//nemu_assert(0);
-	FLOAT result = (b / 256) * (a / 256);
+	FLOAT result = (b >> 8) * (a >> 8);
     return result;
 }
 
