@@ -50,8 +50,8 @@ FLOAT f2F(float a) {
     } A;
     A.Float = a;
     int IntA = A.Int;
-    nemu_assert(IntA != 0);
 	int tail = IntA & 0x7fffff;
+    nemu_assert(tail != 0);
     tail = tail | 0x800000;
     int exp = IntA & 0x7f800000 >> 23;
     int flag = IntA & 0x80000000;;
