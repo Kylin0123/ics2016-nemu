@@ -24,7 +24,9 @@ make_helper(call_rm_w){
     decode_rm_w(eip);
     cpu.esp -= 4;
     MEM_W(cpu.esp, cpu.eip + 2);
+    printf("eip1:%x\n", cpu.eip);
     cpu.eip = op_src->val;
+    printf("eip2:%x\n", cpu.eip);
     print_asm_template1();
     return 2;
 }
