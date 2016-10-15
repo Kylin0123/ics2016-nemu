@@ -81,7 +81,7 @@ FLOAT f2F(float a) {
 FLOAT Fabs(FLOAT a) {
 	//nemu_assert(0);
     if(a >> 31 == 1)
-        a = -a;
+        a = ~a + 1;
 	return a;
 }
 
