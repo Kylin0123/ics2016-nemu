@@ -75,7 +75,6 @@ FLOAT f2F(float a) {
             result = result | flag;
         }
     }
-    //nemu_assert(result == 0x80008000);
     return result;
 }
 
