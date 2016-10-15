@@ -3,7 +3,7 @@
 FLOAT F_mul_F(FLOAT a, FLOAT b) {
 	//nemu_assert(0);
 	FLOAT result = (b >> 8) * (a >> 8);
-    nemu_assert(0);
+    //nemu_assert(0);
     return result;
 }
 
@@ -26,7 +26,7 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
 	 * out another way to perform the division.
 	 */
 
-	//nemu_assert(0);
+	nemu_assert(0);
     FLOAT r;
     asm volatile ("idiv %2" : "=a"(a), "=d"(b) : "r"(r), "a"(a), "d"(b));
 	return r << 16;
