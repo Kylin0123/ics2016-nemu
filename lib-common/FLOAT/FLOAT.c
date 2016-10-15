@@ -26,8 +26,9 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
 	 */
 
 	//nemu_assert(0);
-    FLOAT result = a / b * 65536;
-	return result;
+    FLOAT r;
+    asm volatile ("idiv %2" : "=a"(a), "=d"(b) : "r"(r), "a"(a), "d"(b));
+	return r << 16;
 }
 
 FLOAT f2F(float a) {
