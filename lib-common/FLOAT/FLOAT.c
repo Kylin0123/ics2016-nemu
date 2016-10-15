@@ -27,9 +27,7 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
 	 * out another way to perform the division.
 	 */
 
-    //nemu_assert(b != 0);
-    asm volatile ("idiv %%edx, %%eax" : "=a"(a) : "a"(a), "d"(b));
-	//nemu_assert(1);
+    asm volatile ("idiv %1" : "=a"(a) : "a"(a), "d"(b));
 	return a << 16;
 }
 
