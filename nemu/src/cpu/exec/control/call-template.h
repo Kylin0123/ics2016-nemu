@@ -19,7 +19,7 @@ static void do_execute(){
     print_asm_template1();
 }
 
-#if DATA_BYTE == 2
+#if DATA_BYTE == 4
 make_helper(call_rm_w){
     decode_rm_l(eip);
     cpu.esp -= 4;
