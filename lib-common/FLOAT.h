@@ -7,19 +7,18 @@ typedef int FLOAT;
 
 static inline int F2int(FLOAT a) {
 	//nemu_assert(0);
-    int result = a;
-    result /= 65536;
+    int result = a >> 16;
     return result;
 }
 
 static inline FLOAT int2F(int a) {
 	//nemu_assert(0);
-	FLOAT result = a * 65536;
+	FLOAT result = a << 16;
     return result;
 }
 
 static inline FLOAT F_mul_int(FLOAT a, int b) {
-	//nemu_assert(0);
+	nemu_assert((a * b != 0)); //////////////
 	return (a * b);
 }
 
