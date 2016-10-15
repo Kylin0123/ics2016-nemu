@@ -67,14 +67,14 @@ FLOAT f2F(float a) {
             tail = tail >> 7;
             result = result | tail;
             if(IntA >> 31 == 1)
-                result = ~result;
+                result = result;
         }
         else {
             tail = tail >> -move;
             tail = tail >> 7;
             result = result | tail;
             if(IntA >> 31 == 1)
-                result = ~result;
+                result = result;
         }
     }
     return result;
