@@ -7,7 +7,7 @@
 #include <regex.h>
 
 enum {
-	NOTYPE = 256, EQ, NUM, REG, NEQ, AND, OR, NOT, DEREF, MINUS
+	NOTYPE = 256, EQ, NUM, REG, NEQ, AND, OR, NOT, DEREF, MINUS, SYMBOL
 
 	/* TODO: Add more token types */
 
@@ -36,7 +36,9 @@ static struct rule {
 	{"[&]{2}", AND},          // and
 	{"[|]{2}", OR},           // or
 	{"[!]", NOT},           // not
-	//{"*", DEREF},	        // deref
+	{"*", DEREF},	        // deref
+    {"(?![0-9])[a-z0-9_]+", SYMBOL},    // symbol
+
 
 };
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
