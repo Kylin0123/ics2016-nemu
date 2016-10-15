@@ -158,6 +158,13 @@ static bool make_token(char *e) {
 									 tokens[nr_token].type = DEREF;
 									 tokens[nr_token++].str[0] = 2;
 									 break;
+                    case SYMBOL:
+                                     tokens[nr_token].type = SYMBOL;
+									 char *tempStr2 = (char *)malloc((substr_len + 1)*sizeof(char));
+									 strncpy(tempStr2, substr_start, substr_len);
+									 tempStr2[substr_len] = '\0';
+                                     strcpy(tokens[nr_token++].str, tempStr2);
+                                     break;
 					default: panic("please implement me");
 				}
 				break;
