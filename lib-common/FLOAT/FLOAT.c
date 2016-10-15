@@ -1,4 +1,5 @@
 #include "FLOAT.h"
+#include "../../nemu/include/common.h"
 
 FLOAT F_mul_F(FLOAT a, FLOAT b) {
 	//nemu_assert(0);
@@ -45,16 +46,16 @@ FLOAT f2F(float a) {
 
 	//nemu_assert(0);
     union {
-        int Int;
+        uint32_t Int;
         float Float;
     } A;
     A.Float = a;
-    int IntA = A.Int;
-	int tail = IntA & 0x7fffff;
+    uint32_t IntA = A.Int;
+	uint32_t tail = IntA & 0x7fffff;
     nemu_assert(tail != 0);
     tail = tail | 0x800000;
-    int exp = IntA & 0x7f800000 >> 23;
-    int flag = IntA & 0x80000000;;
+    uint32_t exp = IntA & 0x7f800000 >> 23;
+    uint32_t flag = IntA & 0x80000000;;
     FLOAT result = 0;
     if(exp == 0){
         if(IntA == 0)
