@@ -27,7 +27,7 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
 	 * out another way to perform the division.
 	 */
 
-    asm volatile ("idiv %1" : "=a"(a) : "a"(a << 8), "d"(b >> 8));
+    asm volatile ("div %1" : "=d"(a) : "a"(a << 8), "d"(b >> 8));
 	return a;
 }
 
