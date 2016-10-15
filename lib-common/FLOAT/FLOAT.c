@@ -66,15 +66,15 @@ FLOAT f2F(float a) {
             tail = tail << move;
             tail = tail >> 7;
             result = result | tail;
-            if(flag == 0x80000000)
-                result = -result;
+            //if(flag == 0x80000000)
+                //result = -result;
         }
         else {
             tail = tail >> -move;
             tail = tail >> 7;
             result = result | tail;
-            if(flag == 0x80000000)
-                result = -result;
+            //if(flag == 0x80000000)
+                //result = -result;
         }
     }
     return result;
