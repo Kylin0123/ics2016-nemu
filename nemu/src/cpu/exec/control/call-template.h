@@ -19,11 +19,11 @@ static void do_execute(){
     print_asm_template1();
 }
 
-#if DATA_BYTE == 4
+#if DATA_BYTE == 2
 make_helper(call_rm_w){
     decode_rm_l(eip);
     cpu.esp -= 4;
-    MEM_W(cpu.esp, cpu.eip + 2);
+    swaddr_write(cpu.esp, 4, cpu.eip + 2);
     printf("eip1:%x\n", op_src->val);
     cpu.eip = op_src->val;
     printf("eip2:%x\n", cpu.eip);
