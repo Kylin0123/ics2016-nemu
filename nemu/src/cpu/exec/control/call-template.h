@@ -21,7 +21,7 @@ static void do_execute(){
 
 #if DATA_BYTE == 2
 make_helper(call_rm_w){
-    decode_rm_w(eip);
+    decode_rm_l(eip);
     cpu.esp -= 4;
     MEM_W(cpu.esp, cpu.eip + 2);
     printf("eip1:%x\n", op_src->val);
