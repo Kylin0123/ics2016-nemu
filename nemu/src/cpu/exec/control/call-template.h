@@ -23,7 +23,7 @@ static void do_execute(){
 make_helper(call_rm_w){
     decode_rm_l(eip);
     cpu.esp -= 4;
-    swaddr_write(cpu.esp, 4, cpu.eip + 2);
+    swaddr_write(cpu.esp, 4, cpu.eip);
     printf("eip1:%x\n", op_src->val);
     cpu.eip = op_src->val;
     printf("eip2:%x\n", cpu.eip);
