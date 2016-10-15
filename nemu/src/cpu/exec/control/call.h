@@ -10,4 +10,6 @@
 
 make_helper(call_si_v);
 
+make_helper(call_rm_w);
+
 #endif

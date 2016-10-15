@@ -19,6 +19,10 @@ static void do_execute(){
     print_asm_template1();
 }
 
+#if DATA_BYTE == 2
+make_instr_helper(rm)
+#endif
+
 #if DATA_BYTE == 4 || DATA_BYTE == 2
 make_instr_helper(si)
 #endif
