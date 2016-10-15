@@ -67,7 +67,7 @@ FLOAT f2F(float a) {
             tail = tail >> 7;
             result = result | tail;
             if(IntA >> 31 == 1){
-                asm volatile ("neg %0" : "=a"(result) : "a"(result));
+                asm volatile ("neg %0" : "=b"(result) : "b"(result));
             }
         }
         else {
@@ -75,7 +75,7 @@ FLOAT f2F(float a) {
             tail = tail >> 7;
             result = result | tail;
             if(IntA >> 31 == 1)
-                asm volatile ("neg %0" : "=a"(result) : "a"(result));
+                asm volatile ("neg %0" : "=b"(result) : "b"(result));
         }
     }
     return result;
