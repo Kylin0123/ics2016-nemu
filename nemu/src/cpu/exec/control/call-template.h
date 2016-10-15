@@ -20,7 +20,14 @@ static void do_execute(){
 }
 
 #if DATA_BYTE == 2
-make_instr_helper(rm)
+make_helper(call_rm_w){
+    decode_rm_w(eip);
+    cpu.esp -= 4;
+    MEM_W(cpu.esp, cpu.eip + 2);
+    cpu.eip = op_src->val;
+    print_asm_template1();
+    return 2;
+}
 #endif
 
 #if DATA_BYTE == 4 || DATA_BYTE == 2
