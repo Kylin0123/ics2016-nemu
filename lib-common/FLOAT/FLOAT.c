@@ -26,10 +26,10 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
 	 * out another way to perform the division.
 	 */
 
-    FLOAT r;
-    asm volatile ("idiv %2" : "=a"(r) : "a"(a), "d"(b));
+
+    asm volatile ("idiv %%edx, %%eax" : "=a"(a) : "a"(a), "d"(b));
 	//nemu_assert(1);
-	return r << 16;
+	return a >> 16;
 }
 
 FLOAT f2F(float a) {
