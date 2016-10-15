@@ -27,7 +27,7 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
 	 */
 
     FLOAT r;
-    asm volatile ("idiv %2" : "=a"(a), "=d"(b) : "r"(r), "a"(a), "d"(b));
+    asm volatile ("idiv %2" : "=a"(r) : "a"(a), "d"(b));
 	//nemu_assert(1);
 	return r << 16;
 }
