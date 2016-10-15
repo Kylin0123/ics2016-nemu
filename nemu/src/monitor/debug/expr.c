@@ -160,6 +160,7 @@ static bool make_token(char *e) {
 									 break;
                     case SYMBOL:
                                      tokens[nr_token].type = SYMBOL;
+                                     printf("yes\n");
 									 char *tempStr2 = (char *)malloc((substr_len + 1)*sizeof(char));
 									 strncpy(tempStr2, substr_start, substr_len);
 									 tempStr2[substr_len] = '\0';
