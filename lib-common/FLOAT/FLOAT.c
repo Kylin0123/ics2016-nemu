@@ -26,7 +26,7 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
 	 */
 
 	//nemu_assert(0);
-    FLOAT result = (a * 256) / (b / 256);
+    FLOAT result = (a << 8) / (b >> 8);
 	return result;
 }
 
