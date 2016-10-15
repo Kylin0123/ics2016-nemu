@@ -26,7 +26,7 @@ static struct rule {
 	{"\\+", '+'},					// plus
 	{"==", EQ},						// equal
 	{"\\-", '-'},					// minus
-	{"\\*", '*'}, 				// multiply
+	{"\\*", '*'}, 				// multiply or deref
 	{"\\/", '/'},					// divide
 	{"[(]", '('},					// leftParentheses
 	{"[)]", ')'},					// rightParentheses
@@ -36,8 +36,7 @@ static struct rule {
 	{"[&]{2}", AND},          // and
 	{"[|]{2}", OR},           // or
 	{"[!]", NOT},           // not
-	//{"*", DEREF},	        // deref
-    {"![0-9][a-z0-9_]+", SYMBOL},    // symbol
+    {"(?![0-9])[a-z0-9_]+", SYMBOL},    // symbol
 
 
 };
