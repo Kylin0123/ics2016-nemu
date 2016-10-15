@@ -3,6 +3,7 @@
 FLOAT F_mul_F(FLOAT a, FLOAT b) {
 	//nemu_assert(0);
 	FLOAT result = (b >> 8) * (a >> 8);
+    nemu_assert(0);
     return result;
 }
 
