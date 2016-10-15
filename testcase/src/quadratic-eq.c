@@ -5,8 +5,8 @@
 
 int main() {
 	FLOAT a = f2F(0.5);
-/*	FLOAT b = f2F(0.5);
-	FLOAT c = f2F(-0.5);
+	FLOAT b = f2F(0.5);
+/*	FLOAT c = f2F(-0.5);
 
 	FLOAT dt = F_mul_F(b, b) - F_mul_F(F_mul_int(a, 4), c);
 	FLOAT sqrt_dt = sqrt(dt);
@@ -19,6 +19,6 @@ int main() {
 
 	nemu_assert(Fabs(x1_ans - x1) < f2F(1e-4));
 	nemu_assert(Fabs(x2_ans - x2) < f2F(1e-4));  */
-a++;//b++;c++;
+a++;b++;//c++;
 	return 0;
 }
