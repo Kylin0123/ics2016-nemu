@@ -9,8 +9,16 @@ $(FLOAT): $(FLOAT_A_OBJ)
 	ar r $@ $^
 
 # TODO: complete the following rules
+LIB_COMMON_DIR := lib-common
+LIB_OBJ_DIR := obj/lib-common
+FLOAT_C := lib-common/FLOAT/FLOAT.c
+float_CFLAGS_EXTRA := -m32 -O2 -fno-builtin 
+FLOAT_VFPRINTF_C := lib-common/FLOAT/FLOAT_vfprintf.c
 
-$(FLOAT_O):
-
-$(FLOAT_VFPRINTF_O):
-
+$(FLOAT_O): $(FLOAT_C)
+	mkdir -p $(LIB_OBJ_DIR)
+	$(call make_command, $(CC), -c -I$(LIB_COMMON_DIR) $(float_CFLAGS_EXTRA), cc -c $<, $<)
+$(FLOAT_VFPRINTF_O):$(FLOAT_VFPRINTF_C)
+	mkdir -p $(LIB_OBJ_DIR)
+	$(call make_command, $(CC), -c -I$(LIB_COMMON_DIR) $(float_CFLAGS_EXTRA), cc -c $<, $<)
+	
