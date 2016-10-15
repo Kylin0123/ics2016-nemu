@@ -17,7 +17,7 @@ int main() {
 	FLOAT x1_ans = f2F(0.618);
 	FLOAT x2_ans = f2F(-1.618);
 
-	nemu_assert(Fabs(x1_ans - x1) < f2F(100));
-	nemu_assert(Fabs(x2_ans - x2) < f2F(100));
+	nemu_assert(Fabs(x1_ans - x1) < f2F(10));
+	nemu_assert(Fabs(x2_ans - x2) < f2F(10));
 	return 0;
 }
