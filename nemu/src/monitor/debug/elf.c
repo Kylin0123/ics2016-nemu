@@ -90,8 +90,8 @@ void load_elf_tables(int argc, char *argv[]) {
     mysymtab = malloc(nr_symtab_entry * sizeof(Elf32_Sym));
     for(i = 0; i < nr_symtab_entry; i++){
         mysymtab[i].st_name = symtab[i].st_name;
-        (mysymtab + i)->st_value = (symtab + i)->st_value;
-        (mysymtab + i)->st_info = (symtab + i)->st_info;
+        mysymtab[i].st_value = symtab[i].st_value;
+        mysymtab[i].st_info = symtab[i].st_info;
     }
 
 }
