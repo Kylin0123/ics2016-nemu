@@ -349,7 +349,7 @@ uint32_t eval(int p, int q){
 			}	
 		
 		}
-		//printf("op:%d\n", op);//test
+		printf("op:%d\n", op);//test
 		if(tokens[op].type == '+'){
             printf("++++++++\n");
 			return eval(p, op - 1) + eval(op + 1, q);
