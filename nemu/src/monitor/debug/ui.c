@@ -2,10 +2,16 @@
 #include "monitor/expr.h"
 #include "monitor/watchpoint.h"
 #include "nemu.h"
+#include <elf.h>
+#include "common.h"
 
 #include <stdlib.h>
 #include <readline/readline.h>
 #include <readline/history.h>
+
+extern char *mystrtab;
+extern Elf32_Sym *mysymtab;
+extern int mynr;
 
 void cpu_exec(uint32_t);
 
@@ -143,8 +149,11 @@ static int cmd_p(char *args){
 
 static int cmd_bt(char *args){
     swaddr_t ptr = cpu.ebp;
-    ptr = swaddr_read(ptr, 4);
-    printf("%x\n", ptr);
+    while(ptr != 0){
+        printf("%x\n", ptr);
+        //todo
+        ptr = swaddr_read(ptr, 4);
+    }
     return 0;
 }
 
