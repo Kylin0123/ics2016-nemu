@@ -144,6 +144,7 @@ static int cmd_p(char *args){
 static int cmd_bt(char *args){
     swaddr_t ptr = cpu.eip;
     ptr = swaddr_read(ptr, 4);
+    printf("%x\n", ptr);
     return 0;
 }
 
