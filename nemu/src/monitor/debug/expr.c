@@ -1,6 +1,11 @@
 #include "nemu.h"
-//#include "../../lib-common/uclibc/include/elf.h"
-//#include "elf.c"
+#include "common.h"
+#include <stdlib.h>
+#include <elf.h>
+
+extern char *mystrtab;
+extern Elf32_Sym *mysymtab;
+extern int mynr;
 
 /* We use the POSIX regex functions to process regular expressions.
  * Type 'man regex' for more information about POSIX regex functions.
@@ -220,18 +225,18 @@ uint32_t eval(int p, int q){
 			sscanf(tokens[p].str, "%x", &temp);
 		}
         else if(tokens[p].type == SYMBOL){
-            /*
+            
             int i;
-            for(i = 0; i < nr_symtab_entry; i++){
+            for(i = 0; i < mynr; i++){
                 //if(strcmp(&(char)symtab[i].st_info, "OBJECT") == 0){
-                    if(strcmp(strtab + symtab[i].st_name, tokens[p].str) == 0){
+                    if(strcmp(mystrtab + mysymtab[i].st_name, tokens[p].str) == 0){
                         printf("hahahah\n");
-                        printf("%c\n\n", symtab[i].st_info);
-                        temp = (uint32_t)symtab[i].st_value;
+                        printf("%c\n\n", mysymtab[i].st_info);
+                        temp = (uint32_t)mysymtab[i].st_value;
                     }
                 //}
             }
-            */
+            
         }
 		else if(tokens[p].type == REG){
 			if(strcmp(tokens[p].str, "$eax")==0){
