@@ -231,7 +231,7 @@ uint32_t eval(int p, int q){
                 //if(strcmp(&(char)symtab[i].st_info, "OBJECT") == 0){
                     if(strcmp(mystrtab + mysymtab[i].st_name, tokens[p].str) == 0){
                         printf("hahahah\n");
-                        printf("%d\n\n", mysymtab[i].st_info);
+                        printf("%x\n\n", mysymtab[i].st_info);
                         temp = (uint32_t)mysymtab[i].st_value;
                     }
                 //}
