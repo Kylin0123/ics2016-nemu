@@ -133,7 +133,7 @@ static int cmd_d(char *args){
 }
 
 static int cmd_p(char *args){
-    char *arg = strtok(NULL, " ");
+    char *arg = strtok(NULL, "\0");
     bool * success = false;
     uint32_t result = expr(arg, success);
     printf("%x\n", result);
