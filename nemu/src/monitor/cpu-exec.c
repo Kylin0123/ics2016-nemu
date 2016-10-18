@@ -86,6 +86,7 @@ void cpu_exec(volatile uint32_t n) {
             //printf("tempValue:%x\n", tempWP->value);
 			if(tempWP->value != exprValue){
 				printf("Watchpoint %d changed:%d->%d\n", tempWP->NO, tempWP->value, exprValue);
+                tempWP->value = exprValue;
 				nemu_state = STOP;
 			}
 		}
