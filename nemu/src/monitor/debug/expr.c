@@ -351,7 +351,6 @@ uint32_t eval(int p, int q){
 		}
 		printf("op:%d\n", op);//test
 		if(tokens[op].type == '+'){
-            printf("++++++++\n");
 			return eval(p, op - 1) + eval(op + 1, q);
 		}
 		else if(tokens[op].type == '-'){
@@ -386,6 +385,12 @@ uint32_t eval(int p, int q){
 				return 1;
 			else
 				return 0;
+        }
+        else if(tokens[op].type == DEREF){
+		    return swaddr_read( eval(q,q), 4);
+        }
+        else if(tokens[op].type == MINUS){
+		    return -eval(q,q);
         }
 		else
 			return 0;
