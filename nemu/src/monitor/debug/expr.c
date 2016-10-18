@@ -38,7 +38,6 @@ static struct rule {
 	{"[(]", '('},					// leftParentheses
 	{"[)]", ')'},					// rightParentheses
 	{"\\b0[xX][0-9a-fA-F]+\\b", NUM},	// number
-    {"[0-9]+", NUM},
 	{"\\$[a-z]{2,3}", REG},  // register_name
 	{"[!][=]", NEQ},          // not equal
 	{"[&]{2}", AND},          // and
@@ -223,10 +222,7 @@ uint32_t eval(int p, int q){
 	else if(p == q){
 		uint32_t temp = 0;
 		if(tokens[p].type == NUM){
-			if(tokens[p].str[0] == '0' && tokens[p].str[1] == 'x')
-                sscanf(tokens[p].str, "%x", &temp);
-            else
-                sscanf(tokens[p].str, "%d", &temp);
+			sscanf(tokens[p].str, "%x", &temp);
 		}
         else if(tokens[p].type == SYMBOL){
             
@@ -355,7 +351,7 @@ uint32_t eval(int p, int q){
 		}
 		printf("op:%d\n", op);//test
 		if(tokens[op].type == '+'){
-            printf("++++++++\n");
+            printf("+++++++\n");
 			return eval(p, op - 1) + eval(op + 1, q);
 		}
 		else if(tokens[op].type == '-'){
@@ -390,6 +386,13 @@ uint32_t eval(int p, int q){
 				return 1;
 			else
 				return 0;
+        }
+        else if(tokens[op].type == DEREF){
+            printf("*******\n");
+		    return swaddr_read( eval(op + 1,q), 4);
+        }
+        else if(tokens[op].type == MINUS){
+		    return -eval(q,q);
         }
 		else
 			return 0;
