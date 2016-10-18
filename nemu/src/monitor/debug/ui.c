@@ -151,7 +151,10 @@ static int cmd_bt(char *args){
     swaddr_t ptr = cpu.ebp;
     while(ptr != 0){
         printf("%x\n", ptr);
-        //todo
+        int i;
+        for(i = 0; i < mynr; i++){
+            
+        }
         ptr = swaddr_read(ptr, 4);
     }
     return 0;
