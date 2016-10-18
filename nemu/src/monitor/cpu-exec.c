@@ -81,6 +81,8 @@ void cpu_exec(volatile uint32_t n) {
 			bool *success = false;
 			uint32_t exprValue = expr(tempWP->expr, success);
 			uint32_t readValue = swaddr_read( exprValue, 4);
+            printf("wp_test:exprValue:%x\nreadValue:%x\n", exprValue, readValue);
+            printf("tempValue:%x\n", tempWP->value);
 			if(tempWP->value != readValue){
 				printf("Watchpoint %d changed:%d->%d\n", tempWP->NO, tempWP->value, readValue);
 				nemu_state = STOP;
