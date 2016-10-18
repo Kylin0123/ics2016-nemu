@@ -306,6 +306,12 @@ uint32_t eval(int p, int q){
 			else if(strcmp(tokens[p].str, "$bl")==0){
 				temp = cpu.gpr[3]._8[0];
 			}
+            else if(strcmp(tokens[p].str, "$eip")==0){
+                temp = cpu.eip;
+            }
+            else{
+                printf("No such register!\n");
+            }
 		}
 		return temp;
 	}
