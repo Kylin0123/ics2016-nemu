@@ -15,7 +15,7 @@ int main(int argc, char *argv[]) {
 	restart();
 
 	/* Receive commands from user. */
-	ui_mainloop();
+	ui_mainloop(argc, argv);
 
 	return 0;
 }

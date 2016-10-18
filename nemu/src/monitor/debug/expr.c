@@ -1,4 +1,6 @@
 #include "nemu.h"
+//#include "../../lib-common/uclibc/include/elf.h"
+//#include "elf.c"
 
 /* We use the POSIX regex functions to process regular expressions.
  * Type 'man regex' for more information about POSIX regex functions.
@@ -160,7 +162,7 @@ static bool make_token(char *e) {
 									 break;
                     case SYMBOL:
                                      tokens[nr_token].type = SYMBOL;
-                                     printf("yes\n");
+                                     //printf("yes\n");
 									 char *tempStr2 = (char *)malloc((substr_len + 1)*sizeof(char));
 									 strncpy(tempStr2, substr_start, substr_len);
 									 tempStr2[substr_len] = '\0';
@@ -217,6 +219,20 @@ uint32_t eval(int p, int q){
 		if(tokens[p].type == NUM){
 			sscanf(tokens[p].str, "%x", &temp);
 		}
+        else if(tokens[p].type == SYMBOL){
+            /*
+            int i;
+            for(i = 0; i < nr_symtab_entry; i++){
+                //if(strcmp(&(char)symtab[i].st_info, "OBJECT") == 0){
+                    if(strcmp(strtab + symtab[i].st_name, tokens[p].str) == 0){
+                        printf("hahahah\n");
+                        printf("%c\n\n", symtab[i].st_info);
+                        temp = (uint32_t)symtab[i].st_value;
+                    }
+                //}
+            }
+            */
+        }
 		else if(tokens[p].type == REG){
 			if(strcmp(tokens[p].str, "$eax")==0){
 				temp = cpu.gpr[0]._32;
@@ -385,7 +401,6 @@ uint32_t expr(char *e, bool *success) {
 
 	/* TODO: Insert codes to evaluate the expression. */
 	//panic("please implement me");
-	//return 0;
 	//printf("nr_token:%d\n", nr_token);
 	//printf("str0:%s\n", tokens[0].str);
 	//printf("str2%s\n", tokens[2].str);
