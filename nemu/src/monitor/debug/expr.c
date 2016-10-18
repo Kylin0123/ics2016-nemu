@@ -389,7 +389,7 @@ uint32_t eval(int p, int q){
         }
         else if(tokens[op].type == DEREF){
             printf("*******\n");
-		    return swaddr_read( eval(q,q), 4);
+		    return swaddr_read( eval(op + 1,q), 4);
         }
         else if(tokens[op].type == MINUS){
 		    return -eval(q,q);
