@@ -141,6 +141,12 @@ static int cmd_p(char *args){
     return 0;
 }
 
+static int cmd_bt(char *args){
+    swaddr_t ptr = cpu.eip;
+    ptr = swaddr_read(ptr, 4);
+    return 0;
+}
+
 static struct {
 	char *name;
 	char *description;
@@ -156,7 +162,8 @@ static struct {
 	{ "x", "Scanf memory", cmd_x },
 	{ "w", "Set watchpoints", cmd_w},
 	{ "d", "Delete watchpoints", cmd_d},
-    { "p", "Print expr", cmd_p}, 
+    { "p", "Print expr", cmd_p},
+    { "bt", "Print stackframe", cmd_bt},
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
