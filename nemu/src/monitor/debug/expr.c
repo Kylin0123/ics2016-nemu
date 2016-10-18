@@ -230,8 +230,8 @@ uint32_t eval(int p, int q){
             for(i = 0; i < mynr; i++){
                 if(mysymtab[i].st_info == 0x11){
                     if(strcmp(mystrtab + mysymtab[i].st_name, tokens[p].str) == 0){
-                        printf("hahahah\n");
-                        printf("%x\n\n", mysymtab[i].st_info);
+                        //printf("hahahah\n");
+                        //printf("%x\n\n", mysymtab[i].st_info);
                         temp = (uint32_t)mysymtab[i].st_value;
                     }
                 }
