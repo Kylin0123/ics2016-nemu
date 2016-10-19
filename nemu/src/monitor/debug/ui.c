@@ -160,7 +160,7 @@ static int cmd_bt(char *args){
         int i;
         for(i = 0; i < mynr; i++){
             if(temp_eip >= mysymtab[i].st_value && temp_eip <= mysymtab[i].st_value + mysymtab[i].st_size){
-                printf("%s (%x, %x, %x, %x)", mystrtab + mysymtab[i].st_name, t1, t2, t3, t4);
+                printf("%s (%x, %x, %x, %x)\n", mystrtab + mysymtab[i].st_name, t1, t2, t3, t4);
             } 
         }
         temp_eip = swaddr_read(ptr + 4, 4);
