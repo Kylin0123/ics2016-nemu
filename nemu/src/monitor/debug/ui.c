@@ -152,7 +152,7 @@ static int cmd_bt(char *args){
     swaddr_t temp_eip = cpu.eip;
     swaddr_t t1,t2,t3,t4;
     while(ptr != 0){
-        printf("0x%x in\n", ptr);
+        printf("0x%x in ", ptr);
         t1 = swaddr_read(ptr + 8, 4);
         t2 = swaddr_read(ptr + 12, 4);
         t3 = swaddr_read(ptr + 16, 4);
