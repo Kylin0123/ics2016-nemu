@@ -149,15 +149,17 @@ static int cmd_p(char *args){
 
 static int cmd_bt(char *args){
     swaddr_t ptr = cpu.ebp;
+    swaddr_t temp_eip = cpu.eip;
     while(ptr != 0){
-        printf("%x\n", ptr);
+        //printf("%x\n", ptr);
         int i;
         for(i = 0; i < mynr; i++){
-            if(cpu.eip >= mysymtab[i].st_value && cpu.eip <= mysymtab[i].st_value + mysymtab[i].st_size){
+            if(temp_eip >= mysymtab[i].st_value && temp_eip <= mysymtab[i].st_value + mysymtab[i].st_size){
                 printf("name:%s\n", mystrtab + mysymtab[i].st_name);
             } 
         }
         ptr = swaddr_read(ptr, 4);
+        temp_eip = swaddr_read(ptr + 4, 4);
     }
     return 0;
 }
