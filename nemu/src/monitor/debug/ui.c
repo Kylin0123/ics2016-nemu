@@ -153,7 +153,7 @@ static int cmd_bt(char *args){
         printf("%x\n", ptr);
         int i;
         for(i = 0; i < mynr; i++){
-            if(cpu.eip > mysymtab[i].st_value && cpu.eip <= mysymtab[i].st_value + mysymtab[i].st_size){
+            if(cpu.eip >= mysymtab[i].st_value && cpu.eip <= mysymtab[i].st_value + mysymtab[i].st_size){
                 printf("name:%x\n", mysymtab[i].st_value);
             } 
         }
