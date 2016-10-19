@@ -158,8 +158,8 @@ static int cmd_bt(char *args){
                 printf("name:%s\n", mystrtab + mysymtab[i].st_name);
             } 
         }
-        ptr = swaddr_read(ptr, 4);
         temp_eip = swaddr_read(ptr + 4, 4);
+        ptr = swaddr_read(ptr, 4);
     }
     return 0;
 }
