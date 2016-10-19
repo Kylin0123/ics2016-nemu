@@ -69,7 +69,7 @@ static int cmd_info(char *args){
 		printf("ebp\t%d\t0x%x\n",cpu.gpr[5]._32, cpu.ebp);
 		printf("esi\t%d\t0x%x\n",cpu.gpr[6]._32, cpu.esi);
 		printf("edi\t%d\t0x%x\n\n",cpu.gpr[7]._32, cpu.edi);
-        printf("cf %d pf %d zf %d sf %d if %d df %d of %d\n", cpu.eflags._cf, cpu.eflags._pf, cpu.eflags._zf, cpu.eflags._sf, cpu.eflags._if, cpu.eflags._df, cpu.eflags._of);
+        printf("cf=%d pf=%d zf=%d sf=%d if=%d df=%d of=%d\n", cpu.eflags._cf, cpu.eflags._pf, cpu.eflags._zf, cpu.eflags._sf, cpu.eflags._if, cpu.eflags._df, cpu.eflags._of);
 	}
 	else if(strcmp(arg, "w")==0){
 		WP *temp = getHead();
