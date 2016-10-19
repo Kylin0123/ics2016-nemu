@@ -61,14 +61,14 @@ static int cmd_si(char *args){
 static int cmd_info(char *args){
 	char *arg = strtok(NULL, " ");
 	if(strcmp(arg, "r")==0){
-		printf("eax\t%d\t%x\n",cpu.gpr[0]._32, cpu.eax);
-		printf("ecx\t%d\t%x\n",cpu.gpr[1]._32, cpu.ecx);
-		printf("edx\t%d\t%x\n",cpu.gpr[2]._32, cpu.edx);
-		printf("ebx\t%d\t%x\n",cpu.gpr[3]._32, cpu.ebx);
-		printf("esp\t%d\t%x\n",cpu.gpr[4]._32, cpu.esp);
-		printf("ebp\t%d\t%x\n",cpu.gpr[5]._32, cpu.ebp);
-		printf("esi\t%d\t%x\n",cpu.gpr[6]._32, cpu.esi);
-		printf("edi\t%d\t%x\n\n",cpu.gpr[7]._32, cpu.edi);
+		printf("eax\t%d\t0x%x\n",cpu.gpr[0]._32, cpu.eax);
+		printf("ecx\t%d\t0x%x\n",cpu.gpr[1]._32, cpu.ecx);
+		printf("edx\t%d\t0x%x\n",cpu.gpr[2]._32, cpu.edx);
+		printf("ebx\t%d\t0x%x\n",cpu.gpr[3]._32, cpu.ebx);
+		printf("esp\t%d\t0x%x\n",cpu.gpr[4]._32, cpu.esp);
+		printf("ebp\t%d\t0x%x\n",cpu.gpr[5]._32, cpu.ebp);
+		printf("esi\t%d\t0x%x\n",cpu.gpr[6]._32, cpu.esi);
+		printf("edi\t%d\t0x%x\n\n",cpu.gpr[7]._32, cpu.edi);
         printf("cf\t%d\n", cpu.eflags._cf);
         printf("pf\t%d\n", cpu.eflags._pf);
         printf("zf\t%d\n", cpu.eflags._zf);
@@ -100,10 +100,10 @@ static int cmd_x(char *args){
 			int n = atoi(arg1);
 			int i;
 			for(i = 0; i < n; i++){
-				printf("%x:  ", arg2);
+				printf("0x%x:  ", arg2);
 				uint32_t temp = swaddr_read( arg2, 4);
 				arg2 += 0x4;			
-				printf("%x\n", temp);
+				printf("0x%x\n", temp);
 			}
 	}
 	else
@@ -143,7 +143,7 @@ static int cmd_p(char *args){
     bool * success = false;
     //printf("%s\n", arg);
     uint32_t result = expr(arg, success);
-    printf("%x\n", result);
+    printf("0x%x\n", result);
     return 0;
 }
 
@@ -160,7 +160,7 @@ static int cmd_bt(char *args){
         int i;
         for(i = 0; i < mynr; i++){
             if(temp_eip >= mysymtab[i].st_value && temp_eip <= mysymtab[i].st_value + mysymtab[i].st_size){
-                printf("%s (%x, %x, %x, %x)\n", mystrtab + mysymtab[i].st_name, t1, t2, t3, t4);
+                printf("%s (0x%x, 0x%x, 0x%x, 0x%x)\n", mystrtab + mysymtab[i].st_name, t1, t2, t3, t4);
             } 
         }
         temp_eip = swaddr_read(ptr + 4, 4);
