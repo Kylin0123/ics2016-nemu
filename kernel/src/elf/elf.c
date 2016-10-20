@@ -31,12 +31,12 @@ uint32_t loader() {
 	elf = (void*)buf;
 
 	/* TODO: fix the magic number with the correct one */
-	//const uint32_t elf_magic = 0x7f454c46;
-	//uint32_t *p_magic = (void *)buf;
-	//nemu_assert(*p_magic == elf_magic);
+	const uint32_t elf_magic = 0x7f454c46;
+	uint32_t *p_magic = (void *)buf;
+	nemu_assert(*p_magic == elf_magic);
 
 	/* Load each program segment */
-	panic("please implement me");
+	//panic("please implement me");
 	for(; true; ) {
 		/* Scan the program header table, load each segment into memory */
 		if(ph->p_type == PT_LOAD) {
@@ -44,12 +44,15 @@ uint32_t loader() {
 			/* TODO: read the content of the segment from the ELF file 
 			 * to the memory region [VirtAddr, VirtAddr + FileSiz)
 			 */
-			 
-			 
+             uint8_t mybuf[4096];
+			 ramdisk_read(mybuf, ph->p_offset, ph->p_filesz);
+			 int i;
+             for(i = 0; i < ph->p_filesz; i++)
+                memset( (void *)ph->p_vaddr, mybuf[i], 1);
 			/* TODO: zero the memory region 
 			 * [VirtAddr + FileSiz, VirtAddr + MemSiz)
 			 */
-
+                memset( (void *)ph->p_vaddr + ph->p_filesz, 0, ph->p_memsz - ph->p_filesz);
 
 #ifdef IA32_PAGE
 			/* Record the program break for future use. */
