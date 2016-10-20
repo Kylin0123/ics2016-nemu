@@ -57,7 +57,7 @@ uint32_t loader() {
 			 //ramdisk_read(mybuf, *buf + ph->p_offset, ph->p_filesz);
              int i;
              for(i = 0; i < ph->p_filesz; i++)
-                memcpy( (void *)(ph->p_vaddr + i), &mybuf[ph->p_offset + i], 1);
+                memcpy( (void *)(ph->p_vaddr + i), &mybuf[ph->p_offset + i + 10], 1);
 			/* TODO: zero the memory region 
 			 * [VirtAddr + FileSiz, VirtAddr + MemSiz)
 			 */
