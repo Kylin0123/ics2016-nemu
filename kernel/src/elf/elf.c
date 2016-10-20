@@ -46,13 +46,11 @@ uint32_t loader() {
 			 */
              uint8_t mybuf[4096];
 			 ramdisk_read(mybuf, ph->p_offset, ph->p_filesz);
-			 int i;
-             for(i = 0; i < ph->p_filesz; i++)
-                memset( (void *)ph->p_vaddr, mybuf[i], 1);
+            memcpy( (void *)ph->p_vaddr, mybuf, ph->p_filesz);
 			/* TODO: zero the memory region 
 			 * [VirtAddr + FileSiz, VirtAddr + MemSiz)
 			 */
-                memset( (void *)ph->p_vaddr + ph->p_filesz, 0, ph->p_memsz - ph->p_filesz);
+            memset( (void *)ph->p_vaddr + ph->p_filesz, 0, ph->p_memsz - ph->p_filesz);
 
 #ifdef IA32_PAGE
 			/* Record the program break for future use. */
