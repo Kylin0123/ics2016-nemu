@@ -29,6 +29,7 @@ uint32_t loader() {
 #endif
 
 	elf = (void*)buf;
+    nemu_assert(elf->e_entry == 0x8000ca);
 
 	/* TODO: fix the magic number with the correct one */
 	/*const uint32_t elf_magic = 0x7f454c46;
@@ -54,7 +55,6 @@ uint32_t loader() {
 			 */
              memset((void *)ph->p_vaddr + ph->p_filesz, 0, ph->p_memsz - ph->p_filesz);
              elf->e_entry = ph->p_vaddr;
-             nemu_assert(elf->e_entry == 0x8000ca);
 #ifdef IA32_PAGE
 			/* Record the program break for future use. */
 			extern uint32_t cur_brk, max_brk;
