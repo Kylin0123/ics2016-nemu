@@ -31,9 +31,9 @@ uint32_t loader() {
 	elf = (void*)buf;
 
 	/* TODO: fix the magic number with the correct one */
-	const uint32_t elf_magic = 0x7f454c46;
-	uint32_t *p_magic = (void *)buf;
-	nemu_assert(*p_magic == elf_magic);
+	//const uint32_t elf_magic = 0x7f454c46;
+	//uint32_t *p_magic = (void *)buf;
+	//nemu_assert(*p_magic == elf_magic);
 
 	/* Load each program segment */
 	//panic("please implement me");
@@ -45,7 +45,7 @@ uint32_t loader() {
 			 */
              uint8_t mybuf[4096];
 			 ramdisk_read(mybuf, ph->p_offset, ph->p_filesz);
-             memset( (void *)ph->p_vaddr, 0, ph->p_filesz);
+             memcpy( (void *)ph->p_vaddr, mybuf, ph->p_filesz);
 			/* TODO: zero the memory region 
 			 * [VirtAddr + FileSiz, VirtAddr + MemSiz)
 			 */
