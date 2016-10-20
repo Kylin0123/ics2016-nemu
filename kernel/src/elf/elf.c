@@ -46,19 +46,19 @@ uint32_t loader() {
 			 * to the memory region [VirtAddr, VirtAddr + FileSiz)
 			 */
              //nemu_assert(0);
-             //uint8_t mybuf[0x9ffff];
-             //ramdisk_read(mybuf, 4096, 0x9ffff);
+             uint8_t mybuf[0x9ffff];
+             ramdisk_read(mybuf, 4096, 0x9ffff);
              //nemu_assert(mybuf[0] == 0xbd);
              //nemu_assert(ph->p_offset == 0x000000 || ph->p_offset == 0x1c0);
              //nemu_assert(ph->p_vaddr == 0x800000 || ph->p_vaddr == 0x8011c0);
              //nemu_assert(ph->p_align == 0x1000);
              //uint8_t mybuf[4096];
 			 //ramdisk_read(mybuf, *buf + ph->p_offset, ph->p_filesz);
-             //memcpy( (void *)ph->p_vaddr, &mybuf[ph->p_offset + ph->p_align], ph->p_filesz);
+             memcpy( (void *)ph->p_vaddr, &mybuf[ph->p_offset + ph->p_align], ph->p_filesz);
 			/* TODO: zero the memory region 
 			 * [VirtAddr + FileSiz, VirtAddr + MemSiz)
 			 */
-             //memset((void *)ph->p_vaddr + ph->p_filesz, 0, ph->p_memsz - ph->p_filesz);
+             memset((void *)ph->p_vaddr + ph->p_filesz, 0, ph->p_memsz - ph->p_filesz);
 #ifdef IA32_PAGE
 			/* Record the program break for future use. */
 			extern uint32_t cur_brk, max_brk;
@@ -69,7 +69,7 @@ uint32_t loader() {
 	}
 
 	volatile uint32_t entry = elf->e_entry;
-    nemu_assert(entry == 0x8000ca);
+    //nemu_assert(entry == 0x8000ca);
 #ifdef IA32_PAGE
 	mm_malloc(KOFFSET - STACK_SIZE, STACK_SIZE);
 
