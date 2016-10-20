@@ -33,8 +33,6 @@ uint32_t loader() {
 	/* TODO: fix the magic number with the correct one */
 	const uint32_t elf_magic = 0x7f454c46;
 	uint32_t *p_magic = (void *)buf;
-    nemu_assert(1);
-    nemu_assert(0);
 	nemu_assert(*p_magic == elf_magic);
 
 	/* Load each program segment */
@@ -51,8 +49,8 @@ uint32_t loader() {
 			/* TODO: zero the memory region 
 			 * [VirtAddr + FileSiz, VirtAddr + MemSiz)
 			 */
-             memset( (void *)ph->p_vaddr + ph->p_filesz, 0, ph->p_memsz - ph->p_filesz);
-            elf->e_entry = ph->p_vaddr;
+             memset((void *)ph->p_vaddr + ph->p_filesz, 0, ph->p_memsz - ph->p_filesz);
+             elf->e_entry = ph->p_vaddr;
 #ifdef IA32_PAGE
 			/* Record the program break for future use. */
 			extern uint32_t cur_brk, max_brk;
