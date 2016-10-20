@@ -45,7 +45,7 @@ uint32_t loader() {
 			/* TODO: read the content of the segment from the ELF file 
 			 * to the memory region [VirtAddr, VirtAddr + FileSiz)
 			 */
-             nemu_assert(ph->p_offset == 0x1c0);
+             nemu_assert(ph->p_offset != 0x1c0);
              //uint8_t mybuf[4096];
 			 //ramdisk_read(mybuf, *buf + ph->p_offset, ph->p_filesz);
              memcpy( (void *)ph->p_vaddr, buf + ph->p_offset, ph->p_filesz);
