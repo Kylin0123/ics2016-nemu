@@ -46,7 +46,7 @@ uint32_t loader() {
 			 * to the memory region [VirtAddr, VirtAddr + FileSiz)
 			 */
              //nemu_assert(0);
-             nemu_assert(buf[1] == 0x45);
+             nemu_assert(buf[10] == 0x45);
              nemu_assert(ph->p_offset == 0x000000 || ph->p_offset == 0x1c0);
              nemu_assert(ph->p_vaddr == 0x800000 || ph->p_vaddr == 0x8011c0);
              //uint8_t mybuf[4096];
