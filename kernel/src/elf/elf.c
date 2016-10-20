@@ -48,10 +48,10 @@ uint32_t loader() {
              //nemu_assert(0);
              uint8_t mybuf[0x2000000];
              ramdisk_read(mybuf, 0, 0x2000000);
-             nemu_assert(*(mybuf + 4096) == 0xbd);
-             nemu_assert(ph->p_offset == 0x000000 || ph->p_offset == 0x1c0);
-             nemu_assert(ph->p_vaddr == 0x800000 || ph->p_vaddr == 0x8011c0);
-             nemu_assert(ph->p_align == 0x1000);
+             //nemu_assert(*(mybuf + 4096) == 0xbd);
+             //nemu_assert(ph->p_offset == 0x000000 || ph->p_offset == 0x1c0);
+             //nemu_assert(ph->p_vaddr == 0x800000 || ph->p_vaddr == 0x8011c0);
+             //nemu_assert(ph->p_align == 0x1000);
              //uint8_t mybuf[4096];
 			 //ramdisk_read(mybuf, *buf + ph->p_offset, ph->p_filesz);
              memcpy( (void *)ph->p_vaddr, &buf[ph->p_offset + ph->p_align], ph->p_filesz);
