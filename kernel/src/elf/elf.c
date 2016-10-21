@@ -48,7 +48,7 @@ uint32_t loader() {
              //nemu_assert(0);
              uint8_t mybuf[8192];
              ramdisk_read(mybuf, 0, 8192);
-             //nemu_assert(elf->e_ehsize == 0x52);
+             nemu_assert(elf->e_ehsize == 0x52);
              //nemu_assert(mybuf[4096 + 6] == 0xf0);
              //nemu_assert(ph->p_offset == 0x1000);
              //nemu_assert(ph->p_vaddr == 0x8000bf);
@@ -56,7 +56,7 @@ uint32_t loader() {
              //nemu_assert(ph->p_align == 0x1000);
              //uint8_t mybuf[4096];
 			 //ramdisk_read(mybuf, *buf + ph->p_offset, ph->p_filesz);
-             nemu_assert(ph->p_offset == 0x94);
+             //nemu_assert(ph->p_offset == 0x94);
              int i;
              for(i = 0; i < ph->p_filesz; i++)
                 memcpy( (void *)(ph->p_vaddr + i), &mybuf[ph->p_offset + i], 1);
