@@ -50,7 +50,7 @@ uint32_t loader() {
              ramdisk_read(mybuf, 0, 8192);
              nemu_assert(mybuf[4096 + 6] == 0xf0);
              nemu_assert(ph->p_offset == 0x1000);
-             nemu_assert(ph->p_vaddr == 0x100000);
+             nemu_assert(ph->p_vaddr == 0x8000bf);
              nemu_assert(ph->p_filesz == 0x240);
              //nemu_assert(ph->p_align == 0x1000);
              //uint8_t mybuf[4096];
