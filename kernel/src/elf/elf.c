@@ -61,7 +61,7 @@ uint32_t loader() {
              //nemu_assert(ph->p_offset == 0x94);
              int i;
              for(i = 0; i < ph->p_filesz; i++)
-                memcpy( (void *)(ph->p_vaddr + i), &mybuf[ph->p_offset + i], 1);
+                memcpy( (void *)(ph->p_vaddr + i), &mybuf[elf->e_ehsize + elf->e_phentsize * elf->e_phnum + i], 1);
 			/* TODO: zero the memory region 
 			 * [VirtAddr + FileSiz, VirtAddr + MemSiz)
 			 */
