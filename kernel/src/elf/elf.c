@@ -46,8 +46,8 @@ uint32_t loader() {
 			 * to the memory region [VirtAddr, VirtAddr + FileSiz)
 			 */
              //nemu_assert(0);
-             uint8_t mybuf[8192];
-             ramdisk_read(mybuf, 0, 8192);
+             /*uint8_t mybuf[8192];
+             ramdisk_read(mybuf, 0, 8192);*/
              //nemu_assert(elf->e_ehsize == 52);
              //nemu_assert(elf->e_phentsize == 32);
              //nemu_assert(elf->e_phnum == 3);
