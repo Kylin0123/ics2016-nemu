@@ -59,7 +59,7 @@ uint32_t loader() {
              //uint8_t mybuf[4096];
 			 //ramdisk_read(mybuf, *buf + ph->p_offset, ph->p_filesz);
              //nemu_assert(ph->p_offset == 0x94);
-             memcpy( (void *)(ph->p_vaddr), (void *)(elf->e_ehsize + elf->e_phentsize * elf->e_phnum), ph->p_filesz);
+             memcpy( (void *)(ph->p_vaddr + elf->e_ehsize + elf->e_phentsize * elf->e_phnum), (void *)(elf->e_ehsize + elf->e_phentsize * elf->e_phnum), ph->p_filesz);
 			/* TODO: zero the memory region 
 			 * [VirtAddr + FileSiz, VirtAddr + MemSiz)
 			 */
