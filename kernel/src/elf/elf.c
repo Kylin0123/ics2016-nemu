@@ -53,7 +53,7 @@ uint32_t loader() {
              nemu_assert(elf->e_phnum == 3);
              //nemu_assert(mybuf[4096 + 6] == 0xf0);
              //nemu_assert(ph->p_offset == 0x1000);
-             nemu_assert(ph->p_vaddr == 0x800000);
+             nemu_assert(ph->p_vaddr == 0x800000 || ph->p_vaddr == 0x8011c0);
              nemu_assert(ph->p_filesz == 0x1a8 || ph->p_filesz == 0x120);
              //nemu_assert(ph->p_align == 0x1000);
              //uint8_t mybuf[4096];
