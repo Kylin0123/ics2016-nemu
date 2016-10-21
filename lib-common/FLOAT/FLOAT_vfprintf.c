@@ -60,7 +60,7 @@ static void modify_vfprintf() {
 		}
 		*count += nf;
 
-		return 0;
+	return 0;
 	} else if (ppfs->conv_num <= CONV_S) {  /* wide char or string */
 #endif
 
