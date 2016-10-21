@@ -21,7 +21,7 @@ static void do_execute(){
 
 #if DATA_BYTE == 2
 make_helper(call_rm_w){
-    decode_rm_l(eip);
+    decode_rm_l(eip + 1);
     cpu.esp -= 4;
     swaddr_write(cpu.esp, 4, cpu.eip + 1);
     //printf("eip1:%x\n", op_src->val);
