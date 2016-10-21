@@ -48,13 +48,13 @@ uint32_t loader() {
              //nemu_assert(0);
              uint8_t mybuf[8192];
              ramdisk_read(mybuf, 0, 8192);
-             nemu_assert(elf->e_ehsize == 52);
-             nemu_assert(elf->e_phentsize == 32);
-             nemu_assert(elf->e_phnum == 3);
+             //nemu_assert(elf->e_ehsize == 52);
+             //nemu_assert(elf->e_phentsize == 32);
+             //nemu_assert(elf->e_phnum == 3);
              //nemu_assert(mybuf[4096 + 6] == 0xf0);
              //nemu_assert(ph->p_offset == 0x1000);
-             nemu_assert(ph->p_vaddr == 0x800000 || ph->p_vaddr == 0x8011c0);
-             nemu_assert(ph->p_filesz == 0x1a8 || ph->p_filesz == 0x120);
+             //nemu_assert(ph->p_vaddr == 0x800000 || ph->p_vaddr == 0x8011c0);
+             //nemu_assert(ph->p_filesz == 0x1a8 || ph->p_filesz == 0x120);
              //nemu_assert(ph->p_align == 0x1000);
              //uint8_t mybuf[4096];
 			 //ramdisk_read(mybuf, *buf + ph->p_offset, ph->p_filesz);
@@ -64,7 +64,7 @@ uint32_t loader() {
 			 * [VirtAddr + FileSiz, VirtAddr + MemSiz)
 			 */
              memset((void *)(ph->p_vaddr + ph->p_filesz + elf->e_ehsize + elf->e_phentsize * elf->e_phnum), 0, ph->p_memsz - ph->p_filesz);
-             nemu_assert(0);
+             
 #ifdef IA32_PAGE
 			/* Record the program break for future use. */
 			extern uint32_t cur_brk, max_brk;
