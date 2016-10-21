@@ -48,7 +48,7 @@ uint32_t loader() {
              //nemu_assert(0);
              uint8_t mybuf[8192];
              ramdisk_read(mybuf, 0, 8192);
-             nemu_assert(elf->e_ehsize == 0x52);
+             nemu_assert(elf->e_ehsize == 52);
              //nemu_assert(mybuf[4096 + 6] == 0xf0);
              //nemu_assert(ph->p_offset == 0x1000);
              //nemu_assert(ph->p_vaddr == 0x8000bf);
