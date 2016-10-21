@@ -103,7 +103,6 @@ void init_cond() {
 
 	/* Here we go! */
 	((void(*)(void))eip)();
-    nemu_assert(0);
 
 	HIT_GOOD_TRAP;
 
