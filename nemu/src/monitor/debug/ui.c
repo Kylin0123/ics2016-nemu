@@ -161,8 +161,11 @@ static int cmd_bt(char *args){
                 printf("%s (0x%x, 0x%x, 0x%x, 0x%x)\n", mystrtab + mysymtab[i].st_name, t1, t2, t3, t4);
             } 
         }
-        temp_eip = swaddr_read(ptr + 4, 4);
-        ptr = swaddr_read(ptr, 4);
+        if(ptr + 4 < 0x80000000)
+        {
+            temp_eip = swaddr_read(ptr + 4, 4);
+            ptr = swaddr_read(ptr, 4);
+        }
     }
     return 0;
 }
