@@ -145,7 +145,7 @@ static int cmd_bt(char *args){
     swaddr_t ptr = cpu.ebp;
     swaddr_t temp_eip = cpu.eip;
     swaddr_t t1,t2,t3,t4;
-    while(ptr != 0){
+    while(ptr < 0x80000000){
         printf("0x%x in ", ptr);
         t1 = swaddr_read(ptr + 8, 4);
         t2 = swaddr_read(ptr + 12, 4);
