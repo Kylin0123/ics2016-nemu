@@ -161,7 +161,7 @@ static int cmd_bt(char *args){
             } 
         }
         printf("bbbbbbbbbbbbb\n");
-        if(ptr + 4 <= 0x7ffffffff)
+        if(ptr != cpu.ebp)
             temp_eip = swaddr_read(ptr + 4, 4);
         ptr = swaddr_read(ptr, 4);
     }
