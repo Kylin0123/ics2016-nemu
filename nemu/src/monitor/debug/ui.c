@@ -147,14 +147,12 @@ static int cmd_bt(char *args){
     swaddr_t t1=0,t2=0,t3=0,t4=0;
     while(ptr != 0){
         printf("0x%x in ", ptr);
-        if((uint32_t)ptr + 8 <= 0x7fffffff)
+        if(ptr != cpu.ebp){
             t1 = swaddr_read(ptr + 8, 4);
-        if((uint32_t)ptr + 12 <= 0x7fffffff)
             t2 = swaddr_read(ptr + 12, 4);
-        if((uint32_t)ptr + 16 <= (uint32_t)0x7fffffff)
             t3 = swaddr_read(ptr + 16, 4);
-        if((uint32_t)ptr + 20 <= (uint32_t)0x7fffffff)
             t4 = swaddr_read(ptr + 20, 4);
+        }
         int i;
         printf("aaaaaaaa\n");
         for(i = 0; i < mynr; i++){
