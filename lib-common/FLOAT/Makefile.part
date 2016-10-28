@@ -17,8 +17,8 @@ FLOAT_VFPRINTF_C := lib-common/FLOAT/FLOAT_vfprintf.c
 
 $(FLOAT_O): $(FLOAT_C)
 	mkdir -p $(LIB_OBJ_DIR)
-	$(call make_command, $(CC), $(float_CFLAGS_EXTRA) -fno-stack-protector, cc -c $@, $^)
+	$(call make_command, $(CC), $(float_CFLAGS_EXTRA), cc -c $@, $^)
 $(FLOAT_VFPRINTF_O):$(FLOAT_VFPRINTF_C)
 	mkdir -p $(LIB_OBJ_DIR)
-	$(call make_command, $(CC), $(float_CFLAGS_EXTRA) -fno-stack-protector, cc -c $@, $^)
+	$(call make_command, $(CC), $(float_CFLAGS_EXTRA), cc -c $@, $^)
 	
