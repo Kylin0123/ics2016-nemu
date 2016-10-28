@@ -159,6 +159,7 @@ static int cmd_bt(char *args){
             } 
         }
             temp_eip = swaddr_read(ptr + 4, 4);
+            printf("eip:%x\n", temp_eip);
         ptr = swaddr_read(ptr, 4);
         
     }
