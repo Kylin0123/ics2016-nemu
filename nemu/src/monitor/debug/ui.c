@@ -156,6 +156,7 @@ static int cmd_bt(char *args){
         if(ptr + 20 < 0x80000000)
             t4 = swaddr_read(ptr + 20, 4);
         int i;
+        printf("aaaaaaaa\n");
         for(i = 0; i < mynr; i++){
             if(temp_eip >= mysymtab[i].st_value && temp_eip <= mysymtab[i].st_value + mysymtab[i].st_size){
                 printf("%s (0x%x, 0x%x, 0x%x, 0x%x)\n", mystrtab + mysymtab[i].st_name, t1, t2, t3, t4);
