@@ -154,7 +154,7 @@ static int cmd_bt(char *args){
         int i;
         //printf("aaaaaaaa\n");
         for(i = 0; i < mynr; i++){
-            printf("st_value:%x\n", mysymtab[i].st_value);
+            //printf("st_value:%x\n", mysymtab[i].st_value);
             if(temp_eip >= mysymtab[i].st_value && temp_eip <= mysymtab[i].st_value + mysymtab[i].st_size){
                 printf("%s (0x%x, 0x%x, 0x%x, 0x%x)\n", mystrtab + mysymtab[i].st_name, t1, t2, t3, t4);
             } 
