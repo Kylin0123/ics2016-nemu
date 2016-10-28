@@ -145,14 +145,12 @@ static int cmd_bt(char *args){
     swaddr_t ptr = cpu.ebp;
     swaddr_t temp_eip = cpu.eip;
     swaddr_t t1=0,t2=0,t3=0,t4=0;
-    while(ptr != 0){
+    while(1){
         printf("0x%x in ", ptr);
-        if(ptr != cpu.ebp){
             t1 = swaddr_read(ptr + 8, 4);
             t2 = swaddr_read(ptr + 12, 4);
             t3 = swaddr_read(ptr + 16, 4);
             t4 = swaddr_read(ptr + 20, 4);
-        }
         int i;
         printf("aaaaaaaa\n");
         for(i = 0; i < mynr; i++){
@@ -160,10 +158,10 @@ static int cmd_bt(char *args){
                 printf("%s (0x%x, 0x%x, 0x%x, 0x%x)\n", mystrtab + mysymtab[i].st_name, t1, t2, t3, t4);
             } 
         }
-        if(ptr != cpu.ebp)
             temp_eip = swaddr_read(ptr + 4, 4);
         ptr = swaddr_read(ptr, 4);
-        printf("ptr=%x\n", ptr);
+        if(swaddr_read(ptr, 4) == 0)
+            break;
     }
     return 0;
 }
