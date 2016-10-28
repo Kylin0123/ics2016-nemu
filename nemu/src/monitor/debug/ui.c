@@ -162,10 +162,8 @@ static int cmd_bt(char *args){
             } 
         }
         if(ptr + 4 < 0x80000000)
-        {
             temp_eip = swaddr_read(ptr + 4, 4);
-            ptr = swaddr_read(ptr, 4);
-        }
+        ptr = swaddr_read(ptr, 4);
     }
     return 0;
 }
