@@ -147,20 +147,20 @@ static int cmd_bt(char *args){
     swaddr_t t1=0,t2=0,t3=0,t4=0;
     while(ptr != 0){
         printf("0x%x in ", ptr);
-            t1 = swaddr_read(ptr + 8, 4);
-            t2 = swaddr_read(ptr + 12, 4);
-            t3 = swaddr_read(ptr + 16, 4);
-            t4 = swaddr_read(ptr + 20, 4);
+        t1 = swaddr_read(ptr + 8, 4);
+        t2 = swaddr_read(ptr + 12, 4);
+        t3 = swaddr_read(ptr + 16, 4);
+        t4 = swaddr_read(ptr + 20, 4);
         int i;
-        printf("aaaaaaaa\n");
+        //printf("aaaaaaaa\n");
         for(i = 0; i < mynr; i++){
             printf("st_value:%x\n", mysymtab[i].st_value);
             if(temp_eip >= mysymtab[i].st_value && temp_eip <= mysymtab[i].st_value + mysymtab[i].st_size){
                 printf("%s (0x%x, 0x%x, 0x%x, 0x%x)\n", mystrtab + mysymtab[i].st_name, t1, t2, t3, t4);
             } 
         }
-            temp_eip = swaddr_read(ptr + 4, 4);
-            printf("eip:%x\n", temp_eip);
+        temp_eip = swaddr_read(ptr + 4, 4);
+        //printf("eip:%x\n", temp_eip);
         ptr = swaddr_read(ptr, 4);
         
     }
