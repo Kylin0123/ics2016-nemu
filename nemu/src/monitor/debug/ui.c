@@ -151,6 +151,7 @@ static int cmd_bt(char *args){
             t1 = swaddr_read(ptr + 8, 4);
         if(ptr + 12 <= 0x7fffffff)
             t2 = swaddr_read(ptr + 12, 4);
+        printf("a\n");
         if(ptr + 16 <= 0x7fffffff)
             t3 = swaddr_read(ptr + 16, 4);
         if(ptr + 20 <= 0x7fffffff)
