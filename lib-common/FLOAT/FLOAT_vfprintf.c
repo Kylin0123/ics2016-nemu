@@ -24,9 +24,9 @@ __attribute__((used)) static int format_FLOAT(FILE *stream, FLOAT f) {
     int result_l = result - result_h * 1000000;
     int len;
     if(flag == 1)
-        len = sprintf(buf, "-%u.%u", result_h, result_l);
+        len = sprintf(buf, "-%u.%06u", result_h, result_l);
 	else
-        len = sprintf(buf, "%u.%u", result_h, result_l);
+        len = sprintf(buf, "%u.%06u", result_h, result_l);
     return __stdio_fwrite(buf, len, stream);
 }
 
