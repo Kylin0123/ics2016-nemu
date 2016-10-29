@@ -96,7 +96,7 @@ extern char _ppfs_setargs;
 static void modify_ppfs_setargs() {
     uint32_t addr2change = (uint32_t)&_ppfs_setargs + 0x6f;
     //mprotect((void *)((addr2change - 100) & 0xfffff000), 4096*2, PROT_READ | PROT_WRITE | PROT_EXEC);
-    *((char *)(addr2change)) = 0x75;
+    *((char *)(addr2change)) = 0xeb;
     *((char *)(addr2change + 0x1)) = 0x32;
     //*((char *)(addr2change + 0x2)) = 0x90;
 	/* TODO: Implement this function to modify the action of preparing
