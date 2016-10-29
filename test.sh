@@ -9,7 +9,7 @@ for file in $@; do
 	echo -e $cmd | /usr/bin/time -f '%e' -o time.log $nemu $file &> $logfile
 	time_cost=`cat time.log`
 	printf "($time_cost s): "
-	rm time.log
+	rm -f time.log
 
 	if (grep 'nemu: HIT GOOD TRAP' $logfile > /dev/null) then
 		echo -e "\033[1;32mPASS!\033[0m"
