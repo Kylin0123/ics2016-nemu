@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include "FLOAT.h"
-#include <sys/mman.h>
+//#include <sys/mman.h>
 
 extern char _vfprintf_internal;
 extern char _fpmaxtostr;
@@ -39,7 +39,7 @@ static void modify_vfprintf() {
     
     int delta = (int)(format_FLOAT) - (int)&_fpmaxtostr;
     uint32_t addr = (uint32_t)&_vfprintf_internal + 0x306;
-    mprotect((void *)((addr - 100) & 0xfffff000), 4096*2, PROT_READ | PROT_WRITE | PROT_EXEC);
+    //mprotect((void *)((addr - 100) & 0xfffff000), 4096*2, PROT_READ | PROT_WRITE | PROT_EXEC);
     int *temp = (int *)(addr + 1);
     *temp += delta;
     *((char *)(addr - 0xa)) = 0xff;
@@ -95,13 +95,9 @@ extern char _ppfs_setargs;
 
 static void modify_ppfs_setargs() {
     uint32_t addr2change = (uint32_t)&_ppfs_setargs + 0x6f;
-    printf("addr:0x%x\n", addr2change);
-    mprotect((void *)((addr2change - 100) & 0xfffff000), 4096*2, PROT_READ | PROT_WRITE | PROT_EXEC);
+    //mprotect((void *)((addr2change - 100) & 0xfffff000), 4096*2, PROT_READ | PROT_WRITE | PROT_EXEC);
     *((char *)(addr2change)) = 0xeb;
-    printf("aaaaaa\n");
     *((char *)(addr2change + 0x1)) = 0x32;
-    //*((char *)(addr2change + 0x2)) = 0x90;
-    printf("bbbbbb\n");
 	/* TODO: Implement this function to modify the action of preparing
 	 * "%f" arguments for _vfprintf_internal() in _ppfs_setargs().
 	 * Below is the code section in _vfprintf_internal() relative to
