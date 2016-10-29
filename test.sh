@@ -19,7 +19,7 @@ for file in $@; do
 		if (test -e log.txt) then
 			echo -e "\n\n===== the original log.txt =====\n" >> $logfile
 			cat log.txt >> $logfile
-			rm log.txt
+			rm -f log.txt
 		fi
 	fi
 done
