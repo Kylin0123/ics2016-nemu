@@ -15,10 +15,19 @@ __attribute__((used)) static int format_FLOAT(FILE *stream, FLOAT f) {
 	 *         0x00010000    "1.000000"
 	 *         0x00013333    "1.199996"
 	 */
-
-	char buf[80];
-	int len = sprintf(buf, "0x%08x", f);
-	return __stdio_fwrite(buf, len, stream);
+    int flag = !!(f & 0x80000000);
+    char buf[80];
+	if(flag == 1)
+        f = -f;
+    int result = (int)f * 15625 / 1024;
+    int result_h = result / 1000000;
+    int result_l = result - result_h * 1000000;
+    int len;
+    if(flag == 1)
+        len = sprintf(buf, "-%u.%u", result_h, result_l);
+	else
+        len = sprintf(buf, "%u.%u", result_h, result_l);
+    return __stdio_fwrite(buf, len, stream);
 }
 
 static void modify_vfprintf() {
@@ -33,6 +42,16 @@ static void modify_vfprintf() {
     mprotect((void *)((addr - 100) & 0xfffff000), 4096*2, PROT_READ | PROT_WRITE | PROT_EXEC);
     int *temp = (int *)(addr + 1);
     *temp += delta;
+    *((char *)(addr - 0xa)) = 0xff;
+    *((char *)(addr - 0x9)) = 0x32;
+    *((char *)(addr - 0x8)) = 0x90;
+    *((char *)(addr - 0xb)) -= 0x4;
+    *((short *)(addr - 0x1e)) = 0x9090;
+    *((short *)(addr - 0x22)) = 0x9090;
+
+
+
+
 #if 0
 	else if (ppfs->conv_num <= CONV_A) {  /* floating point */
 		ssize_t nf;
@@ -72,7 +91,17 @@ static void modify_vfprintf() {
 
 }
 
+extern char _ppfs_setargs;
+
 static void modify_ppfs_setargs() {
+    uint32_t addr2change = (uint32_t)&_ppfs_setargs + 0x6f;
+    printf("addr:0x%x\n", addr2change);
+    mprotect((void *)((addr2change - 100) & 0xfffff000), 4096*2, PROT_READ | PROT_WRITE | PROT_EXEC);
+    *((char *)(addr2change)) = 0xeb;
+    printf("aaaaaa\n");
+    *((char *)(addr2change + 0x1)) = 0x32;
+    //*((char *)(addr2change + 0x2)) = 0x90;
+    printf("bbbbbb\n");
 	/* TODO: Implement this function to modify the action of preparing
 	 * "%f" arguments for _vfprintf_internal() in _ppfs_setargs().
 	 * Below is the code section in _vfprintf_internal() relative to
