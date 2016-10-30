@@ -4,6 +4,7 @@
 #define USE_RAMDISK
 
 /* You will define this macro in PA4 */
+volatile static int dummy;
 //#define HAS_DEVICE
 
 #define DEBUG
