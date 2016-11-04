@@ -31,7 +31,7 @@ void init_cache() {
         }
 }
 
-uint32_t read_cache(Cache* this, hwaddr_t addr, uint32_t *success, size_t len){
+uint32_t read_cache(struct Cache* this, hwaddr_t addr, uint32_t *success, size_t len){
     uint32_t temp_tag = addr >> 13;
     temp_tag &= 0x7ffff;
     uint32_t temp_group = addr >> 6;
@@ -54,7 +54,7 @@ uint32_t read_cache(Cache* this, hwaddr_t addr, uint32_t *success, size_t len){
     return unalign_rw(temp + temp_addr, 4);
 }
 
-void write_cache(Cache* this, hwaddr_t addr, uint32_t data, uint32_t *success, size_t len){
+void write_cache(struct Cache* this, hwaddr_t addr, uint32_t data, uint32_t *success, size_t len){
    return;
 }
 
