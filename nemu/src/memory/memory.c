@@ -17,8 +17,10 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
     uint32_t temp = read_cache(&cache, addr, success, len);
     if(*success == 1)
         return temp;
-    else
+    else{
+
 	    return dram_read(addr, len) & (~0u >> ((4 - len) << 3));
+    }
 }
 
 void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {

@@ -38,18 +38,39 @@ uint32_t read_cache(struct Cache* this, hwaddr_t addr, uint32_t *success, size_t
     temp_group &= 0x7f;
     uint32_t temp_addr = addr & 0x3f;
     *success = 0;
-    uint8_t temp[16];
+    uint8_t temp[128];
     int i;
     printf("%d\n", cache.cache_block[0][0].valid_bit);
-    for(i = 0; i < 8; i++){
-        if(this->cache_block[temp_group][i].tag == temp_tag){
-            if(this->cache_block[temp_group][i].valid_bit == 1){
-    printf("aaaa\n");
-                memcpy(temp, &this->cache_block[temp_group][i].data[temp_addr], len);
-                *success = 1;
-                if(temp_addr + len > 8){
-                    memcpy(temp + 8, &this->cache_block[temp_group][i].data[temp_addr] + 8, 8);
+    if(temp_addr + len  <= 64){
+        for(i = 0; i < 8; i++){
+            if(this->cache_block[temp_group][i].tag == temp_tag){
+                if(this->cache_block[temp_group][i].valid_bit == 1){
+                    printf("aaaa\n");
+                    memcpy(temp, this->cache_block[temp_group][i].data, 64);
+                    *success = 1;
                 }
+            }
+        }
+    }
+    else{
+        int i,j;
+        for(i = 0; i < 8; i++)
+            for(j = 0;j <8; j++){
+                if(this->cache_block[temp_group][i].tag == temp_tag && this->cache_block[temp_group+1][j].tag == temp_tag){
+                    if(this->cache_block[temp_group][i].valid_bit == 1 && this->cache_block[temp_group+1][j].valid_bit == 1){
+                        *success = 1;
+                        memcpy(temp, this->cache_block[temp_group][i].data, 64);
+                        memcpy(temp + 64, this->cache_block[temp_group+1][j].data, 64);
+                    }
+                }
+            }
+    }
+    if(*success == 0){
+        for(i = 0; i < 8; i++){        //todo:should be random
+            if(this->cache_block[temp_group][i].valid_bit == 0){
+                this->cache_block[temp_group][i].valid_bit = 1;
+                uint32_t align_addr = addr & 0xffffffc0;
+                memcpy(this->cache_block[temp_group][i].data, (void *)align_addr, 64);
             }
         }
     }
