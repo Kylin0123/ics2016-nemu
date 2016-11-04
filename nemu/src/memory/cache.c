@@ -37,14 +37,13 @@ uint32_t read_cache(struct Cache* this, hwaddr_t addr, uint32_t *success, size_t
     uint32_t temp_group = addr >> 6;
     temp_group &= 0x7f;
     uint32_t temp_addr = addr & 0x3f;
-    printf("cccc\n");
     *success = 0;
-    printf("aaaa\n");
     uint8_t temp[16];
     int i;
     for(i = 0; i < 8; i++){
         if(this->cache_block[temp_group][i].tag == temp_tag){
             if(this->cache_block[temp_group][i].valid_bit == 1){
+    printf("aaaa\n");
                 memcpy(temp, &this->cache_block[temp_group][i].data[temp_addr], len);
                 *success = 1;
                 if(temp_addr + len > 8){
