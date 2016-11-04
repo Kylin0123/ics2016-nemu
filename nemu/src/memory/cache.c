@@ -15,10 +15,10 @@ typedef struct {
     uint8_t data[64];
 } Cache_block;
 
-typedef struct {
+typedef struct Cache{
     Cache_block cache_block[128][8];
-    int (*read)(Cache_block* this, hwaddr_t addr, uint32_t *data, size_t len);
-    int (*write)(Cache_block* this, hwaddr_t addr, uint32_t data, size_t len);
+    uint32_t (*read)(struct Cache* this, hwaddr_t addr, uint32_t *success, size_t len);
+    void (*write)(struct Cache* this, hwaddr_t addr, uint32_t data, uint32_t *success, size_t len);
 } Cache;
 
 Cache cache;
@@ -31,25 +31,30 @@ void init_cache() {
         }
 }
 
-int read_cache(Cache* this, hwaddr_t addr, uint32_t *data, size_t len){
+uint32_t read_cache(Cache* this, hwaddr_t addr, uint32_t *success, size_t len){
     uint32_t temp_tag = addr >> 13;
     temp_tag &= 0x7ffff;
     uint32_t temp_group = addr >> 6;
     temp_group &= 0x7f;
     uint32_t temp_addr = addr & 0x3f;
+    *success = 0;
+    uint8_t temp[16];
     int i;
     for(i = 0; i < 8; i++){
         if(this->cache_block[temp_group][i].tag == temp_tag){
             if(this->cache_block[temp_group][i].valid_bit == 1){
-                memcpy(data, &this->cache_block[temp_group][i].data[temp_addr], len);
-                return 1;
+                memcpy(temp, &this->cache_block[temp_group][i].data[temp_addr], len);
+                *success = 1;
+                if(temp_addr + len > 8){
+                    memcpy(temp + 8, &this->cache_block[temp_group][i].data[temp_addr] + 8, 8);
+                }
             }
         }
     }
-    return 0;
+    return unalign_rw(temp + temp_addr, 4);
 }
 
-int write_cache(Cache* this, hwaddr_t addr, uint32_t data, size_t len){
-   return 0;
+void write_cache(Cache* this, hwaddr_t addr, uint32_t data, uint32_t *success, size_t len){
+   return;
 }
 
