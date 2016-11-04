@@ -65,17 +65,6 @@ uint32_t read_cache(struct Cache* this, hwaddr_t addr, uint32_t *success, size_t
                 }
             }
     }
-    if(*success == 0){
-        for(i = 0; i < 8; i++){        //todo:should be random
-            if(this->cache_block[temp_group][i].valid_bit == 0){
-                this->cache_block[temp_group][i].valid_bit = 1;
-                uint32_t align_addr = addr & 0xffffffc0;
-                printf("addr:%x\n", align_addr);
-                memcpy(this->cache_block[temp_group][i].data, (void *)align_addr, 64);
-                break;
-            }
-        }
-    }
     printf("over\n");
     return unalign_rw(temp + temp_addr, 4);
 }
