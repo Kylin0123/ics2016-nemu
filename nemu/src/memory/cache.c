@@ -47,7 +47,7 @@ uint32_t read_cache(struct Cache* this, hwaddr_t addr, uint32_t *success, size_t
         for(i = 0; i < 8; i++){
             if(this->cache_block[temp_group][i].tag == temp_tag){
                 if(this->cache_block[temp_group][i].valid_bit == 1){
-                    printf("aaaa\n");
+                    //printf("aaaa\n");
                     memcpy(temp, this->cache_block[temp_group][i].data, 64);
                     *success = 1;
                 }
@@ -87,7 +87,7 @@ uint32_t read_cache(struct Cache* this, hwaddr_t addr, uint32_t *success, size_t
             }
         }
     }
-    printf("over\n");
+    //printf("over\n");
     return unalign_rw(temp + temp_addr, 4);
 }
 
