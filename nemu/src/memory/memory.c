@@ -14,7 +14,6 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
 	//return dram_read(addr, len) & (~0u >> ((4 - len) << 3));
     uint32_t *success = 0;
     uint32_t temp = read_cache(&cache, addr, success, len);
-    printf("ccccc\n");
     if(*success == 1)
         return temp;
     else
