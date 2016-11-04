@@ -18,7 +18,6 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
     if(*success == 1)
         return temp;
     else{
-
 	    return dram_read(addr, len) & (~0u >> ((4 - len) << 3));
     }
 }

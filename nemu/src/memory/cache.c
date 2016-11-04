@@ -7,6 +7,8 @@
 
 #include "common.h"
 
+extern int32_t dram_read(hwaddr_t, size_t);
+
 typedef struct {
     struct {
         uint32_t valid_bit : 1;
@@ -64,6 +66,21 @@ uint32_t read_cache(struct Cache* this, hwaddr_t addr, uint32_t *success, size_t
                     }
                 }
             }
+    }
+    if(*success == 0){
+        int i;
+        for(i = 0; i < 8; i++){
+            if(this->cache_block[temp_group][i].valid_bit == 0){
+                this->cache_block[temp_group][i].valid_bit = 1;
+                uint32_t temp2[16];
+                uint32_t align_addr = addr & 0xffffffc0;
+                int j;
+                for(j = 0; j < 16; j++){
+                    temp2[j] = dram_read(align_addr + 4*j, 4);
+                }
+                memcpy( this->cache_block[temp_group][i].data, temp2, 64);
+            }
+        }
     }
     printf("over\n");
     return unalign_rw(temp + temp_addr, 4);
