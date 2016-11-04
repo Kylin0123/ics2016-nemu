@@ -21,6 +21,16 @@ typedef struct {
     int (*write)(Cache_block* this, hwaddr_t addr, uint32_t data, size_t len);
 } Cache;
 
+Cache cache;
+
+void init_cache() {
+    int i,j;
+    for(i = 0; i < 128; i++)
+        for(j = 0; j < 8; j++){
+            cache.cache_block[i][j].valid_bit = 0;
+        }
+}
+
 int read_cache(Cache* this, hwaddr_t addr, uint32_t *data, size_t len){
     uint32_t temp_tag = addr >> 13;
     temp_tag &= 0x7ffff;
