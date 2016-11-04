@@ -38,9 +38,9 @@ uint32_t read_cache(struct Cache* this, hwaddr_t addr, uint32_t *success, size_t
     temp_group &= 0x7f;
     uint32_t temp_addr = addr & 0x3f;
     *success = 0;
+    printf("cccc\n");
     uint8_t temp[16];
     int i;
-    printf("cccc\n");
     for(i = 0; i < 8; i++){
         if(this->cache_block[temp_group][i].tag == temp_tag){
             if(this->cache_block[temp_group][i].valid_bit == 1){
