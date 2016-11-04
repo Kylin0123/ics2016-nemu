@@ -79,6 +79,10 @@ uint32_t read_cache(struct Cache* this, hwaddr_t addr, uint32_t *success, size_t
                     temp2[j] = dram_read(align_addr + 4*j, 4);
                 }
                 memcpy( this->cache_block[temp_group][i].data, temp2, 64);
+                for(j = 0; j < 16; j++){
+                    printf("%x ", temp2[j]);
+                }
+                printf("\n");
                 break;
             }
         }
