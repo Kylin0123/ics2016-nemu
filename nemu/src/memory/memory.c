@@ -13,6 +13,7 @@ void dram_write(hwaddr_t, size_t, uint32_t);
 uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
 	//return dram_read(addr, len) & (~0u >> ((4 - len) << 3));
     uint32_t *success = 0;
+    printf("ccccc\n");
     uint32_t temp = read_cache(&cache, addr, success, len);
     if(*success == 1)
         return temp;
