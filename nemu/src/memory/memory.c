@@ -1,12 +1,25 @@
 #include "common.h"
 
-uint32_t dram_read(hwaddr_t, size_t);
+extern struct Cache cache;
+
+extern uint32_t read_cache(struct Cache * this, hwaddr_t addr, uint32_t *success, size_t len);
+extern void write_cache(struct Cache *this, hwaddr_t addr, uint32_t data, uint32_t *success, size_t len);
+
+int32_t dram_read(hwaddr_t, size_t);
 void dram_write(hwaddr_t, size_t, uint32_t);
 
 /* Memory accessing interfaces */
 
 uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
-	return dram_read(addr, len) & (~0u >> ((4 - len) << 3));
+	//return dram_read(addr, len) & (~0u >> ((4 - len) << 3));
+    uint32_t *success = malloc(sizeof(uint32_t));
+    *success = 0;
+    uint32_t temp = read_cache(&cache, addr, success, len);
+    if(*success == 1)
+        return temp;
+    else{
+	    return dram_read(addr, len) & (~0u >> ((4 - len) << 3));
+    }
 }
 
 void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
