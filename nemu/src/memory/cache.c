@@ -71,6 +71,7 @@ uint32_t read_cache(struct Cache* this, hwaddr_t addr, uint32_t *success, size_t
                 this->cache_block[temp_group][i].valid_bit = 1;
                 uint32_t align_addr = addr & 0xffffffc0;
                 memcpy(this->cache_block[temp_group][i].data, (void *)align_addr, 64);
+                break;
             }
         }
     }
