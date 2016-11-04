@@ -37,8 +37,8 @@ uint32_t read_cache(struct Cache* this, hwaddr_t addr, uint32_t *success, size_t
     uint32_t temp_group = addr >> 6;
     temp_group &= 0x7f;
     uint32_t temp_addr = addr & 0x3f;
-    *success = 0;
     printf("cccc\n");
+    *success = 0;
     uint8_t temp[16];
     int i;
     for(i = 0; i < 8; i++){
