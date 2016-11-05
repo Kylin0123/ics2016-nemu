@@ -34,7 +34,6 @@ void init_cache() {
 }
 
 uint32_t read_cache(struct Cache* this, hwaddr_t addr, uint32_t *success, size_t len){
-    printf("here");
     uint32_t temp_tag = addr >> 13;
     temp_tag &= 0x7ffff;
     uint32_t temp_group = addr >> 6;
@@ -77,7 +76,7 @@ L1: printf("L1");
             if(this->cache_block[temp_group][i].valid_bit == 0){
                 this->cache_block[temp_group][i].valid_bit = 1;
                 printf("x");
-                this->cache_block[temp_group][i].tag = (addr & 0xffffe000) >> 13;
+                //this->cache_block[temp_group][i].tag = (addr & 0xffffe000) >> 13;
                 printf("y");
                 uint32_t temp2[16];
                 uint32_t align_addr = addr & 0xffffffc0;
