@@ -87,7 +87,7 @@ uint32_t read_cache(struct Cache* this, hwaddr_t addr, uint32_t *success, size_t
             }
         }
     }
-    printf("over\n");
+    printf("over ");
     return unalign_rw(temp + temp_addr, 4);
 }
 
