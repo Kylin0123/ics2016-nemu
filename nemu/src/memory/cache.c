@@ -75,7 +75,7 @@ L1:
             if(this->cache_block[temp_group][i].valid_bit == 0){
                 this->cache_block[temp_group][i].valid_bit = 1;
                 printf("x");
-                //memcpy(&this->cache_block[temp_group][i].tag, &temp_tag, 19);
+                this->cache_block[temp_group][i].tag = temp_tag;
                 uint32_t temp2[16];
                 uint32_t align_addr = addr & 0xffffffc0;
                 int j;
