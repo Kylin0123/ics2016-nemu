@@ -80,7 +80,7 @@ L1:
                 uint32_t align_addr = addr & 0xffffffc0;
                 int j;
                 for(j = 0; j < 16; j++){
-                    temp2[j] = dram_read(align_addr + 4*j, 4);
+                    temp2[j] = dram_read(align_addr + j, 4);
                 }
                 memcpy( this->cache_block[temp_group][i].data, temp2, 64);
                 /*
