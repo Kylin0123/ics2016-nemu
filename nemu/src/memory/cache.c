@@ -47,9 +47,9 @@ uint32_t read_cache(struct Cache* this, hwaddr_t addr, uint32_t *success, size_t
         for(i = 0; i < 8; i++){
             if(this->cache_block[temp_group][i].tag == temp_tag){
                 if(this->cache_block[temp_group][i].valid_bit == 1){
-                    printf("aaaa\n");
                     *success = 1;
                     memcpy(temp, this->cache_block[temp_group][i].data, 64);
+                    break;
                 }
             }
         }
@@ -63,10 +63,12 @@ uint32_t read_cache(struct Cache* this, hwaddr_t addr, uint32_t *success, size_t
                         *success = 1;
                         memcpy(temp, this->cache_block[temp_group][i].data, 64);
                         memcpy(temp + 64, this->cache_block[temp_group+1][j].data, 64);
+                        goto L1;
                     }
                 }
             }
     }
+L1:
     if(*success == 0){
         int i;
         for(i = 0; i < 8; i++){
