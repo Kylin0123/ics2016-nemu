@@ -82,10 +82,12 @@ L1:
                 int j;
                 for(j = 0; j < 16; j++){
                     temp2[j] = dram_read(align_addr + 4*j, 4);
+                    if(align_addr + 4*j == 0x7ffefb8)
+                        printf("wooooooooooooow\n");
                 }
                 memcpy( this->cache_block[temp_group][i].data, temp2, 64);
                 printf("xxxxxxxxxxxxxxxxxxxxxx:0x%x ", align_addr);
-                printf("dram:%x\n", dram_read(0x7ffefb8, 4));
+                //printf("dram:%x\n", dram_read(0x7ffefb8, 4));
                 for(j = 0; j < 16; j++){
                     printf("%x ", temp2[j]);
                 }
