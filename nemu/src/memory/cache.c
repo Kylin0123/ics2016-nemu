@@ -34,6 +34,7 @@ void init_cache() {
 }
 
 uint32_t read_cache(struct Cache* this, hwaddr_t addr, uint32_t *success, size_t len){
+    printf("here");
     uint32_t temp_tag = addr >> 13;
     temp_tag &= 0x7ffff;
     uint32_t temp_group = addr >> 6;
