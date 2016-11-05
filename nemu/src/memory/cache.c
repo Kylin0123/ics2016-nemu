@@ -84,10 +84,10 @@ L1:
                 for(j = 0; j < 64; j++){
                     temp2[j] = dram_read(align_addr + j, 1);
                     memcpy(this->cache_block[temp_group][i].data + j, temp2 + j, 1);
-                    if(align_addr + j == 0x7ffefb8){
+                    /*if(align_addr + j == 0x7ffefb8){
                         printf("wooooooooooooow\n");
                         printf("dram:%x\n", dram_read(0x7ffefb8, 4));
-                    }
+                    }*/
                 }
                 //memcpy( this->cache_block[temp_group][i].data, temp2, 64);
                 printf("xxxxxxxxxxxxxxxxxxxxxx:0x%x ", align_addr);
@@ -115,6 +115,7 @@ void write_cache(struct Cache* this, hwaddr_t addr, uint32_t data, uint32_t *suc
     int i;
     for(i = 0; i < 8; i++){
         if(this->cache_block[temp_group][i].tag == temp_tag && this->cache_block[temp_group][i].valid_bit == 1){
+            printf("reeeeeeeeeeeeeeeeeeeeeeeeeeeeeeead!\n");
             memcpy( this->cache_block[temp_group][temp_addr].data + temp_addr, &data, 4);
             dram_write(addr, len, data);
             break;
