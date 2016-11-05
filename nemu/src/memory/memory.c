@@ -15,9 +15,12 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
     uint32_t *success = malloc(sizeof(uint32_t));
     *success = 0;
     uint32_t temp = read_cache(&cache, addr, success, len);
-    if(*success == 1)
+    if(*success == 1){
+        printf("hit!");
         return temp;
+    }
     else{
+        printf("miss!");
 	    return dram_read(addr, len) & (~0u >> ((4 - len) << 3));
     }
 }
