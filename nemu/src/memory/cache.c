@@ -12,7 +12,7 @@ extern int32_t dram_read(hwaddr_t, size_t);
 typedef struct {
     struct {
         uint32_t valid_bit : 1;
-        uint32_t tag : 23;
+        uint32_t tag : 19;
     };
     uint8_t data[64];
 } Cache_block;
