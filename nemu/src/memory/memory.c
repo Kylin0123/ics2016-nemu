@@ -20,19 +20,19 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
     if(*success == 1){
         //printf("hit!");
         //printf(" temp:%x\n", temp);
-        //free(success);
+        free(success);
         return temp & (~0u >> ((4 - len) << 3));
     }
     else{
         //printf("miss!");
-        //free(success);
+        free(success);
 	    return dram_read(addr, len) & (~0u >> ((4 - len) << 3));
     }
     
 }
 
 void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
-	//dram_write(addr, len, data);
+	dram_write(addr, len, data);
     
 }
 
