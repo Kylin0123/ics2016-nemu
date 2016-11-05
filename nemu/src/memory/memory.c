@@ -17,8 +17,8 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
     *success = 0;
     uint32_t temp = read_cache(&cache, addr, success, len);
     if(*success == 1){
-        printf("hit!");
-        printf(" temp:%x\n", temp);
+        //printf("hit!");
+        //printf(" temp:%x\n", temp);
         return temp & (~0u >> ((4 - len) << 3));
     }
     else{
