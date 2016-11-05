@@ -20,7 +20,7 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
         return temp;
     }
     else{
-        printf("miss!");
+        //printf("miss!");
 	    return dram_read(addr, len) & (~0u >> ((4 - len) << 3));
     }
 }
