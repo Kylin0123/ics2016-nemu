@@ -116,6 +116,7 @@ void write_cache(struct Cache* this, hwaddr_t addr, uint32_t data, uint32_t *suc
     for(i = 0; i < 8; i++){
         if(this->cache_block[temp_group][i].tag == temp_tag && this->cache_block[temp_group][i].valid_bit == 1){
             printf("reeeeeeeeeeeeeeeeeeeeeeeeeeeeeeead!\n");
+            *success = 1;
             memcpy( this->cache_block[temp_group][temp_addr].data + temp_addr, &data, 4);
             dram_write(addr, len, data);
             break;
