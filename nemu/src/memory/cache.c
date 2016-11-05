@@ -85,6 +85,7 @@ L1:
                     memcpy(this->cache_block[temp_group][i].data + j, temp2 + j, 1);
                     if(align_addr + j == 0x7ffefb8)
                         printf("wooooooooooooow\n");
+                        printf("dram:%x\n", dram_read(0x7ffefb8, 4));
                 }
                 //memcpy( this->cache_block[temp_group][i].data, temp2, 64);
                 printf("xxxxxxxxxxxxxxxxxxxxxx:0x%x ", align_addr);
