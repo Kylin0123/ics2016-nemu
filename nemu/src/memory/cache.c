@@ -47,8 +47,8 @@ uint32_t read_cache(struct Cache* this, hwaddr_t addr, uint32_t *success, size_t
                 if(this->cache_block[temp_group][i].valid_bit == 1){
                     *success = 1;
                     //printf("cache_tag:%x ", this->cache_block[temp_group][i].tag);
-                    printf("addr:%x ", addr);
-                    printf("tag:%x group:%x addr:%x\n",temp_tag,temp_group, temp_addr);
+                    //printf("addr:%x ", addr);
+                    //printf("tag:%x group:%x addr:%x\n",temp_tag,temp_group, temp_addr);
                     memcpy(temp, this->cache_block[temp_group][i].data, 64);
                     break;
                 }
