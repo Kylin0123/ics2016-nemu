@@ -8,6 +8,7 @@
 #include "common.h"
 
 extern int32_t dram_read(hwaddr_t, size_t);
+extern void dram_write(hwaddr_t, size_t, uint32_t);
 
 typedef struct {
     uint32_t valid_bit;    //length:1
@@ -105,6 +106,21 @@ L1:
 }
 
 void write_cache(struct Cache* this, hwaddr_t addr, uint32_t data, uint32_t *success, size_t len){
-   return;
+    uint32_t temp_tag = addr >> 13;
+    temp_tag &= 0x7ffff;
+    uint32_t temp_group = addr >> 6;
+    temp_group &= 0x7f;
+    uint32_t temp_addr = addr & 0x3f;
+    *success = 0;
+    int i;
+    for(i = 0; i < 8; i++){
+        if(this->cache_block[temp_group][i].tag == temp_tag && this->cache_block[temp_group][i].valid_bit == 1){
+            memcpy( this->cache_block[temp_group][temp_addr].data + temp_addr, &data, 4);
+            dram_write(addr, len, data);
+            break;
+        }
+    } 
+    
+    return;
 }
 
