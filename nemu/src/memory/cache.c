@@ -63,7 +63,7 @@ uint32_t read_cache(struct Cache* this, hwaddr_t addr, uint32_t *success, size_t
                 if(this->cache_block[temp_group][i].tag == temp_tag && this->cache_block[temp_group+1][j].tag == temp_tag){
                     if(this->cache_block[temp_group][i].valid_bit == 1 && this->cache_block[temp_group+1][j].valid_bit == 1){
                         *success = 1;
-                        printf("b");    //test
+                        //printf("b");    //todo:not test
                         memcpy(temp, this->cache_block[temp_group][i].data, 64);
                         memcpy(temp + 64, this->cache_block[temp_group+1][j].data, 64);
                         goto L1;
@@ -90,13 +90,14 @@ L1:
                     }*/
                 }
                 //memcpy( this->cache_block[temp_group][i].data, temp2, 64);
-                printf("xxxxxxxxxxxxxxxxxxxxxx:0x%x ", align_addr);
+                //printf("xxxxxxxxxxxxxxxxxxxxxx:0x%x ", align_addr);
                 //printf("dram:%x\n", dram_read(0x7ffefb8, 4));
+                /*
                 for(j = 0; j < 64; j++){
                     printf("%x ", temp2[j]);
                 }
                 printf("\n");
-                
+                */
                 break;
             }
         }
@@ -115,10 +116,10 @@ void write_cache(struct Cache* this, hwaddr_t addr, uint32_t data, uint32_t *suc
     int i;
     for(i = 0; i < 8; i++){
         if(this->cache_block[temp_group][i].tag == temp_tag && this->cache_block[temp_group][i].valid_bit == 1){
-            printf("reeeeeeeeeeeeeeeeeeeeeeeeeeeeeeead!\n");
+            //printf("reeeeeeeeeeeeeeeeeeeeeeeeeeeeeeead!\n");
             *success = 1;
             memcpy( this->cache_block[temp_group][i].data + temp_addr, &data, 4);
-            printf("data:%x",data);
+            //printf("data:%x",data);
             dram_write(addr, len, data);
             break;
         }
