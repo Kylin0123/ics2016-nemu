@@ -83,7 +83,7 @@ L1:
                 for(j = 0; j < 64; j++){
                     temp2[j] = dram_read(align_addr + j, 1);
                     memcpy(this->cache_block[temp_group][i].data + j, temp2 + j, 1);
-                    if(align_addr + 4*j == 0x7ffefb8)
+                    if(align_addr + j == 0x7ffefb8)
                         printf("wooooooooooooow\n");
                 }
                 //memcpy( this->cache_block[temp_group][i].data, temp2, 64);
