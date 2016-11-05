@@ -69,7 +69,7 @@ uint32_t read_cache(struct Cache* this, hwaddr_t addr, uint32_t *success, size_t
                 }
             }
     }
-L1:
+L1: printf("L1");
     if(*success == 0){
         int i;
         for(i = 0; i < 8; i++){
