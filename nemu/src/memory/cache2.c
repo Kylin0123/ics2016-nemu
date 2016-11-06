@@ -131,11 +131,11 @@ void write_cache2(struct Cache2* this, hwaddr_t addr, uint32_t data, uint32_t *s
                 printf("tell me!\n");
             memcpy(this->cache_block2[temp_group][k].data + temp_addr, &data, 4);
             this->cache_block2[temp_group][k].dirty_bit = 1;
-            printf("write_cache2 hit!\n");   //hit!
+            //printf("write_cache2 hit!\n");   //hit!
             return;
         }
     }
-    
+    printf("xxxxxxxxxx\n"); 
     int i = 0;
     int flag = 0;
     int result_i;
