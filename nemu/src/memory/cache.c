@@ -97,7 +97,7 @@ L1:
         uint32_t align_addr = addr & 0xffffffc0;
         int j;
         for(j = 0; j < 16; j++){
-            temp2[j] = read_cache2(&cache2, align_addr, success, 4);
+            temp2[j] = read_cache2(&cache2, align_addr + 4*j, success, 4);
             memcpy(this->cache_block[temp_group][result_i].data + 4*j, temp2 + j, 4);
         }
         printf("temp2[0]:0x%x\n", temp2[0]);
