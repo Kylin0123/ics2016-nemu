@@ -149,6 +149,7 @@ void write_cache2(struct Cache2* this, hwaddr_t addr, uint32_t data, uint32_t *s
         result_i = rand()%16;
     }
     if(this->cache_block2[temp_group][result_i].valid_bit == 1 && this->cache_block2[temp_group][result_i].dirty_bit == 1){
+        printf("dirty\n");
         uint32_t dram_addr = (uint32_t)((this->cache_block2[temp_group][result_i].tag << 18) | (temp_group << 6) | temp_addr);
         for(i = 0; i < 16; i++){
             uint32_t *dram_data = (uint32_t*)this->cache_block2[temp_group][result_i].data + i;
