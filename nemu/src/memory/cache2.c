@@ -8,8 +8,8 @@
  #include "common.h"
  #include <stdlib.h>
 
-int32_t dram_read(hwaddr_t, size_t);
-void dram_write(hwaddr_t, size_t, uint32_t);
+extern int32_t dram_read(hwaddr_t, size_t);
+extern void dram_write(hwaddr_t, size_t, uint32_t);
 
 typedef struct {
     uint32_t valid_bit;
@@ -167,7 +167,7 @@ void write_cache2(struct Cache2* this, hwaddr_t addr, uint32_t data, uint32_t *s
         uint32_t align_addr = addr & 0xffffffc0;
         printf("write\n");
         //printf("addr:0x%x\n", align_addr);
-        //printf("dram_read:0x%x\n", dram_read(align_addr,4));
+        printf("dram_read:0x%x\n", dram_read(align_addr,4));
         int j;
         for(j = 0; j < 16; j++){
             temp2[j] = dram_read(align_addr + 4*j, 4);
