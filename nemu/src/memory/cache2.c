@@ -62,12 +62,12 @@ uint32_t read_cache2(struct Cache2* this, hwaddr_t addr, uint32_t *success2, siz
                         printf("\nb2\n"); //not test
                         memcpy(temp, this->cache_block2[temp_group][i].data, 64);
                         memcpy(temp + 64, this->cache_block2[temp_group+1][j].data, 64);
-                        goto L1;
+                        goto L2;
                     }
                 }
             }
     }
-    L1: if(*success2 == 0){
+    L2: if(*success2 == 0){
         int i;
         int flag = 0;
         int result_i;
