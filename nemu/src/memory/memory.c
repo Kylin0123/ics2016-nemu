@@ -128,7 +128,7 @@ void write_cache2(struct Cache2* this, hwaddr_t addr, uint32_t data, uint32_t *s
         if(this->cache_block2[temp_group][k].tag == temp_tag && this->cache_block2[temp_group][k].valid_bit == 1){
             *success2 = 1;
             //if(temp_addr + len > 64)
-            printf("data:%x\n", data);
+            printf("data:%x  %x\n", data, dram_read(0x8002c0, 4));
             memcpy(this->cache_block2[temp_group][k].data + temp_addr, &data, 4);
             this->cache_block2[temp_group][k].dirty_bit = 1;
             //printf("write_cache2 hit!\n");   //hit!
