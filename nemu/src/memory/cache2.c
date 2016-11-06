@@ -87,6 +87,7 @@ uint32_t read_cache2(struct Cache2* this, hwaddr_t addr, uint32_t *success2, siz
             temp2[j] = dram_read(align_addr + j, 1);
             memcpy(this->cache_block2[temp_group][result_i].data + j, temp2 + j, 1);
         }
+        return unalign_rw(temp2 + temp_addr, 4);
     }
     return unalign_rw(temp + temp_addr, 4);
 }

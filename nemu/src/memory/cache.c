@@ -6,6 +6,7 @@
  ************************************************************************/
 
 #include "common.h"
+#include <stdlib.h>
 
 extern int32_t dram_read(hwaddr_t, size_t);
 extern void dram_write(hwaddr_t, size_t, uint32_t);
@@ -79,34 +80,60 @@ uint32_t read_cache(struct Cache* this, hwaddr_t addr, uint32_t *success, size_t
 L1: 
     if(*success == 0){
         int i;
+        int flag = 0;
+        int result_i;
+        for(i = 0; i < 8; i++){
+            if(this->cache_block[temp_group][i].valid_bit == 0){
+                result_i = i;
+                flag = 1;
+            }
+        }
+        if(flag == 0)
+            result_i = rand()%8;
+        this->cache_block[temp_group][result_i].valid_bit = 1;
+        this->cache_block[temp_group][result_i].tag = temp_tag;
+        uint32_t temp2[16];
+        uint32_t align_addr = addr & 0xffffffc0;
+        int j;
+        for(j = 0; j < 16; j++){
+            temp2[j] = read_cache2(&cache2, align_addr, success, 4);
+            memcpy(this->cache_block[temp_group][result_i].data + 4*j, temp2 + j, 4);
+        }
+        return unalign_rw((uint8_t*)temp2 + temp_addr, 4);
+    }
+    /*
+    if(*success == 0){
+        int i;
         for(i = 0; i < 8; i++){
             if(this->cache_block[temp_group][i].valid_bit == 0){
                 this->cache_block[temp_group][i].valid_bit = 1;
                 this->cache_block[temp_group][i].tag = temp_tag;
-                uint8_t temp2[64];
+                uint32_t temp2[16];
                 uint32_t align_addr = addr & 0xffffffc0;
                 int j;
-                for(j = 0; j < 64; j++){
-                    temp2[j] = dram_read(align_addr + j, 1);
-                    memcpy(this->cache_block[temp_group][i].data + j, temp2 + j, 1);
-                    /*if(align_addr + j == 0x7ffefb8){
+                for(j = 0; j < 16; j++){
+                    temp2[j] = read_cache2(&cache2, addr, success, 4);
+                    memcpy(this->cache_block[temp_group][i].data + 4*j, temp2 + j, 4);
+                    if(align_addr + j == 0x7ffefb8){
                         printf("wooooooooooooow\n");
                         printf("dram:%x\n", dram_read(0x7ffefb8, 4));
-                    }*/
+                    }
                 }
+                temp = (uint8_t*)temp2;
                 //memcpy( this->cache_block[temp_group][i].data, temp2, 64);
                 //printf("xxxxxxxxxxxxxxxxxxxxxx:0x%x ", align_addr);
                 //printf("dram:%x\n", dram_read(0x7ffefb8, 4));
-                /*
+                
                 for(j = 0; j < 64; j++){
                     printf("%x ", temp2[j]);
                 }
                 printf("\n");
-                */
+                
                 break;
             }
         }
     }
+    */
     //printf("over ");
     return unalign_rw(temp + temp_addr, 4);
 }
@@ -125,11 +152,26 @@ void write_cache(struct Cache* this, hwaddr_t addr, uint32_t data, uint32_t *suc
             *success = 1;
             memcpy( this->cache_block[temp_group][i].data + temp_addr, &data, 4);
             //printf("data:%x",data);
-            dram_write(addr, len, data);
-            break;
+            write_cache2(&cache2, addr, data, success, len);
+            return;
         }
     } 
     
+    /*int flag = 0;
+    int result_i;
+    for(i = 0; i < 8; i++){
+        if(this->cache_block[temp_group][i].valid_bit == 0){
+            result_i = i;
+            flag = 1;
+        }
+    }
+    if(flag == 0){
+        result_i = rand()%8;
+    }
+    if(this->cache_block[temp_group][result_i].valid_bit == 1){
+        
+    }*/
+    write_cache2(&cache2, addr, data, success, len);
     return;
 }
 
