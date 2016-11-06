@@ -141,7 +141,7 @@ L1:
     }
     */
     //printf("over ");
-    printf("read_cache hit!\n");  //hit!
+    //printf("read_cache hit!\n");  //hit!
     return unalign_rw(temp + temp_addr, 4);
 }
 
@@ -155,7 +155,7 @@ void write_cache(struct Cache* this, hwaddr_t addr, uint32_t data, uint32_t *suc
     int i;
     for(i = 0; i < 8; i++){
         if(this->cache_block[temp_group][i].tag == temp_tag && this->cache_block[temp_group][i].valid_bit == 1){
-            printf("write_cache hit!\n");   //hit
+            //printf("write_cache hit!\n");   //hit
             *success = 1;
             memcpy( this->cache_block[temp_group][i].data + temp_addr, &data, 4);
             //printf("data:%x",data);

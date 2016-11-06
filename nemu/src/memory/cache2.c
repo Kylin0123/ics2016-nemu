@@ -88,11 +88,11 @@ uint32_t read_cache2(struct Cache2* this, hwaddr_t addr, uint32_t *success2, siz
             memcpy(this->cache_block2[temp_group][result_i].data + j, temp2 + j, 1);
             printf("%x ", temp2[j]);
         }
-        printf("\nread_cache2 miss!\n");
+        //printf("\nread_cache2 miss!\n");
         
         return unalign_rw(temp2 + temp_addr, 4);
     }
-    printf("read_cache2 hit!\n"); //hit!
+    //printf("read_cache2 hit!\n"); //hit!
     return unalign_rw(temp + temp_addr, 4);
 }
 
@@ -109,7 +109,7 @@ void write_cache2(struct Cache2* this, hwaddr_t addr, uint32_t data, uint32_t *s
             *success2 = 1;
             memcpy(this->cache_block2[temp_group][k].data + temp_addr, &data, 4);
             this->cache_block2[temp_group][k].dirty_bit = 1;
-            printf("write_cache2 hit!\n");   //hit!
+            //printf("write_cache2 hit!\n");   //hit!
             return;
         }
     }
