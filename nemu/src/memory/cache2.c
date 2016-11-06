@@ -163,16 +163,17 @@ void write_cache2(struct Cache2* this, hwaddr_t addr, uint32_t data, uint32_t *s
         }
         this->cache_block2[temp_group][result_i].valid_bit = 1;
         this->cache_block2[temp_group][result_i].tag = temp_tag;
-        uint8_t temp2[64];
+        uint32_t temp2[16];
         uint32_t align_addr = addr & 0xffffffc0;
         //printf("addr:0x%x\n", align_addr);
         //printf("dram_read:0x%x\n", dram_read(align_addr,4));
         int j;
-        for(j = 0; j < 64; j++){
-            temp2[j] = dram_read(align_addr + j, 1);
-            memcpy(this->cache_block2[temp_group][result_i].data + j, temp2 + j, 1);
+        for(j = 0; j < 16; j++){
+            temp2[j] = dram_read(align_addr + 4*j, 4);
+            memcpy(this->cache_block2[temp_group][result_i].data + 4*j, temp2 + j, 4);
             //printf("%x ", temp2[j]);
         }
+        //memcpy( temp2, dram_read(align_addr, 64), 64);
         //printf("\n");
         memcpy(this->cache_block2[temp_group][result_i].data + temp_addr, &data, 4);
         this->cache_block2[temp_group][result_i].dirty_bit = 1;
