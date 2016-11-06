@@ -166,7 +166,7 @@ void write_cache2(struct Cache2* this, hwaddr_t addr, uint32_t data, uint32_t *s
         //dram_write(addr, 4, data);
         printf("write\n");
         //printf("addr:0x%x\n", align_addr);
-        printf("%x:0x%x\n", align_addr, dram_read(align_addr,4));
+        printf("%x:0x%x\n", align_addr, dram_read(0x8002c0,4));
         int j;
         for(j = 0; j < 16; j++){
             temp2[j] = dram_read(align_addr + j, 4);
