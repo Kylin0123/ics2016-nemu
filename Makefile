@@ -36,8 +36,7 @@ game: $(game_BIN)
 
 clean-nemu:
 	-rm -rf obj/nemu 2> /dev/null
-
-clean-testcase:
+mZclean-testcase:
 	-rm -rf obj/testcase 2> /dev/null
 
 clean-kernel:
@@ -53,7 +52,7 @@ clean: clean-cpp
 
 ##### some convinient rules #####
 
-USERPROG := obj/testcase/matrix-mul-small
+USERPROG := obj/testcase/bit
 ENTRY := $(kernel_BIN)
 
 entry: $(ENTRY)
