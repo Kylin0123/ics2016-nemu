@@ -59,6 +59,7 @@ uint32_t read_cache2(struct Cache2* this, hwaddr_t addr, uint32_t *success2, siz
                 if(this->cache_block2[temp_group][i].tag == temp_tag && this->cache_block2[temp_group+1][j].tag == temp_tag){
                     if(this->cache_block2[temp_group][i].valid_bit == 1 && this->cache_block2[temp_group+1][j].valid_bit == 1){
                         *success2 = 1;
+                        printf("\nb2\n"); //not test
                         memcpy(temp, this->cache_block2[temp_group][i].data, 64);
                         memcpy(temp + 64, this->cache_block2[temp_group+1][j].data, 64);
                         goto L1;

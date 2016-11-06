@@ -69,7 +69,7 @@ uint32_t read_cache(struct Cache* this, hwaddr_t addr, uint32_t *success, size_t
                 if(this->cache_block[temp_group][i].tag == temp_tag && this->cache_block[temp_group+1][j].tag == temp_tag){
                     if(this->cache_block[temp_group][i].valid_bit == 1 && this->cache_block[temp_group+1][j].valid_bit == 1){
                         *success = 1;
-                        //printf("b");    //todo:not test
+                        printf("\nb1\n");    //todo:not test
                         memcpy(temp, this->cache_block[temp_group][i].data, 64);
                         memcpy(temp + 64, this->cache_block[temp_group+1][j].data, 64);
                         goto L1;
@@ -96,11 +96,11 @@ L1:
         uint32_t temp2[16];
         uint32_t align_addr = addr & 0xffffffc0;
         int j;
-        printf("cache:\n");
+        //printf("cache:\n");
         for(j = 0; j < 16; j++){
             temp2[j] = read_cache2(&cache2, align_addr + 4*j, success, 4);
             memcpy(this->cache_block[temp_group][result_i].data + 4*j, temp2 + j, 4);
-            printf("%x ", temp2[j]);
+            //printf("%x ", temp2[j]);
         }
         /*printf("temp2[0]:0x%x\n", temp2[0]);
         printf("temp2[1]:0x%x\n", temp2[1]);
