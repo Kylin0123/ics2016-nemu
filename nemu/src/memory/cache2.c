@@ -67,7 +67,8 @@ uint32_t read_cache2(struct Cache2* this, hwaddr_t addr, uint32_t *success2, siz
                 }
             }
     }
-    L2: if(*success2 == 0){
+    L2: 
+    if(*success2 == 0){
         int i;
         int flag = 0;
         int result_i;
