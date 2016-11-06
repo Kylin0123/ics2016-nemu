@@ -7,7 +7,8 @@
 
  #include "common.h"
  #include <stdlib.h>
-extern int32_t dram_read(hwaddr_t, size_t);
+
+extern uint32_t dram_read(hwaddr_t, size_t);
 extern void dram_write(hwaddr_t, size_t, uint32_t);
 
 typedef struct {
