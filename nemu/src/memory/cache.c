@@ -90,6 +90,7 @@ L1:
         }
         if(flag == 0)
             result_i = rand()%8;
+        printf("result_i:%d\n", result_i);
         this->cache_block[temp_group][result_i].valid_bit = 1;
         this->cache_block[temp_group][result_i].tag = temp_tag;
         uint32_t temp2[16];
