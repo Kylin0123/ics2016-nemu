@@ -171,10 +171,10 @@ void write_cache2(struct Cache2* this, hwaddr_t addr, uint32_t data, uint32_t *s
         for(j = 0; j < 16; j++){
             temp2[j] = dram_read(align_addr + 4*j, 4);
             memcpy(this->cache_block2[temp_group][result_i].data + 4*j, temp2 + j, 4);
-            //printf("%x ", temp2[j]);
+            printf("%x ", temp2[j]);
         }
         //memcpy( temp2, dram_read(align_addr, 64), 64);
-        //printf("\n");
+        printf("\n");
         memcpy(this->cache_block2[temp_group][result_i].data + temp_addr, &data, 4);
         this->cache_block2[temp_group][result_i].dirty_bit = 1;
     }
