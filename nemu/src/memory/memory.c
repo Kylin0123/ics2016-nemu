@@ -2,9 +2,13 @@
 #include <stdlib.h>
 
 extern struct Cache cache;
+extern struct Cache2 cache2;
 
 extern uint32_t read_cache(struct Cache * this, hwaddr_t addr, uint32_t *success, size_t len);
 extern void write_cache(struct Cache *this, hwaddr_t addr, uint32_t data, uint32_t *success, size_t len);
+
+extern uint32_t read_cache2(struct Cache * this, hwaddr_t addr, uint32_t *success2, size_t len);
+extern void write_cache2(struct Cache *this, hwaddr_t addr, uint32_t data, uint32_t *success2, size_t len);
 
 int32_t dram_read(hwaddr_t, size_t);
 void dram_write(hwaddr_t, size_t, uint32_t);

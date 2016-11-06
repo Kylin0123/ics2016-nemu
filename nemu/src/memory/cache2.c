@@ -6,6 +6,9 @@
  ************************************************************************/
 
  #include "common.h"
+ #include <stdlib.h>
+extern int32_t dram_read(hwaddr_t, size_t);
+extern void dram_write(hwaddr_t, size_t, uint32_t);
 
 typedef struct {
     uint32_t valid_bit;
@@ -25,5 +28,69 @@ void init_cache2(){
     for(i = 0; i < 4096; i++)
         for(j = 0; j < 16; j++){
             cache2.cache_block2[i][j].valid_bit = 0;
+	    cache2.cache_block2[i][j].dirty_bit = 0;
         }
+}
+
+uint32_t read_cache2(struct Cache2* this, hwaddr_t addr, uint32_t *success2, size_t len){
+    uint32_t temp_tag = addr >> 18;
+    temp_tag &= 0x3ffff;
+    uint32_t temp_group = addr >> 6;
+    temp_group &= 0xfff;
+    uint32_t temp_addr = addr & 0x3f;
+    *success2 = 0;
+    uint8_t temp[128];
+    int i;
+    if(temp_addr + len  <= 64){
+        for(i = 0; i < 16; i++){
+            if(this->cache_block2[temp_group][i].tag == temp_tag){
+                if(this->cache_block2[temp_group][i].valid_bit == 1){
+                    *success2 = 1;
+                    memcpy(temp, this->cache_block2[temp_group][i].data, 64);
+                    break;
+                }
+            }
+        }
+    }
+    else{
+        int i,j;
+        for(i = 0; i < 16; i++)
+            for(j = 0;j < 16; j++){
+                if(this->cache_block2[temp_group][i].tag == temp_tag && this->cache_block2[temp_group+1][j].tag == temp_tag){
+                    if(this->cache_block2[temp_group][i].valid_bit == 1 && this->cache_block2[temp_group+1][j].valid_bit == 1){
+                        *success2 = 1;
+                        memcpy(temp, this->cache_block2[temp_group][i].data, 64);
+                        memcpy(temp + 64, this->cache_block2[temp_group+1][j].data, 64);
+                        goto L1;
+                    }
+                }
+            }
+    }
+    L1: if(*success2 == 0){
+        int i;
+        int flag = 0;
+        int result_i;
+        for(i = 0; i < 16; i++){
+            if(this->cache_block2[temp_group][i].valid_bit == 0){
+                result_i = i;
+                flag = 1;
+            }
+        }
+        if(flag == 0)
+            result_i = rand()%16;
+        this->cache_block2[temp_group][result_i].valid_bit = 1;
+        this->cache_block2[temp_group][result_i].tag = temp_tag;
+        uint8_t temp2[64];
+        uint32_t align_addr = addr & 0xffffffc0;
+        int j;
+        for(j = 0; j < 64; j++){
+            temp2[j] = dram_read(align_addr + j, 1);
+            memcpy(this->cache_block2[temp_group][result_i].data + j, temp2 + j, 1);
+        }
+    }
+    return unalign_rw(temp + temp_addr, 4);
+}
+
+void write_cache2(struct Cache2* this, hwaddr_t addr, uint32_t data, uint32_t *success2, size_t len){
+    return;
 }
