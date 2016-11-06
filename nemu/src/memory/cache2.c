@@ -100,7 +100,7 @@ uint32_t read_cache2(struct Cache2* this, hwaddr_t addr, uint32_t *success2, siz
         uint8_t temp2[64];
         uint32_t align_addr = addr & 0xffffffc0;
         int j;
-        //printf("cache2:\n");
+        printf("read\n");
         //printf("addr:%x\n",addr);
         //if(addr == 0x8001bc)
             //printf("0x8001bc:%x\n", dram_read(addr, 4));
@@ -165,6 +165,7 @@ void write_cache2(struct Cache2* this, hwaddr_t addr, uint32_t data, uint32_t *s
         this->cache_block2[temp_group][result_i].tag = temp_tag;
         uint32_t temp2[16];
         uint32_t align_addr = addr & 0xffffffc0;
+        printf("write\n");
         //printf("addr:0x%x\n", align_addr);
         //printf("dram_read:0x%x\n", dram_read(align_addr,4));
         int j;
