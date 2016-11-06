@@ -100,10 +100,11 @@ L1:
             temp2[j] = read_cache2(&cache2, align_addr + 4*j, success, 4);
             memcpy(this->cache_block[temp_group][result_i].data + 4*j, temp2 + j, 4);
         }
-        printf("temp2[0]:0x%x\n", temp2[0]);
+        /*printf("temp2[0]:0x%x\n", temp2[0]);
         printf("temp2[1]:0x%x\n", temp2[1]);
         printf("temp2[2]:0x%x\n", temp2[2]);
         printf("temp2[3]:0x%x\n", temp2[3]);
+        */
         return unalign_rw((uint8_t*)temp2 + temp_addr, 4);
     }
     /*
@@ -140,6 +141,7 @@ L1:
     }
     */
     //printf("over ");
+    printf("read_cache hit!\n");  //hit!
     return unalign_rw(temp + temp_addr, 4);
 }
 
@@ -153,7 +155,7 @@ void write_cache(struct Cache* this, hwaddr_t addr, uint32_t data, uint32_t *suc
     int i;
     for(i = 0; i < 8; i++){
         if(this->cache_block[temp_group][i].tag == temp_tag && this->cache_block[temp_group][i].valid_bit == 1){
-            //printf("reeeeeeeeeeeeeeeeeeeeeeeeeeeeeeead!\n");
+            printf("write_cache hit!\n");   //hit
             *success = 1;
             memcpy( this->cache_block[temp_group][i].data + temp_addr, &data, 4);
             //printf("data:%x",data);
