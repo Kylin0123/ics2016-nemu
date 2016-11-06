@@ -7,8 +7,8 @@ extern struct Cache2 cache2;
 extern uint32_t read_cache(struct Cache * this, hwaddr_t addr, uint32_t *success, size_t len);
 extern void write_cache(struct Cache *this, hwaddr_t addr, uint32_t data, uint32_t *success, size_t len);
 
-extern uint32_t read_cache2(struct Cache * this, hwaddr_t addr, uint32_t *success2, size_t len);
-extern void write_cache2(struct Cache *this, hwaddr_t addr, uint32_t data, uint32_t *success2, size_t len);
+extern uint32_t read_cache2(struct Cache2 * this, hwaddr_t addr, uint32_t *success2, size_t len);
+extern void write_cache2(struct Cache2 *this, hwaddr_t addr, uint32_t data, uint32_t *success2, size_t len);
 
 int32_t dram_read(hwaddr_t, size_t);
 void dram_write(hwaddr_t, size_t, uint32_t);
@@ -38,7 +38,7 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
     }*/
     uint32_t *success = malloc(sizeof(uint32_t));
     *success = 0;
-    return read_cache(&cache, addr, success, len) & (~0u >> ((4 - len) << 3));
+    return read_cache2(&cache2, addr, success, len) & (~0u >> ((4 - len) << 3));
     
 }
 
@@ -46,7 +46,7 @@ void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
 	//dram_write(addr, len, data);
     uint32_t *success = malloc(sizeof(uint32_t));
     *success = 0;
-    write_cache(&cache, addr, data, success, len);
+    write_cache2(&cache2, addr, data, success, len);
     /*
     if(*success == 1)
         return;
