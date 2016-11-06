@@ -18,7 +18,7 @@ void dram_write(hwaddr_t, size_t, uint32_t);
 uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
 	//return dram_read(addr, len) & (~0u >> ((4 - len) << 3));
     
-    uint32_t *success = malloc(sizeof(uint32_t));
+    /*uint32_t *success = malloc(sizeof(uint32_t));
     *success = 0;
     uint32_t temp = read_cache(&cache, addr, success, len);
     if(*success == 1){
@@ -28,10 +28,17 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
         return temp & (~0u >> ((4 - len) << 3));
     }
     else{
-        //printf("miss!");
+        temp = read_cache2(&cache2, addr, success, len);
+        if(*success == 1){
+            free(success);
+            return temp & (~0u >> ((4 - len) << 3));
+        }
         free(success);
 	    return dram_read(addr, len) & (~0u >> ((4 - len) << 3));
-    }
+    }*/
+    uint32_t *success = malloc(sizeof(uint32_t));
+    *success = 0;
+    return read_cache(&cache, addr, success, len) & (~0u >> ((4 - len) << 3));
     
 }
 
@@ -40,10 +47,12 @@ void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
     uint32_t *success = malloc(sizeof(uint32_t));
     *success = 0;
     write_cache(&cache, addr, data, success, len);
+    /*
     if(*success == 1)
         return;
     else
         dram_write(addr, len, data);
+    */
 }
 
 uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
