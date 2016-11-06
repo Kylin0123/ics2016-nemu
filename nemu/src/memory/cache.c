@@ -101,6 +101,9 @@ L1:
             memcpy(this->cache_block[temp_group][result_i].data + 4*j, temp2 + j, 4);
         }
         printf("temp2[0]:0x%x\n", temp2[0]);
+        printf("temp2[1]:0x%x\n", temp2[1]);
+        printf("temp2[2]:0x%x\n", temp2[2]);
+        printf("temp2[3]:0x%x\n", temp2[3]);
         return unalign_rw((uint8_t*)temp2 + temp_addr, 4);
     }
     /*
