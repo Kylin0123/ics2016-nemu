@@ -10,6 +10,11 @@
 extern int32_t dram_read(hwaddr_t, size_t);
 extern void dram_write(hwaddr_t, size_t, uint32_t);
 
+extern struct Cache2 cache2;
+
+extern uint32_t read_cache2(struct Cache2*, hwaddr_t addr, uint32_t*, size_t);
+extern void write_cache2(struct Cache2*, hwaddr_t, uint32_t, uint32_t*, size_t);
+
 typedef struct {
     uint32_t valid_bit;    //length:1
     uint32_t tag;   //length:19

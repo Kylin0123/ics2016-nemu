@@ -92,5 +92,55 @@ uint32_t read_cache2(struct Cache2* this, hwaddr_t addr, uint32_t *success2, siz
 }
 
 void write_cache2(struct Cache2* this, hwaddr_t addr, uint32_t data, uint32_t *success2, size_t len){
-    return;
+    uint32_t temp_tag = addr >> 18;
+    temp_tag &= 0x3ffff;
+    uint32_t temp_group = addr >> 6;
+    temp_group &= 0xfff;
+    uint32_t temp_addr = addr & 0x3f;
+    *success2 = 0;
+    int k;
+    for(k = 0; k < 16; k++){
+        if(this->cache_block2[temp_group][k].tag == temp_tag && this->cache_block2[temp_group][k].valid_bit == 1){
+            *success2 = 1;
+            memcpy(this->cache_block2[temp_group][k].data + temp_addr, &data, 4);
+            this->cache_block2[temp_group][k].dirty_bit = 1;
+            return;
+        }
+    }
+    
+    int i = 0;
+    int flag = 0;
+    int result_i;
+    for(i = 0; i < 16; i++){
+        if(this->cache_block2[temp_group][i].valid_bit == 0){
+            result_i = i;
+            flag = 1;
+        }
+    }
+    if(flag == 0){
+        result_i = rand()%16;
+    }
+    if(this->cache_block2[temp_group][result_i].valid_bit == 1 && this->cache_block2[temp_group][result_i].dirty_bit == 1){
+        uint32_t dram_addr = (uint32_t)((this->cache_block2[temp_group][result_i].tag << 18) | (temp_group << 6) | temp_addr);
+        for(i = 0; i < 16; i++){
+            uint32_t *dram_data = (uint32_t*)this->cache_block2[temp_group][result_i].data + 4*i;
+            dram_write(dram_addr, 4, *dram_data);
+            
+        }
+        
+    }
+    this->cache_block2[temp_group][result_i].valid_bit = 1;
+    this->cache_block2[temp_group][result_i].tag = temp_tag;
+    uint8_t temp2[64];
+    uint32_t align_addr = addr & 0xffffffc0;
+    int j;
+    for(j = 0; j < 64; j++){
+        temp2[j] = dram_read(align_addr + j, 1);
+        memcpy(this->cache_block2[temp_group][result_i].data + j, temp2 + j, 1);
+    }
+    memcpy(this->cache_block2[temp_group][result_i].data + temp_addr, &data, 4);
+    this->cache_block2[temp_group][result_i].dirty_bit = 1;
+    
+
+
 }
