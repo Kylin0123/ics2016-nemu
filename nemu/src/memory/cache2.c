@@ -86,6 +86,8 @@ uint32_t read_cache2(struct Cache2* this, hwaddr_t addr, uint32_t *success2, siz
         int j;
         //printf("cache2:\n");
         printf("addr:%x\n",addr);
+        if(addr == 0x8001bc)
+            printf("0x8001bc:%x\n", dram_read(addr, 4));
         for(j = 0; j < 64; j++){
             temp2[j] = dram_read(align_addr + j, 1);
             memcpy(this->cache_block2[temp_group][result_i].data + j, temp2 + j, 1);
