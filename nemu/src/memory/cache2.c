@@ -83,6 +83,7 @@ uint32_t read_cache2(struct Cache2* this, hwaddr_t addr, uint32_t *success2, siz
         uint8_t temp2[64];
         uint32_t align_addr = addr & 0xffffffc0;
         int j;
+        printf("cache2:\n");
         for(j = 0; j < 64; j++){
             temp2[j] = dram_read(align_addr + j, 1);
             memcpy(this->cache_block2[temp_group][result_i].data + j, temp2 + j, 1);
