@@ -99,7 +99,7 @@ uint32_t read_cache2(struct Cache2* this, hwaddr_t addr, uint32_t *success2, siz
         if(this->cache_block2[temp_group][result_i].valid_bit == 1 && this->cache_block2[temp_group][result_i].dirty_bit == 1){
             uint32_t dram_addr = (uint32_t)((this->cache_block2[temp_group][result_i].tag << 18) | (temp_group << 6) | temp_addr);
             for(i = 0; i < 16; i++){
-                uint32_t *dram_data = (uint32_t*)this->cache_block2[temp_group][result_i].data + 4*i;
+                uint32_t *dram_data = (uint32_t*)this->cache_block2[temp_group][result_i].data + i;
                 dram_write(dram_addr, 4, *dram_data);
             }
         }
