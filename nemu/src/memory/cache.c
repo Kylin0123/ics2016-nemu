@@ -3,8 +3,6 @@
 #include "misc.h"
 #include <stdlib.h>
 
-/* Now we are going to make a cache!" */
-
 #define CACHE_WIDTH 16    // 64KB
 #define BLO_WIDTH 6       // 64B
 #define WAY_WIDTH 3       // 8 WAY
@@ -27,8 +25,6 @@ typedef union{
 #define NR_WAY (1 << WAY_WIDTH)
 #define NR_SET (1 << SET_WIDTH)
 #define NR_TAG (1 << TAG_WIDTH)
-
-//#define HW_MEM_SIZE (1 << DRAM_WIDTH)
 
 typedef struct{
     uint8_t data[NR_BLO];
@@ -55,8 +51,6 @@ void init_cache(){
 }
 
 void cache_read_data(hwaddr_t addr, void *data){
-    Assert(addr < HW_MEM_SIZE, "eip: 0x%08x\nPhysical address 0x%08x is outside of the physical memory!", cpu.eip, addr);
-
     cache_addr temp;
     temp.addr = addr;
     uint32_t set = temp.set;
@@ -65,19 +59,16 @@ void cache_read_data(hwaddr_t addr, void *data){
 
     for(way=0; way < NR_WAY; way++){
         if((cache[set][way].tag == tag) && cache[set][way].valid){
-            /* Hit, read a block into block buffer */
             memcpy(data, cache[set][way].data, NR_BLO);
             return;
         }
     }
 
-    /* Miss, read a block data into cache */
     way = rand() % NR_WAY;
     l2_cache_read(addr, cache[set][way].data);
     cache[set][way].valid = true;
     cache[set][way].tag = tag;
 
-    /* Again, read it into block buffer */
     memcpy(data, cache[set][way].data, NR_BLO);
 
 }
@@ -90,7 +81,6 @@ uint32_t cache_read(hwaddr_t addr, size_t len){
     cache_read_data(addr, temp);
 
     if(block_off + len > NR_BLO){
-        /* data cross the block boundary */
         cache_read_data(addr + NR_BLO, temp + NR_BLO);
     }
     
@@ -99,22 +89,18 @@ uint32_t cache_read(hwaddr_t addr, size_t len){
 
 
 void cache_write_data(hwaddr_t addr, void *data, uint8_t *mask){
-    Assert(addr < HW_MEM_SIZE, "eip: 0x%x\nPhysical address 0x%x is outside of the physical memory!", cpu.eip, addr);
-
     cache_addr temp;
     temp.addr = addr;
     uint32_t set = temp.set;
     uint32_t tag = temp.tag;
     uint32_t way;
 
-    /* Hit, write the cache */
     for(way = 0; way < NR_WAY; way++){
         if((cache[set][way].tag == tag) && cache[set][way].valid){
             memcpy_with_mask(cache[set][way].data, data, NR_BLO, mask);
         }
     }
 
-    /* Whatever write the l2_cache */
     l2_cache_write(addr, data, mask);
 }
 
@@ -132,23 +118,19 @@ void cache_write(hwaddr_t addr, size_t len, uint32_t data) {
     cache_write_data(addr, temp, mask);
 
     if(block_off + len > NR_BLO){
-        /* data cross the block boundary */
         cache_write_data(addr + NR_BLO, temp + NR_BLO, mask + NR_BLO);
     }
 
 }
 
 
-void print_cache(hwaddr_t addr){
-    Assert(addr < HW_MEM_SIZE, "Physical address 0x%x is outside of the physical memory!", addr);
-
+/*void print_cache(hwaddr_t addr){
     cache_addr temp;
     temp.addr = addr;
     uint32_t set = temp.set;
     uint32_t tag = temp.tag;
     uint32_t way;
 
-    /* Hit, print the cache */
     for(way = 0; way < NR_WAY; way++){
         if((cache[set][way].tag == tag) && cache[set][way].valid){
             printf("Tag: 0x%08x\n", tag);
@@ -165,9 +147,8 @@ void print_cache(hwaddr_t addr){
         }
     }
 
-    /* Miss, print out the message */
     printf("No such addr in the cache\n");
-}
+}*/
 
 
 #undef CACHE_WIDTH 
