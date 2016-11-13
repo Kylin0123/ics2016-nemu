@@ -187,7 +187,7 @@ void write_cache2(struct Cache2* this, hwaddr_t addr, uint32_t data, uint32_t *s
         //printf("dram_read:0x%x\n", dram_read(align_addr,4));
         int j;
         for(j = 0; j < 16; j++){
-            temp3[j] = dram_read(align_addr + 4*j, 1);
+            temp3[j] = dram_read(align_addr + 4*j, -1);
             memcpy(this->cache_block2[temp_group][result_i].data + 4*j, &temp3[j], 4);
             printf("%x ", temp3[j]);
         }
