@@ -64,10 +64,13 @@ uint32_t read_cache2(struct Cache2* this, hwaddr_t addr, uint32_t *success2, siz
                         memcpy(temp, this->cache_block2[temp_group][i].data, 64);
                         memcpy(temp + 64, this->cache_block2[temp_group+1][j].data, 64);
                         int f;
-                        for(f = 0; f < 128; f++)
+                        for(f = 0; f < 64; f++)
                             printf("%x ", temp[f]);
                         printf("\n");
-                        printf("%x\n", unalign_rw(temp + temp_addr, 4));
+                        for(; f < 128; f++)
+                            printf("%x ", temp[f]);
+                        printf("\n");
+                        //printf("%x\n", unalign_rw(temp + temp_addr, 4));
                         
                         printf("zzzzzzzzzzzzzzzzz\n");
                         goto L2;
