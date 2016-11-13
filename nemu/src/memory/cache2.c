@@ -63,19 +63,20 @@ uint32_t read_cache2(struct Cache2* this, hwaddr_t addr, uint32_t *success2, siz
                         //printf("\nb2\n"); //not test
                         memcpy(temp, this->cache_block2[temp_group][i].data, 64);
                         memcpy(temp + 64, this->cache_block2[temp_group+1][j].data, 64);
-                        int f;
+                        /*int f;
                         for(f = 0; f < 64; f++)
                             printf("%x ", temp[f]);
                         printf("\n");
                         for(f = 64; f < 128; f++)
                             printf("%x ", temp[f]);
                         printf("\n");
+                        */
                         //printf("%x\n", unalign_rw(temp + temp_addr, 4));
                         
-                        printf("zzzzzzzzzzzzzzzzz\n");
-                        printf("%x\n", dram_read(addr, 0));
-                        printf("%x\n", dram_read(addr + 1, 0));
-                        printf("zzzzzzzzzzzzzzzzz\n");
+                        //printf("zzzzzzzzzzzzzzzzz\n");
+                        //printf("%x\n", dram_read(addr, 0));
+                        //printf("%x\n", dram_read(addr + 1, 0));
+                        //printf("zzzzzzzzzzzzzzzzz\n");
                         goto L2;
                     }
                 }
@@ -185,7 +186,7 @@ void write_cache2(struct Cache2* this, hwaddr_t addr, uint32_t data, uint32_t *s
             //printf("%x ", temp2[j]);
         }
         //memcpy( temp2, dram_read(align_addr, 64), 64);
-        printf("\n");
+        //printf("\n");
         memcpy(this->cache_block2[temp_group][result_i].data + temp_addr, &data, 4);
         this->cache_block2[temp_group][result_i].dirty_bit = 1;
     }
