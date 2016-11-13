@@ -111,19 +111,20 @@ uint32_t read_cache2(struct Cache2* this, hwaddr_t addr, uint32_t *success2, siz
         uint32_t temp2[16];
         uint32_t align_addr = addr & 0xffffffc0;
         int j;
-        printf("read_not_hit\n");
+        //printf("read_not_hit\n");
         //printf("addr:%x\n",addr);
         //if(addr == 0x8001bc)
         //printf("dram_read:%x\n", dram_read(align_addr, 4));
         for(j = 0; j < 16; j++){
             temp2[j] = dram_read(align_addr + 4*j, 1);
             memcpy(this->cache_block2[temp_group][result_i].data + 4*j, &temp2[j], 4);
-            printf("%x ", temp2[j]);
+            //printf("%x ", temp2[j]);
         }
-        printf("\n");
-        for(j = 0; j < 64; j++)
-            printf("%x ", this->cache_block2[temp_group][result_i].data[j]);
-        printf("\n");
+        //printf("\n");
+        //for(j = 0; j < 64; j++)
+            //printf("%x ", this->cache_block2[temp_group][result_i].data[j]);
+        //printf("\n");
+        
         //printf("\nread_cache2 miss!\n");
         
         return unalign_rw((uint8_t *)temp2 + temp_addr, 4);
@@ -159,6 +160,7 @@ void write_cache2(struct Cache2* this, hwaddr_t addr, uint32_t data, uint32_t *s
             if(this->cache_block2[temp_group][i].valid_bit == 0){
                 result_i = i;
                 flag = 1;
+                break;
             }
         }
         if(flag == 0){
@@ -187,10 +189,10 @@ void write_cache2(struct Cache2* this, hwaddr_t addr, uint32_t data, uint32_t *s
         for(j = 0; j < 16; j++){
             temp2[j] = dram_read(align_addr + 4*j, 1);
             memcpy(this->cache_block2[temp_group][result_i].data + 4*j, &temp2[j], 4);
-            //printf("%x ", temp2[j]);
+            printf("%x ", temp2[j]);
         }
         //memcpy( temp2, dram_read(align_addr, 64), 64);
-        //printf("\n");
+        printf("\n");
         memcpy(this->cache_block2[temp_group][result_i].data + temp_addr, &data, 4);
         this->cache_block2[temp_group][result_i].dirty_bit = 1;
     }
