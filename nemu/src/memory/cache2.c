@@ -73,8 +73,8 @@ uint32_t read_cache2(struct Cache2* this, hwaddr_t addr, uint32_t *success2, siz
                         //printf("%x\n", unalign_rw(temp + temp_addr, 4));
                         
                         printf("zzzzzzzzzzzzzzzzz\n");
-                        printf("%x\n", dram_read(addr, 2));
-                        printf("%x\n", dram_read(addr + 64, 2));
+                        printf("%x\n", dram_read(addr, 1));
+                        printf("%x\n", dram_read(addr + 64, 1));
                         printf("zzzzzzzzzzzzzzzzz\n");
                         goto L2;
                     }
