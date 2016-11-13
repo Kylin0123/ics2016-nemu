@@ -16,7 +16,7 @@ void dram_write(hwaddr_t, size_t, uint32_t);
 /* Memory accessing interfaces */
 
 uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
-	return dram_read(addr, len) & (~0u >> ((4 - len) << 3));
+	//return dram_read(addr, len) & (~0u >> ((4 - len) << 3));
     
     /*uint32_t *success = malloc(sizeof(uint32_t));
     *success = 0;
@@ -37,19 +37,19 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
 	    return dram_read(addr, len) & (~0u >> ((4 - len) << 3));
     }*/
 
-    /*uint32_t *success = malloc(sizeof(uint32_t));
+    uint32_t *success = malloc(sizeof(uint32_t));
     *success = 0;
     return read_cache2(&cache2, addr, success, len) & (~0u >> ((4 - len) << 3));
-    */
+    
 }
 
 void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
-	dram_write(addr, len, data);
-    /*
+	//dram_write(addr, len, data);
+    
     uint32_t *success = malloc(sizeof(uint32_t));
     *success = 0;
     write_cache2(&cache2, addr, data, success, len);
-    */
+    
 }
 
 uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
