@@ -11,7 +11,7 @@ void init_regex();
 void init_wp_pool();
 void init_ddr3();
 void init_cache();
-void init_cache2();
+void init_l2_cache();
 
 FILE *log_fp = NULL;
 
@@ -96,5 +96,5 @@ void restart() {
     init_cache();
     
     /*todo:initialize cache2*/
-    init_cache2();
+    init_l2_cache();
 }

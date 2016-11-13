@@ -1,186 +1,184 @@
-/*************************************************************************
-	> File Name: cache.c
-	> Author: 
-	> Mail: 
-	> Created Time: Thu Nov  3 01:53:13 2016
- ************************************************************************/
-
 #include "common.h"
+#include "nemu.h"
+#include "misc.h"
 #include <stdlib.h>
 
-extern int32_t dram_read(hwaddr_t, size_t);
-extern void dram_write(hwaddr_t, size_t, uint32_t);
+/* Now we are going to make a cache!" */
 
-extern struct Cache2 cache2;
+#define CACHE_WIDTH 16    // 64KB
+#define BLO_WIDTH 6       // 64B
+#define WAY_WIDTH 3       // 8 WAY
+#define SET_WIDTH (CACHE_WIDTH - BLO_WIDTH - WAY_WIDTH)
 
-extern uint32_t read_cache2(struct Cache2*, hwaddr_t addr, uint32_t*, size_t);
-extern void write_cache2(struct Cache2*, hwaddr_t, uint32_t, uint32_t*, size_t);
+#define DRAM_WIDTH 27     // 128MB
+#define TAG_WIDTH (DRAM_WIDTH - BLO_WIDTH - SET_WIDTH)
 
-typedef struct {
-    uint32_t valid_bit;    //length:1
-    uint32_t tag;   //length:19
-    uint8_t data[64];
-} Cache_block;
+typedef union{
+    struct{
+        uint32_t blo      : BLO_WIDTH;
+        uint32_t set      : SET_WIDTH;
+        uint32_t tag      : TAG_WIDTH;
+    };
+    uint32_t addr;
+} cache_addr;
 
-typedef struct Cache{
-    Cache_block cache_block[128][8];
-    uint32_t (*read)(struct Cache* this, hwaddr_t addr, uint32_t *success, size_t len);
-    void (*write)(struct Cache* this, hwaddr_t addr, uint32_t data, uint32_t *success, size_t len);
-} Cache;
 
-Cache cache;
+#define NR_BLO (1 << BLO_WIDTH)
+#define NR_WAY (1 << WAY_WIDTH)
+#define NR_SET (1 << SET_WIDTH)
+#define NR_TAG (1 << TAG_WIDTH)
 
-void init_cache() {
-    int i,j;
-    for(i = 0; i < 128; i++)
-        for(j = 0; j < 8; j++){
-            cache.cache_block[i][j].valid_bit = 0;
+//#define HW_MEM_SIZE (1 << DRAM_WIDTH)
+
+typedef struct{
+    uint8_t data[NR_BLO];
+    uint32_t tag    : TAG_WIDTH;
+    uint32_t valid  : 1;
+} CACHE;
+
+CACHE cache[NR_SET][NR_WAY];
+
+extern void l2_cache_read(hwaddr_t addr, void *data);
+extern void l2_cache_write(hwaddr_t addr, void *data, uint8_t *mask);
+extern void init_l2_cache();
+
+void init_cache(){
+    int i, j;
+    for(i=0; i < NR_SET; i++){
+        for(j=0; j < NR_WAY; j++){
+            cache[i][j].valid = false;
+            cache[i][j].tag = 0;
         }
+    }
+
+    init_l2_cache();
 }
 
-uint32_t read_cache(struct Cache* this, hwaddr_t addr, uint32_t *success, size_t len){
-    uint32_t temp_tag = addr >> 13;
-    temp_tag &= 0x7ffff;
-    uint32_t temp_group = addr >> 6;
-    temp_group &= 0x7f;
-    uint32_t temp_addr = addr & 0x3f;
-    *success = 0;
-    uint8_t temp[128];
-    int i;
-    //printf("%d\n", this->cache_block[0][0].valid_bit);
-    if(temp_addr + len  <= 64){
-        for(i = 0; i < 8; i++){
-            if(this->cache_block[temp_group][i].tag == temp_tag){
-                if(this->cache_block[temp_group][i].valid_bit == 1){
-                    *success = 1;
-                    //printf("cache_tag:%x ", this->cache_block[temp_group][i].tag);
-                    //printf("addr:%x ", addr);
-                    //printf("tag:%x group:%x addr:%x\n",temp_tag,temp_group, temp_addr);
-                    memcpy(temp, this->cache_block[temp_group][i].data, 64);
-                    break;
-                }
-            }
-        }
-    }
-    else{
-        int i,j;
-        for(i = 0; i < 8; i++)
-            for(j = 0;j <8; j++){
-                if(this->cache_block[temp_group][i].tag == temp_tag && this->cache_block[temp_group+1][j].tag == temp_tag){
-                    if(this->cache_block[temp_group][i].valid_bit == 1 && this->cache_block[temp_group+1][j].valid_bit == 1){
-                        *success = 1;
-                        printf("\nb1\n");    //todo:not test
-                        memcpy(temp, this->cache_block[temp_group][i].data, 64);
-                        memcpy(temp + 64, this->cache_block[temp_group+1][j].data, 64);
-                        goto L1;
-                    }
-                }
-            }
-    }
-L1: 
-    if(*success == 0){
-        int i;
-        int flag = 0;
-        int result_i;
-        for(i = 0; i < 8; i++){
-            if(this->cache_block[temp_group][i].valid_bit == 0){
-                result_i = i;
-                flag = 1;
-            }
-        }
-        if(flag == 0)
-            result_i = rand()%8;
-        //printf("result_i:%d\n", result_i);
-        this->cache_block[temp_group][result_i].valid_bit = 1;
-        this->cache_block[temp_group][result_i].tag = temp_tag;
-        uint32_t temp2[16];
-        uint32_t align_addr = addr & 0xffffffc0;
-        int j;
-        //printf("cache:\n");
-        for(j = 0; j < 16; j++){
-            temp2[j] = read_cache2(&cache2, align_addr + 4*j, success, 4);
-            memcpy(this->cache_block[temp_group][result_i].data + 4*j, temp2 + j, 4);
-            //printf("%x ", temp2[j]);
-        }
-        /*printf("temp2[0]:0x%x\n", temp2[0]);
-        printf("temp2[1]:0x%x\n", temp2[1]);
-        printf("temp2[2]:0x%x\n", temp2[2]);
-        printf("temp2[3]:0x%x\n", temp2[3]);
-        */
-        return unalign_rw((uint8_t*)temp2 + temp_addr, 4);
-    }
-    /*
-    if(*success == 0){
-        int i;
-        for(i = 0; i < 8; i++){
-            if(this->cache_block[temp_group][i].valid_bit == 0){
-                this->cache_block[temp_group][i].valid_bit = 1;
-                this->cache_block[temp_group][i].tag = temp_tag;
-                uint32_t temp2[16];
-                uint32_t align_addr = addr & 0xffffffc0;
-                int j;
-                for(j = 0; j < 16; j++){
-                    temp2[j] = read_cache2(&cache2, addr, success, 4);
-                    memcpy(this->cache_block[temp_group][i].data + 4*j, temp2 + j, 4);
-                    if(align_addr + j == 0x7ffefb8){
-                        printf("wooooooooooooow\n");
-                        printf("dram:%x\n", dram_read(0x7ffefb8, 4));
-                    }
-                }
-                temp = (uint8_t*)temp2;
-                //memcpy( this->cache_block[temp_group][i].data, temp2, 64);
-                //printf("xxxxxxxxxxxxxxxxxxxxxx:0x%x ", align_addr);
-                //printf("dram:%x\n", dram_read(0x7ffefb8, 4));
-                
-                for(j = 0; j < 64; j++){
-                    printf("%x ", temp2[j]);
-                }
-                printf("\n");
-                
-                break;
-            }
-        }
-    }
-    */
-    //printf("over ");
-    //printf("read_cache hit!\n");  //hit!
-    return unalign_rw(temp + temp_addr, 4);
-}
+void cache_read_data(hwaddr_t addr, void *data){
+    Assert(addr < HW_MEM_SIZE, "eip: 0x%08x\nPhysical address 0x%08x is outside of the physical memory!", cpu.eip, addr);
 
-void write_cache(struct Cache* this, hwaddr_t addr, uint32_t data, uint32_t *success, size_t len){
-    uint32_t temp_tag = addr >> 13;
-    temp_tag &= 0x7ffff;
-    uint32_t temp_group = addr >> 6;
-    temp_group &= 0x7f;
-    uint32_t temp_addr = addr & 0x3f;
-    *success = 0;
-    int i;
-    for(i = 0; i < 8; i++){
-        if(this->cache_block[temp_group][i].tag == temp_tag && this->cache_block[temp_group][i].valid_bit == 1){
-            //printf("write_cache hit!\n");   //hit
-            *success = 1;
-            memcpy( this->cache_block[temp_group][i].data + temp_addr, &data, 4);
-            //printf("data:%x",data);
-            write_cache2(&cache2, addr, data, success, len);
+    cache_addr temp;
+    temp.addr = addr;
+    uint32_t set = temp.set;
+    uint32_t tag = temp.tag;
+    uint32_t way;
+
+    for(way=0; way < NR_WAY; way++){
+        if((cache[set][way].tag == tag) && cache[set][way].valid){
+            /* Hit, read a block into block buffer */
+            memcpy(data, cache[set][way].data, NR_BLO);
             return;
         }
-    } 
-    
-    /*int flag = 0;
-    int result_i;
-    for(i = 0; i < 8; i++){
-        if(this->cache_block[temp_group][i].valid_bit == 0){
-            result_i = i;
-            flag = 1;
-        }
     }
-    if(flag == 0){
-        result_i = rand()%8;
-    }
-    if(this->cache_block[temp_group][result_i].valid_bit == 1){
-        
-    }*/
-    write_cache2(&cache2, addr, data, success, len);
-    return;
+
+    /* Miss, read a block data into cache */
+    way = rand() % NR_WAY;
+    l2_cache_read(addr, cache[set][way].data);
+    cache[set][way].valid = true;
+    cache[set][way].tag = tag;
+
+    /* Again, read it into block buffer */
+    memcpy(data, cache[set][way].data, NR_BLO);
+
 }
 
+
+uint32_t cache_read(hwaddr_t addr, size_t len){
+    uint8_t temp[2 * NR_BLO];
+    uint32_t block_off = addr & (NR_BLO - 1);
+
+    cache_read_data(addr, temp);
+
+    if(block_off + len > NR_BLO){
+        /* data cross the block boundary */
+        cache_read_data(addr + NR_BLO, temp + NR_BLO);
+    }
+    
+    return unalign_rw(temp + block_off, 4);
+}
+
+
+void cache_write_data(hwaddr_t addr, void *data, uint8_t *mask){
+    Assert(addr < HW_MEM_SIZE, "eip: 0x%x\nPhysical address 0x%x is outside of the physical memory!", cpu.eip, addr);
+
+    cache_addr temp;
+    temp.addr = addr;
+    uint32_t set = temp.set;
+    uint32_t tag = temp.tag;
+    uint32_t way;
+
+    /* Hit, write the cache */
+    for(way = 0; way < NR_WAY; way++){
+        if((cache[set][way].tag == tag) && cache[set][way].valid){
+            memcpy_with_mask(cache[set][way].data, data, NR_BLO, mask);
+        }
+    }
+
+    /* Whatever write the l2_cache */
+    l2_cache_write(addr, data, mask);
+}
+
+
+
+void cache_write(hwaddr_t addr, size_t len, uint32_t data) {
+    uint32_t block_off = addr & (NR_BLO - 1);
+    uint8_t temp[2 * NR_BLO];
+    uint8_t mask[2 * NR_BLO];
+    memset(mask, 0, 2 * NR_BLO);
+    
+    *(uint32_t *)(temp + block_off) = data;
+    memset(mask + block_off, 1, len);
+
+    cache_write_data(addr, temp, mask);
+
+    if(block_off + len > NR_BLO){
+        /* data cross the block boundary */
+        cache_write_data(addr + NR_BLO, temp + NR_BLO, mask + NR_BLO);
+    }
+
+}
+
+
+void print_cache(hwaddr_t addr){
+    Assert(addr < HW_MEM_SIZE, "Physical address 0x%x is outside of the physical memory!", addr);
+
+    cache_addr temp;
+    temp.addr = addr;
+    uint32_t set = temp.set;
+    uint32_t tag = temp.tag;
+    uint32_t way;
+
+    /* Hit, print the cache */
+    for(way = 0; way < NR_WAY; way++){
+        if((cache[set][way].tag == tag) && cache[set][way].valid){
+            printf("Tag: 0x%08x\n", tag);
+            printf("0x");
+            int i;
+            uint32_t val;
+            for(i=0; i<NR_BLO; i++){
+                if(i%4 == 0){ printf(" "); }
+                val = cache[set][way].data[i];
+                printf("%02x", val);
+            }
+            printf("\n");
+            return;
+        }
+    }
+
+    /* Miss, print out the message */
+    printf("No such addr in the cache\n");
+}
+
+
+#undef CACHE_WIDTH 
+#undef BLO_WIDTH 
+#undef WAY_WIDTH 
+#undef SET_WIDTH 
+
+#undef DRAM_WIDTH 
+#undef TAG_WIDTH 
+
+#undef NR_BLO 
+#undef NR_WAY 
+#undef NR_SET 
+#undef NR_TAG 

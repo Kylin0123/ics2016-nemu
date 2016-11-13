@@ -1,199 +1,103 @@
-/*************************************************************************
-	> File Name: cache2.c
-	> Author: 
-	> Mail: 
-	> Created Time: Sat 05 Nov 2016 04:58:06 PM CST
- ************************************************************************/
+#include "common.h"
+#include "misc.h"
+#include <stdlib.h>
 
- #include "common.h"
- #include <stdlib.h>
+#define L2_CACHE_WID 22     // 4MB
+#define L2_BLO_WID 6        // 64B
+#define L2_WAY_WID 4        // 16 WAY
+#define L2_SET_WID (L2_CACHE_WID - L2_BLO_WID - L2_WAY_WID)
 
-extern int32_t dram_read(hwaddr_t, size_t);
-extern void dram_write(hwaddr_t, size_t, uint32_t);
+#define DRAM_WID 27         // 128MB
+#define L2_TAG_WID (DRAM_WID - L2_BLO_WID - L2_SET_WID)
 
-typedef struct {
-    uint32_t valid_bit;
-    uint32_t dirty_bit;
-    uint32_t tag;
-    uint8_t data[64];    
-} Cache_block2;
+typedef union{
+    struct{
+        uint32_t blo    : L2_BLO_WID;
+        uint32_t set    : L2_SET_WID;
+        uint32_t tag    : L2_TAG_WID;
+    };
+    uint32_t addr;
+} l2_cache_addr;
 
-typedef struct Cache2{
-    Cache_block2 cache_block2[4096][16];
-} Cache2;
+#define L2_NR_BLO (1 << L2_BLO_WID)
+#define L2_NR_WAY (1 << L2_WAY_WID)
+#define L2_NR_SET (1 << L2_SET_WID)
+#define L2_NR_TAG (1 << L2_TAG_WID)
 
-Cache2 cache2;
+#define HW_MEM_SIZE (1 << DRAM_WID)
 
-void init_cache2(){
-    int i,j;
-    for(i = 0; i < 4096; i++)
-        for(j = 0; j < 16; j++){
-            cache2.cache_block2[i][j].valid_bit = 0;
-	        cache2.cache_block2[i][j].dirty_bit = 0;
+typedef struct{
+    uint8_t data[L2_NR_BLO];
+    uint32_t tag   : L2_TAG_WID;
+    uint32_t valid : 1;
+    uint32_t dirty : 1;
+} L2_CACHE;
+
+L2_CACHE l2_cache[L2_NR_SET][L2_NR_BLO];
+
+extern uint8_t *hw_mem;
+typedef uint8_t DRAM_CACHE[L2_NR_SET][L2_NR_BLO];
+
+void init_l2_cache(){
+    int i, j;
+    for(i=0; i < L2_NR_SET; i++){
+        for(j=0; j < L2_NR_WAY; j++){
+            l2_cache[i][j].valid = false;
+            l2_cache[i][j].dirty = false;
         }
+    }
 }
 
-uint32_t read_cache2(struct Cache2* this, hwaddr_t addr, uint32_t *success2, size_t len){
-    uint32_t temp_tag = addr >> 18;
-    temp_tag &= 0x3ffff;
-    uint32_t temp_group = addr >> 6;
-    temp_group &= 0xfff;
-    uint32_t temp_addr = addr & 0x3f;
-    *success2 = 0;
-    uint8_t temp[128];
-    int i;
-    if(temp_addr + len  <= 64){
-        for(i = 0; i < 16; i++){
-            if(this->cache_block2[temp_group][i].tag == temp_tag){
-                if(this->cache_block2[temp_group][i].valid_bit == 1){
-                    *success2 = 1;
-                    memcpy(temp, this->cache_block2[temp_group][i].data, 64);
-                    break;
-                }
-            }
-        }
-    }
-    else{
-        int i,j;
-        for(i = 0; i < 16; i++)
-            for(j = 0;j < 16; j++){
-                if(this->cache_block2[temp_group][i].tag == temp_tag && this->cache_block2[temp_group+1][j].tag == temp_tag){
-                    if(this->cache_block2[temp_group][i].valid_bit == 1 && this->cache_block2[temp_group+1][j].valid_bit == 1){
-                        *success2 = 1;
-                        //printf("\nb2\n"); //not test
-                        memcpy(temp, this->cache_block2[temp_group][i].data, 64);
-                        memcpy(temp + 64, this->cache_block2[temp_group+1][j].data, 64);
-                        /*int f;
-                        for(f = 0; f < 64; f++)
-                            printf("%x ", temp[f]);
-                        printf("\n");
-                        for(f = 64; f < 128; f++)
-                            printf("%x ", temp[f]);
-                        printf("\n");
-                        */
-                        //printf("%x\n", unalign_rw(temp + temp_addr, 4));
-                        
-                        //printf("zzzzzzzzzzzzzzzzz\n");
-                        //printf("%x\n", dram_read(addr, 0));
-                        //printf("%x\n", dram_read(addr + 1, 0));
-                        //printf("zzzzzzzzzzzzzzzzz\n");
-                        goto L2;
-                    }
-                }
-            }
-    }
-    L2:
-     
-    if(*success2 == 0){
-        int i;
-        int flag = 0;
-        int result_i;
-        for(i = 0; i < 16; i++){
-            if(this->cache_block2[temp_group][i].valid_bit == 0){
-                result_i = i;
-                flag = 1;
-                break;
-            }
-        }
-        if(flag == 0){
-            result_i = rand()%16;
-        }
-        if(this->cache_block2[temp_group][result_i].valid_bit == 1 && this->cache_block2[temp_group][result_i].dirty_bit == 1){
-            uint32_t dram_addr = (uint32_t)((this->cache_block2[temp_group][result_i].tag << 18) | (temp_group << 6) | temp_addr);
-            for(i = 0; i < 16; i++){
-                uint32_t *dram_data = (uint32_t*)this->cache_block2[temp_group][result_i].data + i;
-                dram_write(dram_addr, 4, *dram_data);
-            }
-            printf("dirty!!!\n");
-        }
-        this->cache_block2[temp_group][result_i].valid_bit = 1;
-        this->cache_block2[temp_group][result_i].tag = temp_tag;
-        uint32_t temp2[16];
-        uint32_t align_addr = addr & 0xffffffc0;
-        int j;
-        //printf("read_not_hit\n");
-        //printf("addr:%x\n",addr);
-        //if(addr == 0x8001bc)
-        //printf("dram_read:%x\n", dram_read(align_addr, 4));
-        for(j = 0; j < 16; j++){
-            temp2[j] = dram_read(align_addr + 4*j, 1);
-            memcpy(this->cache_block2[temp_group][result_i].data + 4*j, &temp2[j], 4);
-            //printf("%x ", temp2[j]);
-        }
-        //printf("\n");
-        //for(j = 0; j < 64; j++)
-            //printf("%x ", this->cache_block2[temp_group][result_i].data[j]);
-        //printf("\n");
-        
-        //printf("\nread_cache2 miss!\n");
-        
-        return unalign_rw((uint8_t *)temp2 + temp_addr, 4);
-    }
-    //printf("read_cache2 hit!\n"); //hit!
-    return unalign_rw(temp + temp_addr, 4);
-}
 
-void write_cache2(struct Cache2* this, hwaddr_t addr, uint32_t data, uint32_t *success2, size_t len){
-    uint32_t temp_tag = addr >> 18;
-    temp_tag &= 0x3ffff;
-    uint32_t temp_group = addr >> 6;
-    temp_group &= 0xfff;
-    uint32_t temp_addr = addr & 0x3f;
-    *success2 = 0;
-    int k;
-    for(k = 0; k < 16; k++){
-        if(this->cache_block2[temp_group][k].tag == temp_tag && this->cache_block2[temp_group][k].valid_bit == 1){
-            *success2 = 1;
-            //if(temp_addr + len > 64)
-                //printf("tell me!\n");
-            memcpy(this->cache_block2[temp_group][k].data + temp_addr, &data, 4);
-            this->cache_block2[temp_group][k].dirty_bit = 1;
-            //printf("write_cache2 hit!\n");   //hit!
+void l2_cache_read(hwaddr_t addr, void *data){
+
+    DRAM_CACHE *dram_cache = (void *)hw_mem;
+
+    l2_cache_addr temp;
+    temp.addr = addr;
+    uint32_t set = temp.set;
+    uint32_t tag = temp.tag;
+    uint32_t way;
+
+    for(way=0; way < L2_NR_WAY; way++){
+        if((l2_cache[set][way].tag == tag) && l2_cache[set][way].valid){
+            memcpy(data, l2_cache[set][way].data, L2_NR_BLO);
             return;
         }
     }
-    if(*success2 == 0){
-        int i = 0;
-        int flag = 0;
-        int result_i;
-        for(i = 0; i < 16; i++){
-            if(this->cache_block2[temp_group][i].valid_bit == 0){
-                result_i = i;
-                flag = 1;
-                break;
-            }
+
+    way = rand() % L2_NR_WAY;
+
+    if(l2_cache[set][way].dirty && l2_cache[set][way].valid){
+        uint32_t new_tag = l2_cache[set][way].tag;
+        memcpy(dram_cache[new_tag][set], l2_cache[set][way].data, L2_NR_BLO);
+    } 
+
+    memcpy(l2_cache[set][way].data, dram_cache[tag][set], L2_NR_BLO);
+    l2_cache[set][way].valid = true;
+    l2_cache[set][way].tag = tag;
+    l2_cache[set][way].dirty = false;
+
+    memcpy(data, l2_cache[set][way].data, L2_NR_BLO);
+}
+
+
+
+void l2_cache_write(hwaddr_t addr, void *data, uint8_t *mask){
+    uint8_t block[L2_NR_BLO];
+    l2_cache_read(addr, block);
+
+    l2_cache_addr temp;
+    temp.addr = addr;
+    uint32_t set = temp.set;
+    uint32_t tag = temp.tag;
+    uint32_t way;
+
+    for(way=0; way < L2_NR_WAY; way++){
+        if(l2_cache[set][way].tag == tag && l2_cache[set][way].valid){
+            memcpy_with_mask(l2_cache[set][way].data, data, L2_NR_BLO, mask);
+            l2_cache[set][way].dirty = true;
+            return;
         }
-        if(flag == 0){
-            result_i = rand()%16;
-        }
-        //printf("result_i:%d\n", result_i);
-        if(this->cache_block2[temp_group][result_i].valid_bit == 1 && this->cache_block2[temp_group][result_i].dirty_bit == 1){
-            printf("dirty\n");
-            uint32_t dram_addr = (uint32_t)((this->cache_block2[temp_group][result_i].tag << 18) | (temp_group << 6) | temp_addr);
-            for(i = 0; i < 16; i++){
-                uint32_t *dram_data = (uint32_t*)this->cache_block2[temp_group][result_i].data + i;
-                dram_write(dram_addr, 4, *dram_data);
-            
-            }
-        
-        }
-        this->cache_block2[temp_group][result_i].valid_bit = 1;
-        this->cache_block2[temp_group][result_i].tag = temp_tag;
-        uint32_t temp3[16];
-        uint32_t align_addr = addr & 0xffffffc0;
-        //dram_write(addr, 4, data);
-        printf("write:0x%x\n", align_addr);
-        //printf("addr:0x%x\n", align_addr);
-        printf("dram_read:0x%x\n", dram_read(align_addr,4));
-        int j;
-        for(j = 0; j < 16; j++){
-            temp3[j] = dram_read(align_addr + 4*j, 4);
-            memcpy(this->cache_block2[temp_group][result_i].data + 4*j, &temp3[j], 4);
-            printf("%x ", temp3[j]);
-        }
-        //memcpy( temp2, dram_read(align_addr, 64), 64);
-        printf("\n");
-        memcpy(this->cache_block2[temp_group][result_i].data + temp_addr, &data, 4);
-        this->cache_block2[temp_group][result_i].dirty_bit = 1;
     }
 }
