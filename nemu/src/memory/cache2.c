@@ -53,7 +53,7 @@ uint32_t read_cache2(struct Cache2* this, hwaddr_t addr, uint32_t *success2, siz
             }
         }
     }
-    /*else{
+    else{
         int i,j;
         for(i = 0; i < 16; i++)
             for(j = 0;j < 16; j++){
@@ -76,7 +76,7 @@ uint32_t read_cache2(struct Cache2* this, hwaddr_t addr, uint32_t *success2, siz
             }
     }
     L2:
-    */ 
+     
     if(*success2 == 0){
         int i;
         int flag = 0;
