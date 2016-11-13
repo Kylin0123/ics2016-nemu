@@ -134,15 +134,6 @@ uint32_t read_cache2(struct Cache2* this, hwaddr_t addr, uint32_t *success2, siz
 }
 
 void write_cache2(struct Cache2* this, hwaddr_t addr, uint32_t data, uint32_t *success2, size_t len){
-        printf("xxxxxxxxxxxxxxxxxx\n");
-        int j;
-        uint32_t temp3[16];
-        for(j = 0; j < 16; j++){
-            temp3[j] = dram_read((addr&0xffffffc0) + 4*j, 3);
-            printf("%x ", temp3[j]);
-        }
-        printf("\n");
-        printf("xxxxxxxxxxxxxxxxxx\n");
     uint32_t temp_tag = addr >> 18;
     temp_tag &= 0x3ffff;
     uint32_t temp_group = addr >> 6;
