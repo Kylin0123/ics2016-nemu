@@ -45,7 +45,7 @@ uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
 
 void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
 	//dram_write(addr, len, data);
-    
+   /* 
         printf("xxxxxxxxxxxxxxxxxx\n");
         int j;
         uint32_t temp3[16];
@@ -55,7 +55,7 @@ void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
         }
         printf("\n");
         printf("xxxxxxxxxxxxxxxxxx\n");
-    
+    */
     uint32_t *success = malloc(sizeof(uint32_t));
     *success = 0;
     write_cache2(&cache2, addr, data, success, len);
