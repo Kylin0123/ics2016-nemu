@@ -179,7 +179,7 @@ void write_cache2(struct Cache2* this, hwaddr_t addr, uint32_t data, uint32_t *s
         }
         this->cache_block2[temp_group][result_i].valid_bit = 1;
         this->cache_block2[temp_group][result_i].tag = temp_tag;
-        uint32_t temp2[16];
+        uint32_t temp3[16];
         uint32_t align_addr = addr & 0xffffffc0;
         //dram_write(addr, 4, data);
         printf("write\n");
@@ -187,9 +187,9 @@ void write_cache2(struct Cache2* this, hwaddr_t addr, uint32_t data, uint32_t *s
         //printf("dram_read:0x%x\n", dram_read(align_addr,4));
         int j;
         for(j = 0; j < 16; j++){
-            temp2[j] = dram_read(align_addr + 4*j, 1);
-            memcpy(this->cache_block2[temp_group][result_i].data + 4*j, &temp2[j], 4);
-            printf("%x ", temp2[j]);
+            temp3[j] = dram_read(align_addr + 4*j, 1);
+            memcpy(this->cache_block2[temp_group][result_i].data + 4*j, &temp3[j], 4);
+            printf("%x ", temp3[j]);
         }
         //memcpy( temp2, dram_read(align_addr, 64), 64);
         printf("\n");
