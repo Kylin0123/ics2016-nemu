@@ -50,7 +50,7 @@ void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
         int j;
         uint32_t temp3[16];
         for(j = 0; j < 16; j++){
-            temp3[j] = dram_read((addr&0xffffffc0) + 4*j, 3);
+            temp3[j] = dram_read((addr&0xffffffc0) + 4*j, 4);
             printf("%x ", temp3[j]);
         }
         printf("\n");
