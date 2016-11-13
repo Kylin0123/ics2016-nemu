@@ -29,7 +29,7 @@ void init_cache2(){
     for(i = 0; i < 4096; i++)
         for(j = 0; j < 16; j++){
             cache2.cache_block2[i][j].valid_bit = 0;
-	    cache2.cache_block2[i][j].dirty_bit = 0;
+	        cache2.cache_block2[i][j].dirty_bit = 0;
         }
 }
 
@@ -73,8 +73,8 @@ uint32_t read_cache2(struct Cache2* this, hwaddr_t addr, uint32_t *success2, siz
                         //printf("%x\n", unalign_rw(temp + temp_addr, 4));
                         
                         printf("zzzzzzzzzzzzzzzzz\n");
-                        printf("%x\n", dram_read(addr, 1));
-                        printf("%x\n", dram_read(addr + 64, 1));
+                        printf("%x\n", dram_read(addr, 0));
+                        printf("%x\n", dram_read(addr + 64, 0));
                         printf("zzzzzzzzzzzzzzzzz\n");
                         goto L2;
                     }
