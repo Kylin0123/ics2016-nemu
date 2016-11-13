@@ -92,6 +92,7 @@ uint32_t read_cache2(struct Cache2* this, hwaddr_t addr, uint32_t *success2, siz
             if(this->cache_block2[temp_group][i].valid_bit == 0){
                 result_i = i;
                 flag = 1;
+                break;
             }
         }
         if(flag == 0){
@@ -117,9 +118,12 @@ uint32_t read_cache2(struct Cache2* this, hwaddr_t addr, uint32_t *success2, siz
         for(j = 0; j < 16; j++){
             temp2[j] = dram_read(align_addr + 4*j, 1);
             memcpy(this->cache_block2[temp_group][result_i].data + 4*j, &temp2[j], 4);
-            //printf("%x ", temp2[j]);
+            printf("%x ", temp2[j]);
         }
-        //printf("\n");
+        printf("\n");
+        for(j = 0; j < 64; j++)
+            printf("%x ", this->cache_block2[temp_group][result_i].data[j]);
+        printf("\n");
         //printf("\nread_cache2 miss!\n");
         
         return unalign_rw((uint8_t *)temp2 + temp_addr, 4);
