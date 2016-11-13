@@ -182,7 +182,7 @@ void write_cache2(struct Cache2* this, hwaddr_t addr, uint32_t data, uint32_t *s
         uint32_t temp3[16];
         uint32_t align_addr = addr & 0xffffffc0;
         //dram_write(addr, 4, data);
-        printf("write\n");
+        printf("write:0x%x\n", align_addr);
         //printf("addr:0x%x\n", align_addr);
         //printf("dram_read:0x%x\n", dram_read(align_addr,4));
         int j;
