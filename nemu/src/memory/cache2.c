@@ -102,6 +102,7 @@ uint32_t read_cache2(struct Cache2* this, hwaddr_t addr, uint32_t *success2, siz
                 uint32_t *dram_data = (uint32_t*)this->cache_block2[temp_group][result_i].data + i;
                 dram_write(dram_addr, 4, *dram_data);
             }
+            printf("dirty!!!\n");
         }
         this->cache_block2[temp_group][result_i].valid_bit = 1;
         this->cache_block2[temp_group][result_i].tag = temp_tag;
