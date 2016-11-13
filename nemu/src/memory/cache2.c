@@ -67,7 +67,7 @@ uint32_t read_cache2(struct Cache2* this, hwaddr_t addr, uint32_t *success2, siz
                         for(f = 0; f < 64; f++)
                             printf("%x ", temp[f]);
                         printf("\n");
-                        for(; f < 128; f++)
+                        for(f = 64; f < 128; f++)
                             printf("%x ", temp[f]);
                         printf("\n");
                         //printf("%x\n", unalign_rw(temp + temp_addr, 4));
