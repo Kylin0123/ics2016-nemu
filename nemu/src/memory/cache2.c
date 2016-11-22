@@ -2,12 +2,12 @@
 #include "misc.h"
 #include <stdlib.h>
 
-#define L2_CACHE_WID 22     // 4MB
-#define L2_BLO_WID 6        // 64B
-#define L2_WAY_WID 4        // 16 WAY
+#define L2_CACHE_WID 22     
+#define L2_BLO_WID 6        
+#define L2_WAY_WID 4        
 #define L2_SET_WID (L2_CACHE_WID - L2_BLO_WID - L2_WAY_WID)
 
-#define DRAM_WID 27         // 128MB
+#define DRAM_WID 27         
 #define L2_TAG_WID (DRAM_WID - L2_BLO_WID - L2_SET_WID)
 
 typedef union{

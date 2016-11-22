@@ -3,12 +3,12 @@
 #include "misc.h"
 #include <stdlib.h>
 
-#define CACHE_WIDTH 16    // 64KB
-#define BLO_WIDTH 6       // 64B
-#define WAY_WIDTH 3       // 8 WAY
+#define CACHE_WIDTH 16    
+#define BLO_WIDTH 6       
+#define WAY_WIDTH 3       
 #define SET_WIDTH (CACHE_WIDTH - BLO_WIDTH - WAY_WIDTH)
 
-#define DRAM_WIDTH 27     // 128MB
+#define DRAM_WIDTH 27     
 #define TAG_WIDTH (DRAM_WIDTH - BLO_WIDTH - SET_WIDTH)
 
 typedef union{
@@ -122,33 +122,6 @@ void cache_write(hwaddr_t addr, size_t len, uint32_t data) {
     }
 
 }
-
-
-/*void print_cache(hwaddr_t addr){
-    cache_addr temp;
-    temp.addr = addr;
-    uint32_t set = temp.set;
-    uint32_t tag = temp.tag;
-    uint32_t way;
-
-    for(way = 0; way < NR_WAY; way++){
-        if((cache[set][way].tag == tag) && cache[set][way].valid){
-            printf("Tag: 0x%08x\n", tag);
-            printf("0x");
-            int i;
-            uint32_t val;
-            for(i=0; i<NR_BLO; i++){
-                if(i%4 == 0){ printf(" "); }
-                val = cache[set][way].data[i];
-                printf("%02x", val);
-            }
-            printf("\n");
-            return;
-        }
-    }
-
-    printf("No such addr in the cache\n");
-}*/
 
 
 #undef CACHE_WIDTH 
