@@ -25,6 +25,10 @@ static void welcome() {
 			exec_file);
 }
 
+static void init_seg(){
+    cpu.cr0.val = 0;
+}
+
 void init_monitor(int argc, char *argv[]) {
 	/* Perform some global initialization */
 
@@ -97,4 +101,7 @@ void restart() {
     
     /*todo:initialize cache2*/
     init_l2_cache();
+    
+    /*Initialize segement register*/
+    init_seg();
 }
