@@ -6,6 +6,8 @@
 enum { R_EAX, R_ECX, R_EDX, R_EBX, R_ESP, R_EBP, R_ESI, R_EDI };
 enum { R_AX, R_CX, R_DX, R_BX, R_SP, R_BP, R_SI, R_DI };
 enum { R_AL, R_CL, R_DL, R_BL, R_AH, R_CH, R_DH, R_BH };
+enum { R_CS, R_DS, R_ES, R_SS };
+
 
 /* TODO: Re-organize the `CPU_state' structure to match the register
  * encoding scheme in i386 instruction format. For example, if we
@@ -67,10 +69,23 @@ typedef struct {
     }gdtr;
 
     CR0 cr0;
-    SELECTOR cs;
-    SELECTOR ds;
-    SELECTOR es;
-    SELECTOR ss;
+    
+    union{
+        SELECTOR sr[4];
+        struct{
+            uint16_t es;
+            uint16_t cs;
+            uint16_t ss;
+            uint16_t ds;
+        };
+    };
+
+    struct{
+        bool valid;
+        uint32_t base;
+        uint32_t limit;
+        uint32_t dpl : 2;
+    }sr_cache[4];
     
 
 } CPU_state;
@@ -85,9 +100,11 @@ static inline int check_reg_index(int index) {
 #define reg_l(index) (cpu.gpr[check_reg_index(index)]._32)
 #define reg_w(index) (cpu.gpr[check_reg_index(index)]._16)
 #define reg_b(index) (cpu.gpr[check_reg_index(index) & 0x3]._8[index >> 2])
+#define sreg(index) (cpu.sr[check_reg_index(index)].val)
 
 extern const char* regsl[];
 extern const char* regsw[];
 extern const char* regsb[];
+extern const char* srs[];
 
 #endif
