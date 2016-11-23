@@ -27,6 +27,12 @@ static void welcome() {
 
 static void init_seg(){
     cpu.cr0.val = 0;
+    int i;
+    for(i = 0; i < 4; i++)
+        cpu.sr_cache[i].valid = 0;
+    cpu.cs = 8;
+    cpu.sr_cache[R_CS].base = 0;
+    cpu.sr_cache[R_CS].limit = 0xffffffff;
 }
 
 void init_monitor(int argc, char *argv[]) {
