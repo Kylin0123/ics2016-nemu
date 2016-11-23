@@ -95,7 +95,7 @@ static int cmd_x(char *args){
 			int i;
 			for(i = 0; i < n; i++){
 				printf("0x%x:  ", arg2);
-				uint32_t temp = swaddr_read( arg2, 4);
+				uint32_t temp = swaddr_read( arg2, 4, R_DS);
 				arg2 += 0x4;			
 				printf("0x%x\n", temp);
 			}
@@ -147,10 +147,10 @@ static int cmd_bt(char *args){
     swaddr_t t1=0,t2=0,t3=0,t4=0;
     while(ptr != 0){
         printf("0x%x in ", ptr);
-        t1 = swaddr_read(ptr + 8, 4);
-        t2 = swaddr_read(ptr + 12, 4);
-        t3 = swaddr_read(ptr + 16, 4);
-        t4 = swaddr_read(ptr + 20, 4);
+        t1 = swaddr_read(ptr + 8, 4, R_SS);
+        t2 = swaddr_read(ptr + 12, 4, R_SS);
+        t3 = swaddr_read(ptr + 16, 4, R_SS);
+        t4 = swaddr_read(ptr + 20, 4, R_SS);
         int i;
         //printf("aaaaaaaa\n");
         for(i = 0; i < mynr; i++){
@@ -159,9 +159,9 @@ static int cmd_bt(char *args){
                 printf("%s (0x%x, 0x%x, 0x%x, 0x%x)\n", mystrtab + mysymtab[i].st_name, t1, t2, t3, t4);
             } 
         }
-        temp_eip = swaddr_read(ptr + 4, 4);
+        temp_eip = swaddr_read(ptr + 4, 4, R_SS);
         //printf("eip:%x\n", temp_eip);
-        ptr = swaddr_read(ptr, 4);
+        ptr = swaddr_read(ptr, 4, R_SS);
         
     }
     return 0;

@@ -10,7 +10,7 @@
 #define instr pop
 
 static void do_execute(){
-    uint32_t temp = MEM_R(cpu.esp);
+    uint32_t temp = MEM_R(cpu.esp, R_SS);
     OPERAND_W(op_src, temp);
     //printf("op_src:%x\n", op_src->val);
     //printf("esp:%x\n\n", cpu.esp);

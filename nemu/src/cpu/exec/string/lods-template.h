@@ -10,7 +10,7 @@
 #define instr lods
 
 static void do_execute(){
-    DATA_TYPE temp = MEM_R(cpu.esi);
+    DATA_TYPE temp = MEM_R(cpu.esi, R_DS);
     //printf("lods_temp:%d\n", temp);
     //printf("lods_op_src:%x\n", op_src->val);
     cpu.eax = temp;

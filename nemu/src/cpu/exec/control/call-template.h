@@ -13,7 +13,7 @@ static void do_execute(){
     //uint32_t data2 = data + DATA_BYTE;
     //printf("src:%d\n", op_src->val);
     cpu.esp -= 4;
-    MEM_W(cpu.esp, cpu.eip + DATA_BYTE);
+    MEM_W(cpu.esp, cpu.eip + DATA_BYTE, R_SS);
     cpu.eip = cpu.eip + (int)op_src->val;
     //printf("eip:%x\n", cpu.eip);
     print_asm_template1();
@@ -23,7 +23,7 @@ static void do_execute(){
 make_helper(call_rm_w){
     decode_rm_l(eip + 1);
     cpu.esp -= 4;
-    swaddr_write(cpu.esp, 4, cpu.eip + 1);
+    swaddr_write(cpu.esp, 4, cpu.eip + 1, R_SS);
     //printf("eip1:%x\n", op_src->val);
     cpu.eip = op_src->val;
     //printf("eip2:%x\n", cpu.eip);

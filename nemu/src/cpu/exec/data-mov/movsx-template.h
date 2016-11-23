@@ -10,8 +10,8 @@
 #define instr movsx
 
 static void do_execute(){
-    DATA_TYPE temp = MEM_R(cpu.esi);
-    MEM_W(cpu.edi, temp);
+    DATA_TYPE temp = MEM_R(cpu.esi, R_DS);
+    MEM_W(cpu.edi, temp, R_ES);
     /*printf("ecx:%d\n", cpu.ecx);
     printf("edi:%x\n", cpu.edi);
     printf("esi:%x\n", cpu.esi);

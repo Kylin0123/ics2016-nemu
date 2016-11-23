@@ -10,7 +10,7 @@
 #define instr scas
 
 static void do_execute(){
-    DATA_TYPE src = swaddr_read(cpu.edi, 4);
+    DATA_TYPE src = swaddr_read(cpu.edi, 4, R_ES);
     DATA_TYPE temp = cpu.eax - src;
     //printf("src:%x\n", src);
     //printf("op_dest:%x\n", op_dest->val);

@@ -15,9 +15,9 @@
 
 make_helper(ret_i_w){
     //printf("esp:%x\n", cpu.esp);
-    int16_t temp = swaddr_read(eip + 1, 2);
+    int16_t temp = swaddr_read(eip + 1, 2, R_SS);
     //printf("temp:%d\n", temp);
-    cpu.eip = swaddr_read(cpu.esp, 4);
+    cpu.eip = swaddr_read(cpu.esp, 4, R_SS);
     cpu.esp += 4;
     cpu.esp += temp;
     //printf("esp:%x\n", cpu.esp);
@@ -26,7 +26,7 @@ make_helper(ret_i_w){
 
 make_helper(ret){
     swaddr_t addr = cpu.esp;
-    swaddr_t temp = swaddr_read(addr, 4);
+    swaddr_t temp = swaddr_read(addr, 4, R_SS);
     cpu.esp += 4;
     cpu.eip = temp;
     return 1;
