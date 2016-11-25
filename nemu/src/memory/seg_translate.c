@@ -17,7 +17,7 @@ void sreg_load(uint8_t sreg){
     cpu.sr_cache[sreg].valid = true;
     cpu.sr_cache[sreg].base = (segdesc->base_31_24 << 24) | (segdesc->base_23_16 << 16) | segdesc->base_15_0;
     cpu.sr_cache[sreg].limit = (segdesc->limit_19_16 << 16) | segdesc->limit_15_0;
-    cpu.sr_cache[sreg].dpl = segdesc->privilege_level;
+    //cpu.sr_cache[sreg].dpl = segdesc->privilege_level;
 }
 
 lnaddr_t seg_translate(swaddr_t addr, size_t len, uint8_t sreg){
