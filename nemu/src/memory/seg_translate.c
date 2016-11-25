@@ -21,8 +21,10 @@ void sreg_load(uint8_t sreg){
 }
 
 lnaddr_t seg_translate(swaddr_t addr, size_t len, uint8_t sreg){
-    if(cpu.cr0.protect_enable == 0)
+    if(cpu.cr0.protect_enable == 0){
+        printf("aaaaaaaaaaaaaaa\n");
         return addr;
+    }
     else{
         if(cpu.sr_cache[sreg].valid == 0)
             sreg_load(sreg);
