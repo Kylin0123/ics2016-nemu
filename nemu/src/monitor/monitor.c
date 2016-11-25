@@ -30,7 +30,7 @@ static void init_seg(){
     int i;
     for(i = 0; i < 4; i++)
         cpu.sr_cache[i].valid = 0;
-    cpu.cs = 1;
+    //cpu.cs = 1;
     printf("cs:%d\n", cpu.cs);
     cpu.sr_cache[R_CS].base = 0;
     cpu.sr_cache[R_CS].limit = 0xffffffff;
