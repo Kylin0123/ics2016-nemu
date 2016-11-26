@@ -69,7 +69,8 @@ typedef struct {
     }gdtr;
 
     CR0 cr0;
-    
+    CR3 cr3;
+
     union{
         SELECTOR sr[4];
         struct{
