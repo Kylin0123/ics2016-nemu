@@ -28,8 +28,8 @@ void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
 uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
 	//return hwaddr_read(addr, len);
     if(cpu.cr0.protect_enable == 0 || cpu.cr0.paging == 0){
-        return hwaddr_read(addr, len);
         printf("no page!\n");
+        return hwaddr_read(addr, len);
     }
 	assert(len == 1 || len == 2 || len == 4);
     if((addr & 0xfff) + len > 0x1000)
