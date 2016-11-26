@@ -23,8 +23,8 @@ PTE page_fetch(lnaddr_t addr){
     pde.val = hwaddr_read( (cpu.cr3.page_directory_base << 12) + lnaddr.dir * 4, 4);
     PTE pte;
     pte.val = hwaddr_read( (pde.page_frame << 12) + lnaddr.page * 4, 4);
-    //assert(pde.present == 1);
-    //assert(pte.present == 1);
+    assert(pde.present == 1);
+    assert(pte.present == 1);
     return pte;
 }
 
