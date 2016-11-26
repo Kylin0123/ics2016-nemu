@@ -33,3 +33,15 @@ make_helper(lgdt) {
     print_asm("lgdt 0x%2x, 0x%x", cpu.gdtr.limit, cpu.gdtr.base);
     return len + 1;
 }
+
+make_helper(std) {
+    cpu.eflags._df = 1;
+    print_asm("std");
+    return 1;
+}
+
+make_helper(cld) {
+    cpu.eflags._df = 0;
+    print_asm("cld");
+    return 1;
+}
