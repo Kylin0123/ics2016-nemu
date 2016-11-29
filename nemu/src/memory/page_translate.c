@@ -24,14 +24,12 @@ PTE page_fetch(lnaddr_t addr){
     PTE pte;
     pte.val = hwaddr_read( (pde.page_frame << 12) + lnaddr.page * 4, 4);
     Assert(pde.present == 1, "pde.val = 0x%x\n", pde.val);
-    //printf("pde.val = 0x%x pde.page_frame = 0x%x lnaddr.page = 0x%x\n", pde.val, pde.page_frame, lnaddr.page);
     Assert(pte.present == 1, "pte.val = 0x%x\n", pte.val);
     return pte;
 }
 
 hwaddr_t page_translate(lnaddr_t addr){
     PTE pte = page_fetch(addr);
-    //printf("page ok!\n");
     return (pte.page_frame << 12) + (addr & 0xfff);
 }
 
