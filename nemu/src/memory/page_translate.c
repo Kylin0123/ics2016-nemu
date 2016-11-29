@@ -29,7 +29,7 @@ PTE page_fetch(lnaddr_t addr){
 }
 
 hwaddr_t page_translate(lnaddr_t addr){
-    if(cpu.cr0.paging == 0 || cpu.cr0.protect_enable == 0)
+    if(!(cpu.cr0.paging == 1 && cpu.cr0.protect_enable == 1))
         return addr;
     PTE pte = page_fetch(addr);
     return (pte.page_frame << 12) + (addr & 0xfff);
