@@ -31,6 +31,7 @@ PTE page_fetch(lnaddr_t addr){
 
 hwaddr_t page_translate(lnaddr_t addr){
     PTE pte = page_fetch(addr);
+    printf("page ok!\n");
     return (pte.page_frame << 12) + (addr & 0xfff);
 }
 
