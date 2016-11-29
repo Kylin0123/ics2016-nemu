@@ -32,7 +32,7 @@ uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
         //printf("no page!\n");
         return hwaddr_read(addr, len);
     }*/
-    printf("page goes!\n");
+    //printf("page goes!\n");
     if((addr & 0xfff) + len > 0x1000)
         assert(0);
     else{
