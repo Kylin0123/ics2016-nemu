@@ -52,7 +52,7 @@ uint32_t loader() {
              
             //ramdisk_read((uint8_t *)hwaddr, ph->p_offset, ph->p_filesz);
             
-            memcpy( (void *)(hwaddr), (void *)buf + ph->p_offset, ph->p_filesz);
+            memcpy( (void *)(hwaddr), (void *)ph->p_offset, ph->p_filesz);
 			/* TODO: zero the memory region 
 			 * [VirtAddr + FileSiz, VirtAddr + MemSiz)
 			 */
