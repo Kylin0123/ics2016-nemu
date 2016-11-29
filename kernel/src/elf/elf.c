@@ -46,7 +46,7 @@ uint32_t loader() {
 			 * to the memory region [VirtAddr, VirtAddr + FileSiz)
 			 */
              uint32_t hwaddr = mm_malloc(ph->p_vaddr, ph->p_memsz);
-             ramdisk_read((uint8_t *)hwaddr, (uint32_t)ph->p_offset, (uint32_t)ph->p_filesz);
+             ramdisk_read((uint8_t *)hwaddr, ph->p_offset, ph->p_filesz);
              //memcpy( (void *)(ph->p_vaddr), (void *)ph->p_offset, ph->p_filesz);
 			/* TODO: zero the memory region 
 			 * [VirtAddr + FileSiz, VirtAddr + MemSiz)
