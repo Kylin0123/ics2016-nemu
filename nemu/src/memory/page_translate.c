@@ -24,7 +24,7 @@ PTE page_fetch(lnaddr_t addr){
     PTE pte;
     pte.val = hwaddr_read( (pde.page_frame << 12) + lnaddr.page * 4, 4);
     assert(pde.present == 1);
-    assert(pte.present == 1);
+    Assert(pte.present == 1, "pte.val = 0x%x\n",pte.val);
     return pte;
 }
 
