@@ -34,7 +34,7 @@ uint32_t loader() {
 	const uint32_t elf_magic = 0x464c457f;
 	uint32_t *p_magic = (void *)buf;
 	nemu_assert(*p_magic == elf_magic);
-    ph = (void *)buf + elf->e_phoff; 
+    ph = (void *)elf->e_phoff; 
 	/* Load each program segment */
 	//panic("please implement me");
     int i;
@@ -50,9 +50,9 @@ uint32_t loader() {
              
             uint32_t hwaddr = mm_malloc(ph->p_vaddr, ph->p_memsz);
              
-            ramdisk_read((uint8_t *)hwaddr, ph->p_offset, ph->p_filesz);
+            //ramdisk_read((uint8_t *)hwaddr, ph->p_offset, ph->p_filesz);
             
-            //memcpy( (void *)(ph->p_vaddr), (void *)ph->p_offset, ph->p_filesz);
+            memcpy( (void *)(hwaddr), (void *)ph->p_offset, ph->p_filesz);
 			/* TODO: zero the memory region 
 			 * [VirtAddr + FileSiz, VirtAddr + MemSiz)
 			 */
