@@ -34,7 +34,7 @@ uint32_t loader() {
 	const uint32_t elf_magic = 0x464c457f;
 	uint32_t *p_magic = (void *)buf;
 	nemu_assert(*p_magic == elf_magic);
-    ph = (Elf32_Phdr *)(buf + elf->e_ehsize); 
+    ph = (Elf32_Phdr *)(buf + elf->e_phoff); 
 	/* Load each program segment */
 	//panic("please implement me");
     int i;
@@ -48,16 +48,16 @@ uint32_t loader() {
 			 * to the memory region [VirtAddr, VirtAddr + FileSiz)
 			 */
              
-            uint32_t hwaddr = mm_malloc(ph[i].p_vaddr, ph[i].p_memsz);
+            uint32_t hwaddr = mm_malloc(ph->p_vaddr, ph->p_memsz);
              
-            ramdisk_read((uint8_t *)hwaddr, ph[i].p_offset, ph[i].p_filesz);
+            ramdisk_read((uint8_t *)hwaddr, ph->p_offset, ph->p_filesz);
             
             //memcpy( (void *)(ph->p_vaddr), (void *)ph->p_offset, ph->p_filesz);
 			/* TODO: zero the memory region 
 			 * [VirtAddr + FileSiz, VirtAddr + MemSiz)
 			 */
 
-             memset((void *)hwaddr + ph[i].p_filesz, 0, ph[i].p_memsz - ph[i].p_filesz);
+             memset((void *)hwaddr + ph->p_filesz, 0, ph->p_memsz - ph->p_filesz);
              
 #ifdef IA32_PAGE
 			/* Record the program break for future use. */
@@ -66,7 +66,7 @@ uint32_t loader() {
 			if(cur_brk < new_brk) { max_brk = cur_brk = new_brk; }
 #endif
 		}
-        //ph++;
+        ph++;
 	}
 
 	volatile uint32_t entry = elf->e_entry;
