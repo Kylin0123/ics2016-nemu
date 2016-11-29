@@ -29,7 +29,7 @@ uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
 	//return hwaddr_read(addr, len);
 	assert(len == 1 || len == 2 || len == 4);
     if(cpu.cr0.paging == 0 || cpu.cr0.protect_enable == 0){
-        printf("no page!\n");
+        //printf("no page!\n");
         return hwaddr_read(addr, len);
     }
     printf("page goes!\n");
