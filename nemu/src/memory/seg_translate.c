@@ -24,7 +24,7 @@ lnaddr_t seg_translate(swaddr_t addr, size_t len, uint8_t sreg){
         return addr;
     }
     else{
-        printf("seg goes!\n");
+      //printf("seg goes!\n");
         if(cpu.sr_cache[sreg].valid == 0)
             sreg_load(sreg);
         return addr + cpu.sr_cache[sreg].base;
