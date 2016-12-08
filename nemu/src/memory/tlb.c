@@ -60,7 +60,7 @@ hwaddr_t tlb_read(lnaddr_t addr){
         }
 
     }
-    printf("miss:%d\n", miss++);
+    //printf("miss:%d\n", miss++);
     //tlb miss
     /*search for i to set or to replace*/
     int result_i = 0;
