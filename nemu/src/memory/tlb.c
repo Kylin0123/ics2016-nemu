@@ -55,12 +55,12 @@ hwaddr_t tlb_read(lnaddr_t addr){
     int i;
     for(i = 0; i < NR_LINE; i++){
         if(TLB[i].valid == 1 && TLB[i].tag == tag){             //tlb hit
-            printf("hits:%d %x\n", hits++,tag);
+            printf("hits:%d\n", hits++);
             return (TLB[i].pte.page_frame << 12) + offset;
         }
 
     }
-    //printf("miss:%d\n", miss++);
+    printf("miss:%d\n", miss++);
     //tlb miss
     /*search for i to set or to replace*/
     int result_i = 0;
