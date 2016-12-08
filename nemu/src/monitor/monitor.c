@@ -12,6 +12,7 @@ void init_wp_pool();
 void init_ddr3();
 void init_cache();
 void init_l2_cache();
+void init_tlb();
 
 FILE *log_fp = NULL;
 
@@ -110,4 +111,7 @@ void restart() {
     
     /*Initialize segement register*/
     init_seg();
+    
+    /*todo:initialize tlb*/
+    init_tlb();
 }

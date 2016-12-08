@@ -32,7 +32,7 @@ typedef struct{
 
 tlb_block TLB[NR_LINE];
 
-void initial_tlb(){
+void init_tlb(){
     int i;
     for(i = 0; i < NR_LINE; i++){
         TLB[i].valid = 0;
