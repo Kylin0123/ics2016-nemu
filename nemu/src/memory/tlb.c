@@ -41,6 +41,9 @@ void init_tlb(){
 
 PTE page_fetch(lnaddr_t addr);
 
+int hits = 0;
+int miss = 0;
+
 hwaddr_t tlb_read(lnaddr_t addr){
     //divide addr
     tlbAddr tlb_addr;
@@ -52,11 +55,12 @@ hwaddr_t tlb_read(lnaddr_t addr){
     int i;
     for(i = 0; i < NR_LINE; i++){
         if(TLB[i].valid == 1 && TLB[i].tag == tag){             //tlb hit
+            printf("hits:%d\n", hits++);
             return (TLB[i].pte.page_frame << 12) + offset;
         }
 
     }
-
+    printf("miss:%d\n", miss++);
     //tlb miss
     /*search for i to set or to replace*/
     int result_i = 0;
@@ -73,7 +77,6 @@ hwaddr_t tlb_read(lnaddr_t addr){
         result_i = rand()%NR_LINE;
     }
 
-    printf("tlb!!/n");
     TLB[result_i].valid = 1;
     TLB[result_i].tag = tag;
     TLB[result_i].pte = page_fetch(addr);
