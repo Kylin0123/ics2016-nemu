@@ -25,7 +25,7 @@ typedef union {
 
 typedef struct{
     PTE pte;
-    uint32_t tag : OFFSET_WIDTH;
+    uint32_t tag : TAG_WIDTH;
     uint32_t valid : 1;
 
 } tlb_block;
