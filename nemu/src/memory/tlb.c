@@ -58,7 +58,7 @@ hwaddr_t tlb_read(lnaddr_t addr){
     }
 
     //tlb miss
-    /*search for i to set\replace*/
+    /*search for i to set or to replace*/
     int result_i = 0;
     int flag = 0;
     for(i = 0; i < NR_LINE; i++){
@@ -73,6 +73,7 @@ hwaddr_t tlb_read(lnaddr_t addr){
         result_i = rand()%NR_LINE;
     }
 
+    printf("tlb!!/n");
     TLB[result_i].valid = 1;
     TLB[result_i].tag = tag;
     TLB[result_i].pte = page_fetch(addr);
