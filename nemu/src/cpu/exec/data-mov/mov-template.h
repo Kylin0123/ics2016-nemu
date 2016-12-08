@@ -38,12 +38,16 @@ make_helper(concat(mov_cr2r_, SUFFIX)){
     return 2;
 }
 
+extern void init_tlb();
+
 make_helper(concat(mov_r2cr_, SUFFIX)){
     uint8_t r = instr_fetch(eip + 1, 1);
     if(((r >> 3) & 0x7) == 0)
         cpu.cr0.val = REG(r & 0x7);
-    else
+    else{
         cpu.cr3.val = REG(r & 0x7);
+        init_tlb();                     //refresh tlb when updating cr3
+    }
     print_asm("mov" str(SUFFIX) " %%%s,%%cr%d", REG_NAME(r & 0x7), (r >> 3 & 0x7));
     return 2;
 }
