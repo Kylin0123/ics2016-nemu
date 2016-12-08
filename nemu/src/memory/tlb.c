@@ -48,19 +48,19 @@ hwaddr_t tlb_read(lnaddr_t addr){
     //divide addr
     tlbAddr tlb_addr;
     tlb_addr.val = addr;
-    uint32_t offset = tlb_addr.offset;
-    uint32_t tag = tlb_addr.tag;
+    //uint32_t offset = tlb_addr.offset;
+    //uint32_t tag = tlb_addr.tag;
     
     //matching tag
     int i;
     for(i = 0; i < NR_LINE; i++){
-        if(TLB[i].valid == 1 && TLB[i].tag == tag){             //tlb hit
-            printf("hits:%d %x\n", hits++,tag);
-            return (TLB[i].pte.page_frame << 12) + offset;
+        if(TLB[i].valid == 1 && TLB[i].tag == tlb_addr.tag){             //tlb hit
+            printf("hits:%d %x\n", hits++,tlb_addr.tag);
+            return (TLB[i].pte.page_frame << 12) + tlb_addr.offset;
         }
 
     }
-    printf("miss:%d %x\n", miss++,tag);
+    printf("miss:%d %x\n", miss++,tlb_addr.tag);
     //tlb miss
     /*search for i to set or to replace*/
     int result_i = 0;
@@ -78,9 +78,9 @@ hwaddr_t tlb_read(lnaddr_t addr){
     }
 
     TLB[result_i].valid = 1;
-    TLB[result_i].tag = tag;
+    TLB[result_i].tag = tlb_addr.tag;
     TLB[result_i].pte = page_fetch(addr);
     
-    return (TLB[result_i].pte.page_frame << 12) + offset;
+    return (TLB[result_i].pte.page_frame << 12) + tlb_addr.offset;
 
 }
