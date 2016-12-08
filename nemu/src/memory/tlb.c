@@ -57,7 +57,7 @@ hwaddr_t tlb_read(lnaddr_t addr){
     int i;
     for(i = 0; i < NR_LINE; i++){
         if(TLB[i].valid == 1 && TLB[i].tag == tlb_addr.tag){             //tlb hit
-            printf("hits:%d %x\n", hits++,tlb_addr.tag);
+            printf("hits:%d %x %x\n", hits++,tlb_addr.tag,TLB[i].tag);
             return (TLB[i].pte.page_frame << 12) + tlb_addr.offset;
         }
 
@@ -82,7 +82,7 @@ hwaddr_t tlb_read(lnaddr_t addr){
     TLB[result_i].valid = 1;
     TLB[result_i].tag = tlb_addr.tag;
     TLB[result_i].pte = page_fetch(addr);
-    debug_tlb();
+    //debug_tlb();
     
     return (TLB[result_i].pte.page_frame << 12) + tlb_addr.offset;
 
