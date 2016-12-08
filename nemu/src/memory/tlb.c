@@ -41,6 +41,8 @@ void init_tlb(){
 
 PTE page_fetch(lnaddr_t addr);
 
+void debug_tlb();
+
 int hits = 0;
 int miss = 0;
 
@@ -80,7 +82,16 @@ hwaddr_t tlb_read(lnaddr_t addr){
     TLB[result_i].valid = 1;
     TLB[result_i].tag = tlb_addr.tag;
     TLB[result_i].pte = page_fetch(addr);
+    debug_tlb();
     
     return (TLB[result_i].pte.page_frame << 12) + tlb_addr.offset;
+
+}
+
+void debug_tlb(){
+    int i;
+    for(i = 0; i < NR_LINE; i++){
+        printf("%d: valid:%d tag:%d\n", i,TLB[i].valid,TLB[i].tag);
+    }
 
 }
