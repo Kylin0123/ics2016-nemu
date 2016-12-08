@@ -41,8 +41,6 @@ void init_tlb(){
 
 PTE page_fetch(lnaddr_t addr);
 
-void debug_tlb();
-
 int hits = 0;
 int miss = 0;
 
@@ -62,7 +60,7 @@ hwaddr_t tlb_read(lnaddr_t addr){
         }
 
     }
-    //printf("miss:%d %x\n", miss++,tlb_addr.tag);
+    printf("miss:%d %x\n", miss++,tlb_addr.tag);
     //tlb miss
     /*search for i to set or to replace*/
     int result_i = 0;
@@ -88,10 +86,3 @@ hwaddr_t tlb_read(lnaddr_t addr){
 
 }
 
-void debug_tlb(){
-    int i;
-    for(i = 0; i < NR_LINE; i++){
-        printf("%d: valid:%d tag:%d\n", i,TLB[i].valid,TLB[i].tag);
-    }
-
-}
