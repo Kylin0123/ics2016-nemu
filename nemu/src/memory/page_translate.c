@@ -7,6 +7,8 @@
 
 #include"nemu.h"
 
+hwaddr_t tlb_read(lnaddr_t addr);
+
 typedef union{
     struct{
         uint32_t offset : 12;
@@ -32,7 +34,8 @@ hwaddr_t page_translate(lnaddr_t addr){
     if(!(cpu.cr0.paging == 1 && cpu.cr0.protect_enable == 1))
         return addr;
     //printf("page goes!\n");
-    PTE pte = page_fetch(addr);
-    return (pte.page_frame << 12) + (addr & 0xfff);
+    //PTE pte = page_fetch(addr);
+    //return (pte.page_frame << 12) + (addr & 0xfff);
+    return tlb_read(addr);
 }
 
