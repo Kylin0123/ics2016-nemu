@@ -9,6 +9,7 @@
 #include"nemu.h"
 
 extern jmp_buf jbuf;
+extern void sreg_load(uint8_t sreg);
 
 typedef struct myGateDescriptor {
     union{
@@ -42,11 +43,11 @@ void raise_intr(uint8_t NO) {
 
     /*push cs sreg register*/
     cpu.esp -= 4;
-    swaddr_write(cpu.eip, 4, R_SS, cpu.cs);
+    swaddr_write(cpu.esp, 4, R_SS, cpu.cs);
 
     /*push eip register*/
     cpu.esp -= 4;
-    swaddr_write(cpu.eip, 4, R_SS, cpu.eip);
+    swaddr_write(cpu.esp, 4, R_SS, cpu.eip);
 
     print_asm("int 0x%x", NO);
     Assert(NO <= cpu.idtr.limit, "NO %d is out if range\n", NO);
@@ -62,18 +63,18 @@ void raise_intr(uint8_t NO) {
     
     /*set cs register*/
     cpu.cs = gate.segement;
-
+    sreg_load(R_CS);
     /*fetch segement descriptor*/
-    char temp[64];
+    /*char temp[8];
     int i;
-    for(i = 0; i < 64; i++){
+    for(i = 0; i < 8; i++){
         temp[i] = lnaddr_read(cpu.gdtr.base + (cpu.cs << 3) + i, 1);
     }
     SegDesc * seg = (SegDesc *)temp;
     cpu.sr_cache[R_CS].valid = true;
     cpu.sr_cache[R_CS].base = (seg->base_31_24 << 24) + (seg->base_23_16 << 16) + seg->base_15_0;
     cpu.sr_cache[R_CS].limit = (seg->limit_19_16 << 16) + seg->limit_15_0;
-
+    */
     cpu.eip = cpu.sr_cache[R_CS].base + offset;
 
     /*jmp back to cpu_exec()*/
