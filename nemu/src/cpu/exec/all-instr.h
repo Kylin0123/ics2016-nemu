@@ -7,6 +7,7 @@
 #include "control/ret.h"
 #include "control/jmp.h"
 #include "control/int.h"
+#include "control/iret.h"
 
 #include "data-mov/mov.h"
 #include "data-mov/xchg.h"
