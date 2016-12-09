@@ -6,6 +6,7 @@
 #include "control/pop.h"
 #include "control/ret.h"
 #include "control/jmp.h"
+#include "control/int.h"
 
 #include "data-mov/mov.h"
 #include "data-mov/xchg.h"
