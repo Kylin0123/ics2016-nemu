@@ -8,9 +8,6 @@ lnaddr_t seg_translate(swaddr_t addr, size_t len, uint8_t sreg);
 
 hwaddr_t page_translate(lnaddr_t addr);
 
-//int32_t dram_read(hwaddr_t, size_t);
-//void dram_write(hwaddr_t, size_t, uint32_t);
-
 /* Memory accessing interfaces */
 
 uint32_t hwaddr_read(hwaddr_t addr, size_t len) {
@@ -28,13 +25,13 @@ void hwaddr_write(hwaddr_t addr, size_t len, uint32_t data) {
 uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
 	//return hwaddr_read(addr, len);
 	assert(len == 1 || len == 2 || len == 4);
-    /*if(cpu.cr0.paging == 0){
-        //printf("no page!\n");
-        return hwaddr_read(addr, len);
-    }*/
-    //printf("page goes!\n");
-    if((addr & 0xfff) + len > 0x1000)
-        assert(0);
+    if((addr & 0xfff) + len > 0x1000){                /*cross pages*/
+        //assert(0);
+        uint32_t off = addr & 0xfff;
+        hwaddr_t hwaddr1 = page_translate(addr);                    /*page 1*/
+        hwaddr_t hwaddr2 = page_translate(addr + 0x1000 - off);     /*page 2*/
+        return hwaddr_read(hwaddr1, 0x1000 - off) + (hwaddr_read(hwaddr2, len - 0x1000 + off) << (0x1000 - off) * 8);
+    }
     else{
         hwaddr_t hwaddr = page_translate(addr);
         return hwaddr_read(hwaddr, len);
@@ -43,13 +40,8 @@ uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
 
 void lnaddr_write(lnaddr_t addr, size_t len, uint32_t data) {
 	//hwaddr_write(addr, len, data);
-    //printf("lnaddr_write?\n");
 	assert(len == 1 || len == 2 || len == 4);
-    /*if(cpu.cr0.paging == 0){
-        hwaddr_write(addr, len, data);
-        return;
-    }*/
-    if((addr & 0xfff) + len > 0x1000)
+    if((addr & 0xfff) + len > 0x1000)               /*cross pages*/
         assert(0);
     else{
         hwaddr_t hwaddr = page_translate(addr);
