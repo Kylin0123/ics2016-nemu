@@ -6,6 +6,7 @@
  ************************************************************************/
 #include "cpu/exec/helper.h"
 #include <setjmp.h>
+#include"nemu.h"
 
 extern jmp_buf jbuf;
 
@@ -52,13 +53,28 @@ void raise_intr(uint8_t NO) {
     uint32_t base = cpu.idtr.base;
     uint32_t addr = base + 8 * NO;
     
+    /*fetch gate descriptor*/
     myGateDesc gate;
     gate.val1 = lnaddr_read(addr, 4);
     gate.val2 = lnaddr_read(addr + 4, 4);
 
     uint32_t offset = (gate.offset_31_16 << 16) | gate.offset_15_0;
     
-    cpu.eip = (gate.segement << 16) + offset;
+    /*set cs register*/
+    cpu.cs = gate.segement;
+
+    /*fetch segement descriptor*/
+    char temp[64];
+    int i;
+    for(i = 0; i < 64; i++){
+        temp[i] = lnaddr_read(cpu.gdtr.base + (cpu.cs << 3) + i, 1);
+    }
+    SegDesc * seg = (SegDesc *)temp;
+    cpu.sr_cache[R_CS].valid = true;
+    cpu.sr_cache[R_CS].base = (seg->base_31_24 << 24) + (seg->base_23_16 << 16) + seg->base_15_0;
+    cpu.sr_cache[R_CS].limit = (seg->limit_19_16 << 16) + seg->limit_15_0;
+
+    cpu.eip = cpu.sr_cache[R_CS].base + offset;
 
     /*jmp back to cpu_exec()*/
     longjmp(jbuf, 1);
