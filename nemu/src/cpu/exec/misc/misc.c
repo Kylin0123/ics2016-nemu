@@ -38,9 +38,7 @@ make_helper(lidt) {
     ModR_M m;
     m.val = instr_fetch(eip + 1, 1);
     int len = load_addr(eip + 1, &m, op_src);
-    printf("aaaaa\n");
     cpu.idtr.limit = lnaddr_read(op_src->addr, 2);
-    printf("bbbbb\n");
     cpu.idtr.base = lnaddr_read(op_src->addr + 2, 4);
     print_asm("lidt 0x%x, 0x%x", cpu.idtr.limit, cpu.idtr.base);
     return len + 1;

@@ -41,26 +41,29 @@ typedef struct {
 	};	
 	swaddr_t eip;
     
-    struct {
-        unsigned :14;
-        unsigned _vm:1;
-        unsigned _rf:1;
-        unsigned :1;
-        unsigned _nt:1;
-        unsigned _ip:1;
-        unsigned _ol:1;
-        unsigned _of:1;
-        unsigned _df:1;
-        unsigned _if:1;
-        unsigned _tf:1;
-        unsigned _sf:1;
-        unsigned _zf:1;
-        unsigned :1;
-        unsigned _af:1;
-        unsigned :1;
-        unsigned _pf:1;
-        unsigned :1;
-        unsigned _cf:1;
+    union {
+        struct{
+            unsigned _cf:1;
+            unsigned :1;
+            unsigned _pf:1;
+            unsigned :1;
+            unsigned _af:1;
+            unsigned :1;
+            unsigned _zf:1;
+            unsigned _sf:1;
+            unsigned _tf:1;
+            unsigned _if:1;
+            unsigned _df:1;
+            unsigned _of:1;
+            unsigned _ol:1;
+            unsigned _ip:1;
+            unsigned _nt:1;
+            unsigned :1;
+            unsigned _rf:1;
+            unsigned _vm:1;
+            unsigned :14;
+        };
+        uint32_t val;
     } eflags;
     
     struct GDTR{
