@@ -55,3 +55,9 @@ make_helper(cld) {
     print_asm("cld");
     return 1;
 }
+
+make_helper(cli) {
+    cpu.eflags._if = 0;
+    print_asm("cli");
+    return 1;
+}
