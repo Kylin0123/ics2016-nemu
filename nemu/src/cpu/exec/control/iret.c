@@ -15,7 +15,7 @@ make_helper(iret){
     cpu.esp += 4;
 
     /*pop cs*/
-    cpu.cs = swaddr_read(cpu.esp, 4, R_SS);
+    cpu.sr[R_CS].val = swaddr_read(cpu.esp, 4, R_SS);
     cpu.esp += 4;
     sreg_load(R_CS);
 
