@@ -14,5 +14,6 @@ make_helper(Int_i_b){
     cpu.eip += 2;
     raise_intr(NO);
     print_asm("int");
+    printf("aaaaaa\n");
     return 0;
 }
