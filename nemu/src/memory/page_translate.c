@@ -25,8 +25,8 @@ PTE page_fetch(lnaddr_t addr){
     pde.val = hwaddr_read( (cpu.cr3.page_directory_base << 12) + lnaddr.dir * 4, 4);
     PTE pte;
     pte.val = hwaddr_read( (pde.page_frame << 12) + lnaddr.page * 4, 4);
-    Assert(pde.present == 1, "pde.val = 0x%x\n", pde.val);
-    Assert(pte.present == 1, "pte.val = 0x%x\n", pte.val);
+    Assert(pde.present == 1, "pde.val = 0x%x", pde.val);
+    Assert(pte.present == 1, "pte.val = 0x%x", pte.val);
     return pte;
 }
 
