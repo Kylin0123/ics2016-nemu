@@ -49,7 +49,7 @@ void raise_intr(uint8_t NO) {
     cpu.esp -= 4;
     swaddr_write(cpu.esp, 4, R_SS, cpu.eip);
     printf("raise_intr.c eip:%x\n",cpu.eip);
-    assert(0);
+    //assert(0);
 
     print_asm("int 0x%x", NO);
     Assert(NO <= cpu.idtr.limit, "NO %d is out if range\n", NO);
