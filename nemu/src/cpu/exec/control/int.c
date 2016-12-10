@@ -13,5 +13,6 @@ make_helper(Int_i_b){
     int NO = instr_fetch(eip + 1, 1);
     cpu.eip += 2;
     raise_intr(NO);
+    print_asm("int");
     return 0;
 }

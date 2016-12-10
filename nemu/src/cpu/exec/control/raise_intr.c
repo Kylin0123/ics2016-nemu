@@ -51,7 +51,6 @@ void raise_intr(uint8_t NO) {
     printf("raise_intr.c eip:%x\n",cpu.eip);
     //assert(0);
 
-    print_asm("int");
     Assert(NO <= cpu.idtr.limit, "NO %d is out if range\n", NO);
     uint32_t base = cpu.idtr.base;
     uint32_t addr = base + 8 * NO;
