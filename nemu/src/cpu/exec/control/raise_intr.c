@@ -63,6 +63,7 @@ void raise_intr(uint8_t NO) {
     
     /*set cs register*/
     cpu.sr[R_CS].val = gate.segement;
+    assert(cpu.sr[R_CS].val == cpu.cs);
     sreg_load(R_CS);
     /*fetch segement descriptor*/
     /*char temp[8];
