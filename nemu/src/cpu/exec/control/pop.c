@@ -25,8 +25,8 @@ make_helper(popa){
     cpu.esi = swaddr_read(cpu.esp, 4, R_SS);
     cpu.esp += 4;
 
-    cpu.ebp = swaddr_read(cpu.esp, 4, R_SS);
-    cpu.esp += 8;
+    //cpu.ebp = swaddr_read(cpu.esp, 4, R_SS);
+    //cpu.esp += 8;
 
     cpu.ebx = swaddr_read(cpu.esp, 4, R_SS);
     cpu.esp += 4;
