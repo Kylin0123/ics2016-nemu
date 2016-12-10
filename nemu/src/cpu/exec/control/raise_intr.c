@@ -35,7 +35,7 @@ typedef struct myGateDescriptor {
 void raise_intr(uint8_t NO) {
     /*push eflags*/
     cpu.esp -= 4;
-    swaddr_write(cpu.esp, 4, R_SS, cpu.eflags.val);
+    swaddr_write(cpu.esp, 4, cpu.eflags.val, R_SS);
 
     /*set flags*/
     cpu.eflags._if = 0;
@@ -43,11 +43,11 @@ void raise_intr(uint8_t NO) {
 
     /*push cs sreg register*/
     cpu.esp -= 4;
-    swaddr_write(cpu.esp, 4, R_SS, cpu.sr[R_CS].val);
+    swaddr_write(cpu.esp, 4, cpu.sr[R_CS].val, R_SS);
 
     /*push eip register*/
     cpu.esp -= 4;
-    swaddr_write(cpu.esp, 4, R_SS, cpu.eip);
+    swaddr_write(cpu.esp, 4, cpu.eip, R_SS);
     printf("raise_intr.c eip:%x esp:%x\n",cpu.eip,cpu.esp);
     printf("%x\n",swaddr_read(cpu.esp, 4, R_SS));
     //assert(0);
