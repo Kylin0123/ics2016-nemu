@@ -14,8 +14,8 @@ void raise_intr(uint8_t NO);
 
 static void do_execute(){
     cpu.eip += 2;
-    raise_intr(op_src->val);
     printf("iiiiiiiiiiiint\n");
+    raise_intr(op_src->val);
 }
 
 make_instr_helper(i)
