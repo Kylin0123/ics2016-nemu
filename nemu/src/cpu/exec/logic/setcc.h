@@ -9,5 +9,6 @@
 #define _SETCC_H
 
 make_helper(setne_rm_b);
+make_helper(sete_rm_b);
 
 #endif
