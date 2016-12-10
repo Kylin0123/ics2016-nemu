@@ -21,6 +21,7 @@ make_helper(ret_i_w){
     cpu.esp += 4;
     cpu.esp += temp;
     //printf("esp:%x\n", cpu.esp);
+    print_asm("ret 0x%x", temp);
     return 1;
 }
 
@@ -29,6 +30,7 @@ make_helper(ret){
     swaddr_t temp = swaddr_read(addr, 4, R_SS);
     cpu.esp += 4;
     cpu.eip = temp;
+    print_asm("ret");
     return 1;
 }
 
