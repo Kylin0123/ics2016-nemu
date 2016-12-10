@@ -47,7 +47,7 @@ void raise_intr(uint8_t NO) {
 
     /*push eip register*/
     cpu.esp -= 4;
-    swaddr_write(cpu.esp, 4, R_SS, cpu.eip);
+    swaddr_write(cpu.esp, 4, R_SS, cpu.eip + 2);
     printf("eip:%x\n",cpu.eip);
 
     print_asm("int 0x%x", NO);
