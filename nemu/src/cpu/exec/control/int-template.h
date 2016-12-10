@@ -13,6 +13,7 @@
 void raise_intr(uint8_t NO);
 
 static void do_execute(){
+    printf("%x\n", cpu.eip);
     raise_intr(op_src->val);
 }
 
