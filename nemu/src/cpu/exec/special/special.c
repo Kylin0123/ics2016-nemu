@@ -28,9 +28,15 @@ make_helper(nemu_trap) {
 	print_asm("nemu trap (eax = %d)", cpu.eax);
 
 	switch(cpu.eax) {
-		case 2:
-		   	break;
-
+		case 2:{
+                int len = (int)cpu.edx;
+                int i;
+                for(i = 0; i < len; i++){
+                    char val = swaddr_read(cpu.ecx + i, 1, R_SS);
+                    printf("%c", val);
+                }
+		   	    break;
+            }
 		default:
 			printf("\33[1;31mnemu: HIT %s TRAP\33[0m at eip = 0x%08x\n\n",
 					(cpu.eax == 0 ? "GOOD" : "BAD"), cpu.eip);
