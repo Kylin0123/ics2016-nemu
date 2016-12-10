@@ -82,16 +82,17 @@ typedef struct {
     union{
         SELECTOR sr[4];
         struct{
-            uint16_t es;
+            /*uint16_t es;
             uint16_t cs;
             uint16_t ss;
             uint16_t ds;
-            /*
-            uint16_t cs;
-            uint16_t ds;
-            uint16_t es;
-            uint16_t ss;
             */
+            
+            uint16_t cs;
+            uint16_t ds;
+            uint16_t es;
+            uint16_t ss;
+            
         };
     };
 
