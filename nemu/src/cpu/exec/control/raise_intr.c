@@ -43,7 +43,7 @@ void raise_intr(uint8_t NO) {
 
     /*push cs sreg register*/
     cpu.esp -= 4;
-    swaddr_write(cpu.esp, 4, R_SS, cpu.cs);
+    swaddr_write(cpu.esp, 4, R_SS, cpu.sr[R_CS].val);
 
     /*push eip register*/
     cpu.esp -= 4;
@@ -62,7 +62,7 @@ void raise_intr(uint8_t NO) {
     uint32_t offset = (gate.offset_31_16 << 16) | gate.offset_15_0;
     
     /*set cs register*/
-    cpu.cs = gate.segement;
+    cpu.sr[R_CS].val = gate.segement;
     sreg_load(R_CS);
     /*fetch segement descriptor*/
     /*char temp[8];
