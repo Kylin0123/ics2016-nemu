@@ -16,7 +16,7 @@ static void sys_ioctl(TrapFrame *tf) {
 
 static void sys_write(TrapFrame *tf) {
     int fd = tf->ebx;
-    char * buf = tf->ecx;
+    uint32_t buf = tf->ecx;
     int len = tf->edx;
     if(fd != 1 && fd != 2)
         panic("wrong fd : %d", fd);
