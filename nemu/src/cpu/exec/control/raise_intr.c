@@ -48,8 +48,8 @@ void raise_intr(uint8_t NO) {
     /*push eip register*/
     cpu.esp -= 4;
     swaddr_write(cpu.esp, 4, cpu.eip, R_SS);
-    printf("raise_intr.c eip:%x esp:%x\n",cpu.eip,cpu.esp);
-    printf("%x\n",swaddr_read(cpu.esp, 4, R_SS));
+    //printf("raise_intr.c eip:%x esp:%x\n",cpu.eip,cpu.esp);
+    //printf("%x\n",swaddr_read(cpu.esp, 4, R_SS));
     //assert(0);
 
     Assert(NO <= cpu.idtr.limit, "NO %d is out if range\n", NO);
