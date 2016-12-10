@@ -11,7 +11,7 @@ extern void sreg_load(uint8_t sreg);
 
 make_helper(iret){
     /*pop eip*/
-    cpu.eip = swaddr_read(cpu.esp, 4, R_SS);
+    cpu.eip = swaddr_read(cpu.esp, 4, R_SS) - 1;
     printf("eip:%x\n",cpu.eip);
     cpu.esp += 4;
 
