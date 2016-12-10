@@ -47,11 +47,7 @@ static void do_execute(){
         cpu.eflags._cf = 1;
         cpu.eflags._of = 0;
     }
-    /*printf("op_dest:%d\n", op_dest->val);
-    printf("op_src:%d\n", op_src->val);
-    printf("result:%d\n", result);
     print_asm_template2();
-    */
 }
 
 //make_instr_helper(i2r)
