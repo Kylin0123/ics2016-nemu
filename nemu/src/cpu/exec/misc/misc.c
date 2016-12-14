@@ -1,5 +1,8 @@
 #include "cpu/exec/helper.h"
 #include "cpu/decode/modrm.h"
+#include "device/i8259.h"
+
+void raise_intr(uint8_t NO);
 
 make_helper(nop) {
 	print_asm("nop");
@@ -68,7 +71,20 @@ make_helper(sti) {
     return 1;
 }
 
+make_helper(hlt) {
+    assert(cpu.eflags._if == 1);
+    while(1){
+        if(cpu.INTR & cpu.eflags._if){
+            uint32_t intr_no = i8259_query_intr();
+            i8259_ack_intr();
+            raise_intr(intr_no);
+            return 1;
+        }
 
+    }
+
+
+}
 
 
 

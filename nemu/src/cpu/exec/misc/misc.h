@@ -10,5 +10,6 @@ make_helper(cld);
 make_helper(lidt);
 make_helper(cli);
 make_helper(sti);
+make_helper(hlt);
 
 #endif
