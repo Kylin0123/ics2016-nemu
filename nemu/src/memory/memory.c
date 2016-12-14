@@ -48,8 +48,17 @@ uint32_t lnaddr_read(lnaddr_t addr, size_t len) {
 void lnaddr_write(lnaddr_t addr, size_t len, uint32_t data) {
 	//hwaddr_write(addr, len, data);
 	assert(len == 1 || len == 2 || len == 4);
-    if((addr & 0xfff) + len > 0x1000)               /*cross pages*/
-        assert(0);
+    if((addr & 0xfff) + len > 0x1000){               /*cross pages*/
+        //assert(0);
+        uint32_t off = addr & 0xfff;
+        hwaddr_t hwaddr1 = page_translate(addr);
+        hwaddr_t hwaddr2 = page_translate(addr + 0x1000 - off);
+        uint32_t len1 = 0x1000 - off;
+        uint32_t len2 = len - len1;
+        hwaddr_write(hwaddr1, len1, data);
+        hwaddr_write(hwaddr2, len2, data >> (len1 * 8));
+
+    }
     else{
         hwaddr_t hwaddr = page_translate(addr);
         hwaddr_write(hwaddr, len, data);
