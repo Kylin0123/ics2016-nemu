@@ -19,8 +19,8 @@ void create_video_mapping() {
 	 */
 	//panic("please implement me");
     
-    PDE *pdir = (PDE *)va_to_pa(get_updir);
-    PTE *ptable = (PTE *)va_to_pa(vptable);
+    PDE *pdir = va_to_pa(get_updir());
+    PTE *ptable = va_to_pa((PTE *)vptable);
     
     memset(ptable, 0, NR_PTE_VEDIO * sizeof(PTE));
     
