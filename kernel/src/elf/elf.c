@@ -50,7 +50,7 @@ uint32_t loader() {
              
             uint32_t hwaddr = mm_malloc(ph->p_vaddr, ph->p_memsz);
              
-            ramdisk_read(temp_buf, ELF_OFFSET_IN_DISK + ph->p_offset, ph->p_filesz);
+            ide_read(temp_buf, ELF_OFFSET_IN_DISK + ph->p_offset, ph->p_filesz);
             
             memcpy( (void *)(hwaddr), (void *)temp_buf, ph->p_filesz);
 			/* TODO: zero the memory region 
