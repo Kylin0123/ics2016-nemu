@@ -4,7 +4,7 @@
 
 #define VMEM_ADDR 0xa0000
 #define SCR_SIZE (320 * 200)
-#define NR_PTE_VEDIO ((VMEM_ADDR + SCR_SIZE) / PAGE_SIZE + 10)
+#define NR_PTE_VEDIO ((VMEM_ADDR + SCR_SIZE) / PAGE_SIZE + 1)
 
 /* Use the function to get the start address of user page directory. */
 PDE* get_updir();
