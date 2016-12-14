@@ -3,6 +3,7 @@
 #include <setjmp.h>
 #include "monitor/watchpoint.h"
 #include "monitor/expr.h"
+#include "device/i8259.h"
 
 /* The assembly code of instructions executed is only output to the screen
  * when the number of instructions executed is less than this value.
@@ -17,6 +18,8 @@ int exec(swaddr_t);
 
 char assembly[80];
 char asm_buf[128];
+
+void raise_intr(uint8_t NO);
 
 /* Used with exception handling. */
 jmp_buf jbuf;
@@ -79,10 +82,6 @@ void cpu_exec(volatile uint32_t n) {
 		for(; tempWP != NULL; tempWP = tempWP->next){
 			bool *success = false;
 			uint32_t exprValue = expr(tempWP->expr, success);
-			//uint32_t readValue = swaddr_read( exprValue, 4);
-            //printf("tempexpr:%s\n", tempWP->expr);
-            //printf("exprValue:%x\nreadValue:%x\n", exprValue, readValue);
-            //printf("tempValue:%x\n", tempWP->value);
 			if(tempWP->value != exprValue){
 				printf("Watchpoint %d changed:%d->%d\n", tempWP->NO, tempWP->value, exprValue);
                 tempWP->value = exprValue;
@@ -93,6 +92,11 @@ void cpu_exec(volatile uint32_t n) {
 #ifdef HAS_DEVICE
 		extern void device_update();
 		device_update();
+        if(cpu.INTR & cpu.eflags._if) {
+            uint32_t intr_no = i8259_query_intr();
+            i8259_ack_intr();
+            raise_intr(intr_no);
+        }
 #endif
 
 		if(nemu_state != RUNNING) { return; }
