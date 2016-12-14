@@ -61,3 +61,15 @@ make_helper(cli) {
     print_asm("cli");
     return 1;
 }
+
+make_helper(sti) {
+    cpu.eflags._if = 1;
+    print_asm("sti");
+    return 1;
+}
+
+
+
+
+
+
