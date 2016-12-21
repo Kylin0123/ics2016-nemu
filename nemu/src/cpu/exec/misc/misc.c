@@ -74,7 +74,7 @@ make_helper(sti) {
 make_helper(hlt) {
     assert(cpu.eflags._if == 1);
     while(1){
-        Log("hlt hlt hlt");
+        //Log("hlt hlt hlt");
         if(cpu.INTR & cpu.eflags._if){
             volatile uint32_t intr_no = i8259_query_intr();
             printf("cpu.INTR :%d\n", cpu.INTR);
