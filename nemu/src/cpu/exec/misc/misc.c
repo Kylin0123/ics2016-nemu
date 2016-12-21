@@ -75,7 +75,7 @@ make_helper(hlt) {
     assert(cpu.eflags._if == 1);
     while(1){
         //Log("intr:%d eflags:%d",cpu.INTR,cpu.eflags._if);
-        Log("");
+        //Log("");
         if(cpu.INTR & cpu.eflags._if){
             break;
         }

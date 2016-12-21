@@ -94,7 +94,7 @@ void cpu_exec(volatile uint32_t n) {
 		device_update();
         if(cpu.INTR & cpu.eflags._if) {
             uint32_t intr_no = i8259_query_intr();
-            Log("{aaaaaa}intr_no:%x",intr_no);
+            //Log("{nemu}intr_no:%x",intr_no);
             i8259_ack_intr();
             raise_intr(intr_no);
         }
