@@ -76,9 +76,9 @@ make_helper(hlt) {
     while(1){
         Log("intr:%d eflags:%d",cpu.INTR,cpu.eflags._if);
         if(cpu.INTR & cpu.eflags._if){
-            volatile uint32_t intr_no = i8259_query_intr();
-            i8259_ack_intr();
-            raise_intr(intr_no);
+            //volatile uint32_t intr_no = i8259_query_intr();
+            //i8259_ack_intr();
+            //raise_intr(intr_no);
             break;
         }
 
