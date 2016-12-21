@@ -73,8 +73,11 @@ make_helper(sti) {
 
 make_helper(hlt) {
     assert(cpu.eflags._if == 1);
+    extern void device_update();
+    device_update();
     while(1){
         Log("intr:%d eflags:%d",cpu.INTR,cpu.eflags._if);
+        device_update();
         if(cpu.INTR & cpu.eflags._if){
             volatile uint32_t intr_no = i8259_query_intr();
             //printf("cpu.INTR :%d\n", cpu.INTR);
