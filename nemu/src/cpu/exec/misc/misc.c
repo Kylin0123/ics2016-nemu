@@ -81,7 +81,7 @@ make_helper(hlt) {
         }
 
     }*/
-    while(!(cpu.INTR & cpu.eflags._if));
+    //while(!(cpu.INTR & cpu.eflags._if));
     return 1;
 }
 
