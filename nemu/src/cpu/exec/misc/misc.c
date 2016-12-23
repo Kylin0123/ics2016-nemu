@@ -73,14 +73,16 @@ make_helper(sti) {
 
 make_helper(hlt) {
     assert(cpu.eflags._if == 1);
-    /*while(1){
+    volatile int i = cpu.INTR;
+    volatile int j = cpu.eflags._if;
+    while(1){
         //Log("intr:%d eflags:%d",cpu.INTR,cpu.eflags._if);
         //Log("");
-        if(cpu.INTR & cpu.eflags._if){
+        if(i & j){
             break;
         }
 
-    }*/
+    }
     //while(!(cpu.INTR & cpu.eflags._if));
     return 1;
 }
