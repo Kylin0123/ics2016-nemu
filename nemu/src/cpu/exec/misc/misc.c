@@ -73,6 +73,7 @@ make_helper(sti) {
 
 make_helper(hlt) {
     while(1){
+        Log("");
         if(cpu.INTR & cpu.eflags._if){
             break;
         }
