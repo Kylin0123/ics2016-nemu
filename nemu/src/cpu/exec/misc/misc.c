@@ -71,12 +71,13 @@ make_helper(sti) {
     return 1;
 }
 
-volatile make_helper(hlt) {
+make_helper(hlt) {
     while(1){
         if(cpu.INTR & cpu.eflags._if){
             break;
         }
     }
+    print_asm("hlt");
     return 1;
 }
 
